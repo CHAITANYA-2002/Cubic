@@ -117,18 +117,24 @@ export default function Home() {
               icon={Monitor} 
               title="Web Development" 
               description="Custom, responsive websites built with modern frameworks for speed and SEO."
+              features={["Responsive design", "SEO optimized", "Fast performance"]}
+              examples={["E-commerce", "Corporate Sites", "Portfolios"]}
               delay={0}
             />
             <ServiceCard 
               icon={Smartphone} 
               title="UI/UX Design" 
               description="User-centric interfaces that engage visitors and drive conversion rates."
+              features={["User research", "Wireframing", "Prototyping"]}
+              examples={["Mobile Apps", "Dashboards", "Web Apps"]}
               delay={0.1}
             />
             <ServiceCard 
               icon={BrainCircuit} 
               title="AI Solutions" 
               description="Intelligent automation and AI integration to streamline your operations."
+              features={["Chatbots", "Automation", "Data analytics"]}
+              examples={["Support Bots", "Smart Insights", "Predictions"]}
               delay={0.2}
             />
           </div>
