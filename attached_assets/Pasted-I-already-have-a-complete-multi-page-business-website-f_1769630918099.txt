@@ -1,0 +1,72 @@
+I already have a complete multi-page business website for “Cubic Technologies”
+(Home, Services, About, Contact). The design is clean and professional.
+
+Your task is to UPGRADE it to look like it was built by a senior web developer
+and product designer from a top digital agency.
+
+DO NOT redesign from scratch.
+Enhance the existing structure with expert-level UI/UX, interactivity, and animations.
+
+GOALS:
+- Premium SaaS / modern agency feel
+- Smooth, subtle animations (not flashy)
+- High trust, high conversion
+- Responsive and performance-optimized
+
+REQUIREMENTS:
+
+1. HERO SECTION
+- Add animated headline text (typing or word-swap):
+  Example cycle:
+  “Digital Vision”
+  “Startup Ideas”
+  “Business Growth”
+  “Scalable Products”
+- Add subtle animated gradient or particles in background
+- Add micro-interaction to CTA buttons (hover + tap feedback)
+
+2. NAVBAR
+- Sticky navbar with blur and shadow on scroll
+- Smooth active-link indicator animation
+- CTA button with glow or pulse hover effect
+
+3. SERVICES SECTION
+- Add hover interactions:
+  - slight 3D tilt
+  - icon animation
+  - gradient background reveal
+- On click, show expanded details or modal:
+  - brief problem → solution → result
+  - tools/technologies used
+
+4. SCROLL ANIMATIONS
+- Fade-up and stagger effects when sections enter viewport
+- Subtle parallax for images
+- Use GSAP / Framer Motion / AOS (pick one)
+
+5. PROOF & TRUST
+- Animated counters for stats (projects, satisfaction, experience)
+- Add placeholder client logos section
+- Add 2–3 mini case studies (dummy but realistic)
+
+6. DARK MODE
+- Add dark/light theme toggle
+- Persist preference using localStorage
+- Smooth color transitions
+
+7. CONTACT FORM
+- Real-time input validation
+- Loading animation on submit
+- Success confirmation animation
+- Optional WhatsApp quick-contact CTA
+
+8. PERFORMANCE & QUALITY
+- Fully responsive (mobile-first)
+- Clean, commented code
+- Modern CSS (Flexbox/Grid)
+- Accessible (good contrast, focus states)
+
+DELIVERABLE:
+- Updated HTML/CSS/JS (or React if already used)
+- Clear comments explaining where animations and interactions are added
+- Keep the branding, colors, and layout consistent with the current site
