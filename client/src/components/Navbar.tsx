@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Code2 } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -24,77 +24,84 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const isActive = (href: string) => {
+    if (href === "/") return location === "/";
+    return location.startsWith(href);
+  };
+
   return (
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 py-3 shadow-sm"
+          ? "glass-panel py-3"
           : "bg-transparent py-5"
       }`}
     >
-      <div className="container-width flex items-center justify-between">
-        {/* Logo */}
+      <div className="container-width flex items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="bg-primary/10 p-2 rounded-lg group-hover:bg-primary/20 transition-colors">
-            <Code2 className="w-6 h-6 text-primary" />
-          </div>
-          <span className="font-display font-bold text-xl md:text-2xl tracking-tight text-foreground">
-            Cubic<span className="text-primary">Tech</span>
+          <span className="font-bold text-xl md:text-2xl tracking-tight text-foreground" data-testid="link-logo">
+            Cubic<span className="text-muted-foreground">Tech</span>
           </span>
         </Link>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-1">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`text-sm font-medium transition-colors hover:text-primary relative py-1 ${
-                location === link.href ? "text-primary" : "text-muted-foreground"
-              }`}
+              className="relative"
             >
-              {link.label}
-              {location === link.href && (
+              <span
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  isActive(link.href) ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                }`}
+                data-testid={`link-nav-${link.label.toLowerCase()}`}
+              >
+                {link.label}
+              </span>
+              {isActive(link.href) && (
                 <motion.div
-                  layoutId="navbar-underline"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full"
-                  initial={false}
+                  layoutId="navbar-indicator"
+                  className="absolute inset-0 bg-foreground/5 rounded-lg -z-10"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                 />
               )}
             </Link>
           ))}
+        </nav>
+
+        <div className="hidden md:block">
           <Link href="/contact">
-            <Button className="font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all hover:-translate-y-0.5">
+            <Button className="rounded-lg" data-testid="button-nav-cta">
               Get Started
             </Button>
           </Link>
-        </nav>
+        </div>
 
-        {/* Mobile Toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden p-2 text-foreground hover:bg-muted rounded-md"
+          className="md:hidden p-2 text-foreground hover:bg-foreground/5 rounded-lg"
+          data-testid="button-mobile-menu"
         >
-          {isOpen ? <X /> : <Menu />}
+          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
 
-      {/* Mobile Nav */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background border-b border-border overflow-hidden"
+            className="md:hidden glass-panel mt-2 mx-4 rounded-xl overflow-hidden"
           >
-            <div className="container-width py-6 flex flex-col gap-4">
+            <div className="p-4 flex flex-col gap-2">
               {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-lg font-medium py-2 border-b border-border/50 ${
-                    location === link.href ? "text-primary" : "text-foreground"
+                  className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                    isActive(link.href) ? "bg-foreground/5 text-foreground" : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
