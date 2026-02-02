@@ -80,8 +80,8 @@ export default function Maintenance() {
       
       <main className="flex-grow">
         <section className="pt-32 pb-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950 dark:to-teal-950" />
-          <div className="absolute top-40 left-40 w-96 h-96 bg-emerald-200/50 dark:bg-emerald-800/30 rounded-full blur-3xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-blue-50/50 dark:from-slate-950 dark:to-slate-900" />
+          <div className="absolute top-40 left-40 w-96 h-96 bg-blue-200/30 dark:bg-blue-900/20 rounded-full blur-3xl" />
           
           <div className="container-width relative z-10">
             <Link href="/services">
@@ -96,7 +96,7 @@ export default function Maintenance() {
               transition={{ duration: 0.6 }}
               className="max-w-4xl"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 text-sm font-medium mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-sm font-medium mb-6">
                 <Wrench className="w-4 h-4" /> Maintenance & Support
               </div>
               
@@ -110,7 +110,7 @@ export default function Maintenance() {
               
               <div className="flex flex-wrap gap-4">
                 <Link href="/contact">
-                  <Button size="lg" className="gap-2 bg-emerald-600 hover:bg-emerald-700">
+                  <Button size="lg" className="gap-2 bg-blue-600 hover:bg-blue-700">
                     Get Support <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>
@@ -130,10 +130,10 @@ export default function Maintenance() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
                   viewport={{ once: true }}
-                  className="p-6 rounded-2xl glass-card hover-lift"
+                  className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover-lift shadow-sm"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center mb-4">
-                    <feature.icon className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+                  <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center mb-4">
+                    <feature.icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                   </div>
                   <h3 className="font-bold mb-2">{feature.title}</h3>
                   <p className="text-sm text-muted-foreground">{feature.desc}</p>
@@ -143,7 +143,7 @@ export default function Maintenance() {
           </div>
         </section>
 
-        <section className="section-padding bg-emerald-50 dark:bg-emerald-950/50">
+        <section className="section-padding bg-slate-50 dark:bg-slate-900/50">
           <div className="container-width">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">Support Plans</h2>
@@ -159,26 +159,26 @@ export default function Maintenance() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
                   viewport={{ once: true }}
-                  className={`p-8 rounded-2xl bg-white dark:bg-emerald-900/30 hover-lift relative ${
-                    plan.popular ? "border-2 border-emerald-500 shadow-xl shadow-emerald-500/10" : "border border-emerald-100 dark:border-emerald-800"
+                  className={`p-8 rounded-2xl bg-white dark:bg-slate-900 hover-lift relative ${
+                    plan.popular ? "border-2 border-blue-500 shadow-xl shadow-blue-500/10" : "border border-slate-200 dark:border-slate-800"
                   }`}
                 >
                   {plan.popular && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-emerald-600 text-white text-sm font-medium rounded-full">
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-blue-600 text-white text-sm font-medium rounded-full">
                       Most Popular
                     </div>
                   )}
                   <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
                   <p className="text-sm text-muted-foreground mb-4">{plan.description}</p>
                   <div className="mb-6">
-                    <span className="text-4xl font-bold text-emerald-600 dark:text-emerald-400">{plan.price}</span>
+                    <span className="text-4xl font-bold text-blue-600 dark:text-blue-400">{plan.price}</span>
                     <span className="text-muted-foreground">{plan.period}</span>
                   </div>
                   <ul className="space-y-3 mb-8">
                     {plan.features.map((feature, j) => (
                       <li key={j} className="flex items-center gap-3 text-sm">
                         {feature.included ? (
-                          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                          <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0" />
                         ) : (
                           <X className="w-5 h-5 text-muted-foreground/40 shrink-0" />
                         )}
@@ -190,7 +190,7 @@ export default function Maintenance() {
                   </ul>
                   <Link href="/contact">
                     <Button 
-                      className={`w-full ${plan.popular ? "bg-emerald-600 hover:bg-emerald-700" : ""}`}
+                      className={`w-full ${plan.popular ? "bg-blue-600 hover:bg-blue-700" : ""}`}
                       variant={plan.popular ? "default" : "outline"}
                     >
                       Get Started
@@ -218,19 +218,19 @@ export default function Maintenance() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
                   viewport={{ once: true }}
-                  className="p-6 rounded-2xl border border-emerald-100 dark:border-emerald-800 hover-lift"
+                  className="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover-lift"
                 >
-                  <service.icon className="w-8 h-8 text-emerald-600 dark:text-emerald-400 mb-4" />
+                  <service.icon className="w-8 h-8 text-blue-600 dark:text-blue-400 mb-4" />
                   <h3 className="font-bold mb-2">{service.title}</h3>
                   <p className="text-sm text-muted-foreground mb-4">{service.desc}</p>
-                  <p className="font-semibold text-emerald-600 dark:text-emerald-400">{service.price}</p>
+                  <p className="font-semibold text-blue-600 dark:text-blue-400">{service.price}</p>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="py-20 bg-gradient-to-br from-emerald-600 to-teal-600 text-white">
+        <section className="py-20 bg-gradient-to-br from-slate-800 via-slate-900 to-gray-900 text-white">
           <div className="container-width text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Need Custom Support?</h2>
             <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">

@@ -70,10 +70,10 @@ export default function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group p-8 rounded-2xl bg-white dark:bg-emerald-950/50 border border-emerald-100 dark:border-emerald-800 hover-lift shadow-sm"
+                className="group p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover-lift shadow-sm"
               >
-                <div className="w-14 h-14 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center mb-6 group-hover:bg-emerald-600 transition-colors duration-300">
-                  <service.icon className="w-7 h-7 text-emerald-600 group-hover:text-white" />
+                <div className="w-14 h-14 rounded-xl bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors duration-300">
+                  <service.icon className="w-7 h-7 text-blue-600 group-hover:text-white" />
                 </div>
                 
                 <h3 className="text-xl font-bold mb-3">{service.title}</h3>
@@ -82,14 +82,14 @@ export default function Services() {
                 <ul className="space-y-2 mb-6">
                   {service.features.map((feature, i) => (
                     <li key={i} className="text-sm text-muted-foreground flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
                       {feature}
                     </li>
                   ))}
                 </ul>
 
                 <Link href={service.link}>
-                  <Button variant="outline" className="w-full gap-2 border-emerald-200 dark:border-emerald-800 group-hover:bg-emerald-600 group-hover:text-white group-hover:border-emerald-600 transition-colors">
+                  <Button variant="outline" className="w-full gap-2 border-slate-300 dark:border-slate-700 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-colors">
                     Learn More <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>

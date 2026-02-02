@@ -66,7 +66,7 @@ export default function About() {
                 className="space-y-6"
               >
                 <h2 className="text-3xl md:text-4xl font-bold">Who We Are</h2>
-                <div className="h-1 w-20 bg-emerald-600 rounded-full"></div>
+                <div className="h-1 w-20 bg-blue-600 rounded-full"></div>
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   Cubic Technologies is a premier software development company based in Jaipur, India. Since our inception, we have been dedicated to delivering top-tier digital solutions to businesses worldwide—from ambitious startups to established enterprises.
                 </p>
@@ -75,20 +75,20 @@ export default function About() {
                 </p>
                 
                 <div className="grid grid-cols-2 gap-6 pt-4">
-                  <div className="p-6 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
-                    <h4 className="text-4xl font-bold text-emerald-600 dark:text-emerald-400 mb-2">50+</h4>
+                  <div className="p-6 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                    <h4 className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">50+</h4>
                     <p className="text-sm font-medium text-muted-foreground">Projects Completed</p>
                   </div>
-                  <div className="p-6 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
-                    <h4 className="text-4xl font-bold text-emerald-600 dark:text-emerald-400 mb-2">100%</h4>
+                  <div className="p-6 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                    <h4 className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">100%</h4>
                     <p className="text-sm font-medium text-muted-foreground">Client Satisfaction</p>
                   </div>
-                  <div className="p-6 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
-                    <h4 className="text-4xl font-bold text-emerald-600 dark:text-emerald-400 mb-2">5+</h4>
+                  <div className="p-6 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                    <h4 className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">5+</h4>
                     <p className="text-sm font-medium text-muted-foreground">Years Experience</p>
                   </div>
-                  <div className="p-6 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
-                    <h4 className="text-4xl font-bold text-emerald-600 dark:text-emerald-400 mb-2">24/7</h4>
+                  <div className="p-6 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                    <h4 className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">24/7</h4>
                     <p className="text-sm font-medium text-muted-foreground">Support Available</p>
                   </div>
                 </div>
@@ -100,7 +100,7 @@ export default function About() {
                 viewport={{ once: true }}
                 className="relative"
               >
-                <div className="absolute inset-0 bg-emerald-500/20 transform rotate-6 rounded-3xl"></div>
+                <div className="absolute inset-0 bg-blue-500/20 transform rotate-6 rounded-3xl"></div>
                 <img 
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200" 
                   alt="Our Team" 
@@ -111,7 +111,7 @@ export default function About() {
           </div>
         </section>
 
-        <section className="section-padding bg-gradient-to-br from-emerald-600 via-teal-600 to-emerald-700 text-white">
+        <section className="section-padding bg-gradient-to-br from-slate-800 via-slate-900 to-gray-900 text-white">
           <div className="container-width">
             <div className="max-w-3xl mx-auto text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Values</h2>
@@ -131,7 +131,7 @@ export default function About() {
                   className="p-8 rounded-2xl bg-white/10 border border-white/20 hover:bg-white/15 transition-colors"
                 >
                   <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center mb-6">
-                    <CheckCircle2 className="w-6 h-6 text-emerald-600" />
+                    <CheckCircle2 className="w-6 h-6 text-blue-600" />
                   </div>
                   <h3 className="text-xl font-bold mb-3">{value.title}</h3>
                   <p className="text-white/80">{value.desc}</p>
@@ -166,17 +166,17 @@ export default function About() {
                       alt={member.name}
                       className="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-6 gap-4">
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-6 gap-4">
                       <a href="#" className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover-lift">
-                        <Linkedin className="w-5 h-5 text-emerald-600" />
+                        <Linkedin className="w-5 h-5 text-blue-600" />
                       </a>
                       <a href="#" className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover-lift">
-                        <Twitter className="w-5 h-5 text-emerald-600" />
+                        <Twitter className="w-5 h-5 text-blue-600" />
                       </a>
                     </div>
                   </div>
                   <h3 className="text-lg font-bold mb-1">{member.name}</h3>
-                  <p className="text-sm font-medium text-emerald-600 dark:text-emerald-400 mb-3">{member.role}</p>
+                  <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-3">{member.role}</p>
                   <p className="text-sm text-muted-foreground">{member.bio}</p>
                 </motion.div>
               ))}
