@@ -2,7 +2,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { ArrowLeft, CheckCircle2, BrainCircuit, MessageSquare, TrendingUp, FileSearch, ArrowRight } from "lucide-react";
+import { ArrowLeft, BrainCircuit, MessageSquare, TrendingUp, FileSearch, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 const features = [
@@ -25,8 +25,8 @@ export default function AISolutions() {
       
       <main className="flex-grow">
         <section className="pt-32 pb-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-neutral-100 to-neutral-50 dark:from-neutral-950 dark:to-neutral-900" />
-          <div className="absolute top-20 right-40 w-96 h-96 bg-neutral-200/50 dark:bg-neutral-800/30 rounded-full blur-3xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950 dark:to-teal-950" />
+          <div className="absolute top-20 right-40 w-96 h-96 bg-teal-200/50 dark:bg-teal-800/30 rounded-full blur-3xl" />
           
           <div className="container-width relative z-10">
             <Link href="/services">
@@ -41,7 +41,7 @@ export default function AISolutions() {
               transition={{ duration: 0.6 }}
               className="max-w-4xl"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm font-medium mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 text-sm font-medium mb-6">
                 <BrainCircuit className="w-4 h-4" /> AI Solutions
               </div>
               
@@ -55,7 +55,7 @@ export default function AISolutions() {
               
               <div className="flex flex-wrap gap-4">
                 <Link href="/contact">
-                  <Button size="lg" className="gap-2">
+                  <Button size="lg" className="gap-2 bg-emerald-600 hover:bg-emerald-700">
                     Explore AI Solutions <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>
@@ -75,9 +75,11 @@ export default function AISolutions() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
                   viewport={{ once: true }}
-                  className="p-6 rounded-2xl glass-card hover-lift"
+                  className="p-6 rounded-2xl bg-white dark:bg-emerald-950/50 border border-emerald-100 dark:border-emerald-800 hover-lift shadow-sm"
                 >
-                  <feature.icon className="w-10 h-10 mb-4 text-foreground" />
+                  <div className="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center mb-4">
+                    <feature.icon className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+                  </div>
                   <h3 className="font-bold mb-2">{feature.title}</h3>
                   <p className="text-sm text-muted-foreground">{feature.desc}</p>
                 </motion.div>
@@ -86,7 +88,7 @@ export default function AISolutions() {
           </div>
         </section>
 
-        <section className="section-padding bg-neutral-50 dark:bg-neutral-950">
+        <section className="section-padding bg-emerald-50 dark:bg-emerald-950/50">
           <div className="container-width">
             <h2 className="text-3xl font-bold mb-12 text-center">Real-World Applications</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -97,9 +99,9 @@ export default function AISolutions() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
                   viewport={{ once: true }}
-                  className="p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-background hover-lift"
+                  className="p-8 rounded-2xl bg-white dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800 hover-lift"
                 >
-                  <span className="text-xs font-medium px-3 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800">{item.industry}</span>
+                  <span className="text-xs font-medium px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-800 text-emerald-700 dark:text-emerald-300">{item.industry}</span>
                   <h3 className="text-xl font-bold mt-4 mb-2">{item.title}</h3>
                   <p className="text-muted-foreground">{item.desc}</p>
                 </motion.div>
@@ -108,10 +110,10 @@ export default function AISolutions() {
           </div>
         </section>
 
-        <section className="py-20 bg-foreground text-background">
+        <section className="py-20 bg-gradient-to-br from-emerald-600 via-teal-600 to-emerald-700 text-white">
           <div className="container-width text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Implement AI?</h2>
-            <p className="text-lg opacity-80 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
               Let's explore how AI can transform your business operations.
             </p>
             <Link href="/contact">

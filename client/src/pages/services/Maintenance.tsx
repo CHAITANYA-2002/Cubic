@@ -2,20 +2,75 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { ArrowLeft, CheckCircle2, Wrench, Shield, Clock, BarChart3, ArrowRight } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Wrench, Shield, Clock, BarChart3, ArrowRight, X, Zap, HeadphonesIcon } from "lucide-react";
 import { motion } from "framer-motion";
 
 const features = [
-  { icon: Clock, title: "24/7 Monitoring", desc: "Round-the-clock uptime monitoring with instant alerts" },
-  { icon: Shield, title: "Security Updates", desc: "Regular patches and vulnerability assessments" },
-  { icon: BarChart3, title: "Performance", desc: "Continuous optimization for speed and efficiency" },
-  { icon: Wrench, title: "Quick Fixes", desc: "Rapid response to bugs and issues within SLA" },
+  { icon: Clock, title: "24/7 Monitoring", desc: "Round-the-clock uptime monitoring with instant alerts via email and SMS" },
+  { icon: Shield, title: "Security Updates", desc: "Weekly security patches, vulnerability assessments, and firewall management" },
+  { icon: BarChart3, title: "Performance", desc: "Continuous optimization for speed, Core Web Vitals, and server efficiency" },
+  { icon: Wrench, title: "Quick Fixes", desc: "Bug fixes and issue resolution within guaranteed SLA timeframes" },
 ];
 
 const plans = [
-  { name: "Basic", features: ["Monthly updates", "Email support", "Security patches", "Weekly backups"], price: "Starting at ₹15,000/mo" },
-  { name: "Professional", features: ["Weekly updates", "Priority support", "Daily backups", "Performance reports"], price: "Starting at ₹35,000/mo" },
-  { name: "Enterprise", features: ["24/7 monitoring", "Dedicated manager", "Real-time backups", "SLA guarantee"], price: "Custom pricing" },
+  { 
+    name: "Starter", 
+    price: "₹8,999",
+    period: "/month",
+    description: "Perfect for small businesses with basic website maintenance needs",
+    features: [
+      { text: "Monthly security updates", included: true },
+      { text: "Email support (48hr response)", included: true },
+      { text: "Weekly backups", included: true },
+      { text: "Basic uptime monitoring", included: true },
+      { text: "1 hour of changes/month", included: true },
+      { text: "Performance reports", included: false },
+      { text: "Priority support", included: false },
+      { text: "Dedicated manager", included: false },
+    ],
+    popular: false
+  },
+  { 
+    name: "Professional", 
+    price: "₹24,999",
+    period: "/month",
+    description: "Ideal for growing businesses requiring regular updates and faster support",
+    features: [
+      { text: "Weekly security updates", included: true },
+      { text: "Priority support (12hr response)", included: true },
+      { text: "Daily backups", included: true },
+      { text: "Advanced uptime monitoring", included: true },
+      { text: "5 hours of changes/month", included: true },
+      { text: "Monthly performance reports", included: true },
+      { text: "SEO monitoring", included: true },
+      { text: "Dedicated manager", included: false },
+    ],
+    popular: true
+  },
+  { 
+    name: "Enterprise", 
+    price: "₹49,999",
+    period: "/month",
+    description: "Complete care for mission-critical applications and large-scale platforms",
+    features: [
+      { text: "Daily security updates", included: true },
+      { text: "24/7 support (2hr response)", included: true },
+      { text: "Real-time backups", included: true },
+      { text: "Multi-region monitoring", included: true },
+      { text: "Unlimited changes", included: true },
+      { text: "Weekly performance reports", included: true },
+      { text: "Full SEO management", included: true },
+      { text: "Dedicated account manager", included: true },
+    ],
+    popular: false
+  }
+];
+
+const additionalServices = [
+  { icon: Zap, title: "Emergency Support", desc: "Critical issue resolution within 1 hour, available 24/7", price: "₹5,000/incident" },
+  { icon: Shield, title: "Security Audit", desc: "Comprehensive security assessment with detailed report", price: "₹15,000/audit" },
+  { icon: BarChart3, title: "Performance Audit", desc: "Full performance analysis with optimization recommendations", price: "₹10,000/audit" },
+  { icon: HeadphonesIcon, title: "Extra Support Hours", desc: "Additional development/change hours beyond your plan", price: "₹2,000/hour" },
 ];
 
 export default function Maintenance() {
@@ -25,8 +80,8 @@ export default function Maintenance() {
       
       <main className="flex-grow">
         <section className="pt-32 pb-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-neutral-100 to-neutral-50 dark:from-neutral-950 dark:to-neutral-900" />
-          <div className="absolute top-40 left-40 w-96 h-96 bg-neutral-200/50 dark:bg-neutral-800/30 rounded-full blur-3xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950 dark:to-teal-950" />
+          <div className="absolute top-40 left-40 w-96 h-96 bg-emerald-200/50 dark:bg-emerald-800/30 rounded-full blur-3xl" />
           
           <div className="container-width relative z-10">
             <Link href="/services">
@@ -41,7 +96,7 @@ export default function Maintenance() {
               transition={{ duration: 0.6 }}
               className="max-w-4xl"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm font-medium mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 text-sm font-medium mb-6">
                 <Wrench className="w-4 h-4" /> Maintenance & Support
               </div>
               
@@ -50,12 +105,12 @@ export default function Maintenance() {
               </h1>
               
               <p className="text-xl text-muted-foreground mb-8 max-w-2xl">
-                Proactive maintenance, security updates, and dedicated support to ensure your website and applications perform at their best 24/7.
+                Proactive maintenance, security updates, and dedicated support to ensure your website and applications perform at their best 24/7. Choose a plan that fits your needs.
               </p>
               
               <div className="flex flex-wrap gap-4">
                 <Link href="/contact">
-                  <Button size="lg" className="gap-2">
+                  <Button size="lg" className="gap-2 bg-emerald-600 hover:bg-emerald-700">
                     Get Support <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>
@@ -77,7 +132,9 @@ export default function Maintenance() {
                   viewport={{ once: true }}
                   className="p-6 rounded-2xl glass-card hover-lift"
                 >
-                  <feature.icon className="w-10 h-10 mb-4 text-foreground" />
+                  <div className="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center mb-4">
+                    <feature.icon className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+                  </div>
                   <h3 className="font-bold mb-2">{feature.title}</h3>
                   <p className="text-sm text-muted-foreground">{feature.desc}</p>
                 </motion.div>
@@ -86,9 +143,14 @@ export default function Maintenance() {
           </div>
         </section>
 
-        <section className="section-padding bg-neutral-50 dark:bg-neutral-950">
+        <section className="section-padding bg-emerald-50 dark:bg-emerald-950/50">
           <div className="container-width">
-            <h2 className="text-3xl font-bold mb-12 text-center">Support Plans</h2>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">Support Plans</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Choose the perfect maintenance plan for your business. All plans include our core features with varying levels of support and response times.
+              </p>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {plans.map((plan, i) => (
                 <motion.div
@@ -97,29 +159,82 @@ export default function Maintenance() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
                   viewport={{ once: true }}
-                  className="p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-background hover-lift"
+                  className={`p-8 rounded-2xl bg-white dark:bg-emerald-900/30 hover-lift relative ${
+                    plan.popular ? "border-2 border-emerald-500 shadow-xl shadow-emerald-500/10" : "border border-emerald-100 dark:border-emerald-800"
+                  }`}
                 >
-                  <h3 className="text-2xl font-bold mb-4">{plan.name}</h3>
-                  <ul className="space-y-3 mb-6">
+                  {plan.popular && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-emerald-600 text-white text-sm font-medium rounded-full">
+                      Most Popular
+                    </div>
+                  )}
+                  <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
+                  <p className="text-sm text-muted-foreground mb-4">{plan.description}</p>
+                  <div className="mb-6">
+                    <span className="text-4xl font-bold text-emerald-600 dark:text-emerald-400">{plan.price}</span>
+                    <span className="text-muted-foreground">{plan.period}</span>
+                  </div>
+                  <ul className="space-y-3 mb-8">
                     {plan.features.map((feature, j) => (
-                      <li key={j} className="flex items-center gap-2 text-muted-foreground">
-                        <CheckCircle2 className="w-4 h-4 text-green-600" />
-                        {feature}
+                      <li key={j} className="flex items-center gap-3 text-sm">
+                        {feature.included ? (
+                          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                        ) : (
+                          <X className="w-5 h-5 text-muted-foreground/40 shrink-0" />
+                        )}
+                        <span className={feature.included ? "text-foreground" : "text-muted-foreground/60"}>
+                          {feature.text}
+                        </span>
                       </li>
                     ))}
                   </ul>
-                  <p className="font-bold text-lg">{plan.price}</p>
+                  <Link href="/contact">
+                    <Button 
+                      className={`w-full ${plan.popular ? "bg-emerald-600 hover:bg-emerald-700" : ""}`}
+                      variant={plan.popular ? "default" : "outline"}
+                    >
+                      Get Started
+                    </Button>
+                  </Link>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="py-20 bg-foreground text-background">
+        <section className="section-padding">
+          <div className="container-width">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">Additional Services</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Need something extra? These add-on services are available to complement any plan.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {additionalServices.map((service, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  viewport={{ once: true }}
+                  className="p-6 rounded-2xl border border-emerald-100 dark:border-emerald-800 hover-lift"
+                >
+                  <service.icon className="w-8 h-8 text-emerald-600 dark:text-emerald-400 mb-4" />
+                  <h3 className="font-bold mb-2">{service.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-4">{service.desc}</p>
+                  <p className="font-semibold text-emerald-600 dark:text-emerald-400">{service.price}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 bg-gradient-to-br from-emerald-600 to-teal-600 text-white">
           <div className="container-width text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Need Reliable Support?</h2>
-            <p className="text-lg opacity-80 mb-8 max-w-2xl mx-auto">
-              Let us handle the technical details while you focus on growing your business.
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Need Custom Support?</h2>
+            <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
+              Have unique requirements? Let's discuss a tailored support solution for your business.
             </p>
             <Link href="/contact">
               <Button size="lg" variant="secondary" className="gap-2">

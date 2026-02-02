@@ -32,8 +32,8 @@ export default function UIUXDesign() {
       
       <main className="flex-grow">
         <section className="pt-32 pb-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-neutral-100 to-neutral-50 dark:from-neutral-950 dark:to-neutral-900" />
-          <div className="absolute top-20 left-20 w-96 h-96 bg-neutral-200/50 dark:bg-neutral-800/30 rounded-full blur-3xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950 dark:to-teal-950" />
+          <div className="absolute top-20 left-20 w-96 h-96 bg-teal-200/50 dark:bg-teal-800/30 rounded-full blur-3xl" />
           
           <div className="container-width relative z-10">
             <Link href="/services">
@@ -48,7 +48,7 @@ export default function UIUXDesign() {
               transition={{ duration: 0.6 }}
               className="max-w-4xl"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm font-medium mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 text-sm font-medium mb-6">
                 <Layout className="w-4 h-4" /> UI/UX Design
               </div>
               
@@ -62,7 +62,7 @@ export default function UIUXDesign() {
               
               <div className="flex flex-wrap gap-4">
                 <Link href="/contact">
-                  <Button size="lg" className="gap-2">
+                  <Button size="lg" className="gap-2 bg-emerald-600 hover:bg-emerald-700">
                     Start Your Project <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>
@@ -82,9 +82,11 @@ export default function UIUXDesign() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
                   viewport={{ once: true }}
-                  className="p-6 rounded-2xl glass-card hover-lift"
+                  className="p-6 rounded-2xl bg-white dark:bg-emerald-950/50 border border-emerald-100 dark:border-emerald-800 hover-lift shadow-sm"
                 >
-                  <feature.icon className="w-10 h-10 mb-4 text-foreground" />
+                  <div className="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center mb-4">
+                    <feature.icon className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+                  </div>
                   <h3 className="font-bold mb-2">{feature.title}</h3>
                   <p className="text-sm text-muted-foreground">{feature.desc}</p>
                 </motion.div>
@@ -93,7 +95,7 @@ export default function UIUXDesign() {
           </div>
         </section>
 
-        <section className="section-padding bg-neutral-50 dark:bg-neutral-950">
+        <section className="section-padding bg-emerald-50 dark:bg-emerald-950/50">
           <div className="container-width">
             <h2 className="text-3xl font-bold mb-12 text-center">Design Process</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -106,7 +108,7 @@ export default function UIUXDesign() {
                   viewport={{ once: true }}
                   className="relative"
                 >
-                  <span className="text-6xl font-bold text-neutral-200 dark:text-neutral-800">{item.step}</span>
+                  <span className="text-6xl font-bold text-emerald-200 dark:text-emerald-900">{item.step}</span>
                   <h3 className="text-xl font-bold mt-4 mb-2">{item.title}</h3>
                   <p className="text-muted-foreground">{item.desc}</p>
                 </motion.div>
@@ -126,12 +128,12 @@ export default function UIUXDesign() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
                   viewport={{ once: true }}
-                  className="p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 hover-lift"
+                  className="p-8 rounded-2xl border border-emerald-100 dark:border-emerald-800 hover-lift"
                 >
                   <h3 className="text-xl font-bold mb-2">{project.name}</h3>
                   <p className="text-sm text-muted-foreground mb-4">{project.type}</p>
-                  <div className="flex items-center gap-2 text-sm font-medium">
-                    <CheckCircle2 className="w-4 h-4 text-green-600" />
+                  <div className="flex items-center gap-2 text-sm font-medium text-emerald-600 dark:text-emerald-400">
+                    <CheckCircle2 className="w-4 h-4" />
                     {project.result}
                   </div>
                 </motion.div>
@@ -140,10 +142,10 @@ export default function UIUXDesign() {
           </div>
         </section>
 
-        <section className="py-20 bg-foreground text-background">
+        <section className="py-20 bg-gradient-to-br from-emerald-600 via-teal-600 to-emerald-700 text-white">
           <div className="container-width text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Elevate Your Design?</h2>
-            <p className="text-lg opacity-80 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
               Let's create interfaces that your users will love.
             </p>
             <Link href="/contact">

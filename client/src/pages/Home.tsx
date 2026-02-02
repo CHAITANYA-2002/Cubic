@@ -2,8 +2,10 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { ArrowRight, Monitor, Layout, BrainCircuit, CheckCircle2, Star, Quote } from "lucide-react";
+import { ArrowRight, Monitor, Layout, BrainCircuit, CheckCircle2, Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
+import useEmblaCarousel from "embla-carousel-react";
+import { useCallback, useEffect, useState } from "react";
 
 const services = [
   {
@@ -30,20 +32,37 @@ const testimonials = [
   {
     name: "Vikram Singh",
     role: "CEO, TechStart India",
-    content: "Cubic Technologies transformed our outdated website into a modern, high-converting platform. Our leads increased by 300% within three months. Exceptional work!",
-    rating: 5
+    content: "Cubic Technologies transformed our outdated website into a modern, high-converting platform. Our leads increased by 300% within three months. The team was professional, responsive, and delivered beyond our expectations. Highly recommended!",
+    rating: 5,
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100&h=100"
   },
   {
     name: "Ananya Mehta",
     role: "Founder, StyleBox",
-    content: "The team understood our vision perfectly. They delivered an e-commerce platform that not only looks beautiful but also provides an amazing shopping experience for our customers.",
-    rating: 5
+    content: "The team understood our vision perfectly. They delivered an e-commerce platform that not only looks beautiful but also provides an amazing shopping experience for our customers. Sales have increased by 150% since launch!",
+    rating: 5,
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100&h=100"
   },
   {
     name: "Rajesh Kumar",
     role: "Director, FinServe Solutions",
-    content: "Professional, reliable, and incredibly talented. The custom CRM they built has streamlined our entire sales process. Highly recommended for any business.",
-    rating: 5
+    content: "Professional, reliable, and incredibly talented. The custom CRM they built has streamlined our entire sales process. What used to take hours now takes minutes. A game-changer for our business operations.",
+    rating: 5,
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=100&h=100"
+  },
+  {
+    name: "Priya Sharma",
+    role: "Marketing Head, GreenLeaf Organics",
+    content: "Their digital marketing expertise helped us reach audiences we never thought possible. From social media strategy to SEO, they've handled everything flawlessly. Our online presence has never been stronger.",
+    rating: 5,
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=100&h=100"
+  },
+  {
+    name: "Amit Patel",
+    role: "CTO, CloudSync Technologies",
+    content: "We needed a complex web application with real-time features. Cubic Technologies delivered a robust, scalable solution on time and within budget. Their technical expertise is truly impressive.",
+    rating: 5,
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100&h=100"
   }
 ];
 
@@ -55,14 +74,42 @@ const stats = [
 ];
 
 export default function Home() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" });
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
+
+  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setCanScrollPrev(emblaApi.canScrollPrev());
+    setCanScrollNext(emblaApi.canScrollNext());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on("select", onSelect);
+    emblaApi.on("reInit", onSelect);
+  }, [emblaApi, onSelect]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    const interval = setInterval(() => {
+      emblaApi.scrollNext();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [emblaApi]);
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
 
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-neutral-100 to-neutral-50 dark:from-neutral-950 dark:to-neutral-900" />
-        <div className="absolute top-20 right-20 w-[500px] h-[500px] bg-neutral-200/50 dark:bg-neutral-800/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-20 w-[400px] h-[400px] bg-neutral-300/30 dark:bg-neutral-700/20 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-teal-50 to-emerald-100 dark:from-emerald-950 dark:via-teal-950 dark:to-emerald-900" />
+        <div className="absolute top-20 right-20 w-[500px] h-[500px] bg-emerald-200/50 dark:bg-emerald-800/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-20 w-[400px] h-[400px] bg-teal-200/40 dark:bg-teal-700/20 rounded-full blur-3xl" />
         
         <div className="container-width grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
           <motion.div
@@ -70,10 +117,10 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 text-sm font-medium mb-6">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-foreground opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-foreground"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
               Innovating Digital Solutions
             </div>
@@ -90,13 +137,13 @@ export default function Home() {
             
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/contact">
-                <Button size="lg" className="text-lg h-14 px-8 rounded-xl hover-lift gap-2" data-testid="button-consultation">
+                <Button size="lg" className="text-lg h-14 px-8 rounded-xl hover-lift gap-2 bg-emerald-600 hover:bg-emerald-700" data-testid="button-consultation">
                   Request Consultation
                   <ArrowRight className="w-5 h-5" />
                 </Button>
               </Link>
               <Link href="/services">
-                <Button variant="outline" size="lg" className="text-lg h-14 px-8 rounded-xl" data-testid="button-services">
+                <Button variant="outline" size="lg" className="text-lg h-14 px-8 rounded-xl border-emerald-200 dark:border-emerald-800" data-testid="button-services">
                   Explore Services
                 </Button>
               </Link>
@@ -114,24 +161,24 @@ export default function Home() {
                 <img 
                   src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=600" 
                   alt="Development" 
-                  className="rounded-2xl shadow-2xl"
+                  className="rounded-2xl shadow-2xl border-4 border-white dark:border-emerald-900"
                 />
                 <img 
                   src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=600" 
                   alt="Analytics" 
-                  className="rounded-2xl shadow-2xl opacity-80"
+                  className="rounded-2xl shadow-2xl opacity-90 border-4 border-white dark:border-emerald-900"
                 />
               </div>
               <div className="space-y-4">
                 <img 
                   src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=600" 
                   alt="Coding" 
-                  className="rounded-2xl shadow-2xl opacity-80"
+                  className="rounded-2xl shadow-2xl opacity-90 border-4 border-white dark:border-emerald-900"
                 />
                 <img 
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=600" 
                   alt="Team" 
-                  className="rounded-2xl shadow-2xl"
+                  className="rounded-2xl shadow-2xl border-4 border-white dark:border-emerald-900"
                 />
               </div>
             </div>
@@ -139,7 +186,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 border-y border-neutral-200 dark:border-neutral-800">
+      <section className="py-16 bg-emerald-600 dark:bg-emerald-800">
         <div className="container-width">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, i) => (
@@ -149,10 +196,10 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center"
+                className="text-center text-white"
               >
                 <span className="text-4xl md:text-5xl font-bold">{stat.value}</span>
-                <p className="text-muted-foreground mt-2">{stat.label}</p>
+                <p className="text-emerald-100 mt-2">{stat.label}</p>
               </motion.div>
             ))}
           </div>
@@ -176,15 +223,15 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="group p-8 rounded-2xl glass-card hover-lift"
+                className="group p-8 rounded-2xl bg-white dark:bg-emerald-950/50 border border-emerald-100 dark:border-emerald-800 hover-lift shadow-sm"
               >
-                <div className="w-14 h-14 rounded-xl bg-foreground/5 flex items-center justify-center mb-6 group-hover:bg-foreground group-hover:text-background transition-colors duration-300">
-                  <service.icon className="w-7 h-7" />
+                <div className="w-14 h-14 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+                  <service.icon className="w-7 h-7 text-emerald-600 group-hover:text-white" />
                 </div>
                 <h3 className="text-xl font-bold mb-3">{service.title}</h3>
                 <p className="text-muted-foreground mb-6">{service.description}</p>
                 <Link href={service.link}>
-                  <Button variant="ghost" className="gap-2 p-0 h-auto hover:bg-transparent hover:text-foreground">
+                  <Button variant="ghost" className="gap-2 p-0 h-auto text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 hover:bg-transparent">
                     Learn More <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>
@@ -194,7 +241,7 @@ export default function Home() {
           
           <div className="text-center mt-12">
             <Link href="/services">
-              <Button variant="outline" className="gap-2">
+              <Button variant="outline" className="gap-2 border-emerald-200 dark:border-emerald-800">
                 View All Services
                 <ArrowRight className="w-4 h-4" />
               </Button>
@@ -203,7 +250,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section-padding bg-neutral-50 dark:bg-neutral-950">
+      <section className="section-padding bg-emerald-50 dark:bg-emerald-950/50">
         <div className="container-width">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -214,7 +261,7 @@ export default function Home() {
               <img 
                 src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1200" 
                 alt="Our Team" 
-                className="rounded-3xl shadow-2xl"
+                className="rounded-3xl shadow-2xl border-4 border-white dark:border-emerald-900"
               />
             </motion.div>
             <motion.div
@@ -235,7 +282,7 @@ export default function Home() {
                   { title: "Cost-Effective", desc: "Premium quality without the premium price tag" }
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-4">
-                    <div className="w-8 h-8 rounded-full bg-foreground text-background flex items-center justify-center shrink-0 mt-1">
+                    <div className="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 mt-1">
                       <CheckCircle2 className="w-5 h-5" />
                     </div>
                     <div>
@@ -252,47 +299,77 @@ export default function Home() {
 
       <section className="section-padding">
         <div className="container-width">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="text-center max-w-3xl mx-auto mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Clients Say</h2>
             <p className="text-muted-foreground text-lg">
               Don't just take our word for it—hear from businesses we've helped succeed.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                viewport={{ once: true }}
-                className="p-8 rounded-2xl glass-card relative"
+          <div className="relative">
+            <div className="overflow-hidden" ref={emblaRef}>
+              <div className="flex gap-6">
+                {testimonials.map((testimonial, i) => (
+                  <div
+                    key={i}
+                    className="flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
+                  >
+                    <div className="p-8 rounded-2xl bg-white dark:bg-emerald-950/50 border border-emerald-100 dark:border-emerald-800 shadow-sm h-full relative">
+                      <Quote className="w-10 h-10 text-emerald-100 dark:text-emerald-900 absolute top-6 right-6" />
+                      <div className="flex gap-1 mb-4">
+                        {[...Array(testimonial.rating)].map((_, j) => (
+                          <Star key={j} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                        ))}
+                      </div>
+                      <p className="text-muted-foreground mb-6 relative z-10 line-clamp-4">"{testimonial.content}"</p>
+                      <div className="flex items-center gap-4">
+                        <img 
+                          src={testimonial.image} 
+                          alt={testimonial.name}
+                          className="w-12 h-12 rounded-full object-cover border-2 border-emerald-200 dark:border-emerald-800"
+                        />
+                        <div>
+                          <p className="font-bold">{testimonial.name}</p>
+                          <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex justify-center gap-4 mt-8">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={scrollPrev}
+                className="rounded-full border-emerald-200 dark:border-emerald-800"
+                data-testid="button-testimonial-prev"
               >
-                <Quote className="w-10 h-10 text-neutral-200 dark:text-neutral-800 absolute top-6 right-6" />
-                <div className="flex gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, j) => (
-                    <Star key={j} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-muted-foreground mb-6 relative z-10">"{testimonial.content}"</p>
-                <div>
-                  <p className="font-bold">{testimonial.name}</p>
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                </div>
-              </motion.div>
-            ))}
+                <ChevronLeft className="w-5 h-5" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={scrollNext}
+                className="rounded-full border-emerald-200 dark:border-emerald-800"
+                data-testid="button-testimonial-next"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-24 bg-foreground text-background relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
+      <section className="py-24 bg-gradient-to-br from-emerald-600 via-teal-600 to-emerald-700 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")" }} />
         </div>
         <div className="container-width text-center relative z-10">
           <h2 className="text-3xl md:text-5xl font-bold mb-6">Ready to Start Your Project?</h2>
-          <p className="text-xl opacity-80 max-w-2xl mx-auto mb-10">
+          <p className="text-xl opacity-90 max-w-2xl mx-auto mb-10">
             Let's discuss how we can help transform your business with our digital solutions. Get a free consultation today.
           </p>
           <Link href="/contact">

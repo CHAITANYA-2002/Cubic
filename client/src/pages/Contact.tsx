@@ -3,7 +3,7 @@ import { Footer } from "@/components/Footer";
 import { ContactForm } from "@/components/ContactForm";
 import { PageHeader } from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
-import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
 import { motion } from "framer-motion";
 
@@ -40,20 +40,20 @@ export default function Contact() {
                 </p>
               </div>
 
-              <div className="space-y-6">
-                <div className="flex items-start gap-4 p-4 rounded-xl glass-card">
-                  <div className="w-12 h-12 rounded-xl bg-foreground/5 flex items-center justify-center shrink-0">
-                    <MapPin className="w-6 h-6" />
+              <div className="space-y-4">
+                <div className="flex items-start gap-4 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
+                  <div className="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-800 flex items-center justify-center shrink-0">
+                    <MapPin className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Our Location</h3>
-                    <p className="text-muted-foreground">Jaipur, Rajasthan, India</p>
+                    <p className="text-muted-foreground">Narayan Pura, Mansarovar, Jaipur, Rajasthan, India</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 p-4 rounded-xl glass-card">
-                  <div className="w-12 h-12 rounded-xl bg-foreground/5 flex items-center justify-center shrink-0">
-                    <Phone className="w-6 h-6" />
+                <div className="flex items-start gap-4 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
+                  <div className="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-800 flex items-center justify-center shrink-0">
+                    <Phone className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Phone Number</h3>
@@ -62,9 +62,9 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 p-4 rounded-xl glass-card">
-                  <div className="w-12 h-12 rounded-xl bg-foreground/5 flex items-center justify-center shrink-0">
-                    <Mail className="w-6 h-6" />
+                <div className="flex items-start gap-4 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
+                  <div className="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-800 flex items-center justify-center shrink-0">
+                    <Mail className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Email Address</h3>
@@ -73,9 +73,9 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 p-4 rounded-xl glass-card">
-                  <div className="w-12 h-12 rounded-xl bg-foreground/5 flex items-center justify-center shrink-0">
-                    <Clock className="w-6 h-6" />
+                <div className="flex items-start gap-4 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
+                  <div className="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-800 flex items-center justify-center shrink-0">
+                    <Clock className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Response Time</h3>
@@ -84,7 +84,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="pt-4">
+              <div className="pt-2">
                 <p className="text-sm text-muted-foreground mb-4">Prefer instant messaging? Chat with us on WhatsApp:</p>
                 <Button 
                   onClick={handleWhatsAppClick}
@@ -101,15 +101,36 @@ export default function Contact() {
             <motion.div 
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="lg:col-span-3"
+              className="lg:col-span-3 space-y-8"
             >
-              <div className="p-8 rounded-2xl glass-card">
+              <div className="p-8 rounded-2xl bg-white dark:bg-emerald-950/50 border border-emerald-100 dark:border-emerald-800 shadow-lg">
                 <h3 className="text-xl font-bold mb-6">Send us a Message</h3>
                 <ContactForm />
               </div>
             </motion.div>
 
           </div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="mt-16"
+          >
+            <h3 className="text-xl font-bold mb-6 text-center">Find Us Here</h3>
+            <div className="rounded-2xl overflow-hidden border border-emerald-100 dark:border-emerald-800 shadow-lg">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.0!2d75.7689!3d26.8579!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db5e0f88dcb2b%3A0x5a6e3e4c5b6f7a8b!2sNarayan%20Pura%2C%20Mansarovar%2C%20Jaipur%2C%20Rajasthan!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                width="100%"
+                height="400"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Cubic Technologies Location - Narayan Pura, Mansarovar, Jaipur"
+              />
+            </div>
+          </motion.div>
         </div>
       </main>
 
