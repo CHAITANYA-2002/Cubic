@@ -1,191 +1,225 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { PageHeader } from "@/components/PageHeader";
-import { CheckCircle2, Linkedin, Twitter } from "lucide-react";
+import { AdvancedCursor } from "@/components/AdvancedCursor";
+import { PageTransition } from "@/components/PageTransition";
+import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
+import { ArrowRight, Terminal, Globe, BrainCircuit, CheckCircle2, Shield } from "lucide-react";
 
-const team = [
-  {
-    name: "Rahul Sharma",
-    role: "Founder & CEO",
-    bio: "10+ years in software development. Former tech lead at major startups. Passionate about building products that matter.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300&h=300"
-  },
-  {
-    name: "Priya Patel",
-    role: "Lead Designer",
-    bio: "Award-winning UI/UX designer with a focus on creating beautiful, user-centric digital experiences.",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=300&h=300"
-  },
-  {
-    name: "Amit Kumar",
-    role: "Technical Director",
-    bio: "Full-stack architect specializing in scalable systems. Expert in React, Node.js, and cloud infrastructure.",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300&h=300"
-  },
-  {
-    name: "Sneha Gupta",
-    role: "Marketing Head",
-    bio: "Digital marketing strategist with expertise in growth hacking, SEO, and social media campaigns.",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=300&h=300"
-  }
-];
-
-const values = [
-  {
-    title: "Innovation",
-    desc: "We constantly explore new technologies and methodologies to deliver cutting-edge solutions that give our clients a competitive advantage."
-  },
-  {
-    title: "Integrity",
-    desc: "Transparent communication, honest pricing, and ethical practices are the foundations of every client relationship we build."
-  },
-  {
-    title: "Quality",
-    desc: "We never compromise on code quality, performance, or user experience. Every project receives our full attention and expertise."
-  }
-];
+const fadeUp = {
+  hidden: { opacity: 0, y: 25, filter: "blur(6px)" },
+  visible: (i: number) => ({
+    opacity: 1, y: 0, filter: "blur(0px)",
+    transition: { delay: i * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }
+  }),
+};
 
 export default function About() {
+  useEffect(() => {
+    document.title = "Our Story | Machine Learning & Software Studio | CubicTech";
+  }, []);
+
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Navbar />
-      <PageHeader 
-        title="About Us" 
-        subtitle="We are a team of passionate developers, designers, and strategists committed to digital excellence."
-      />
-      
-      <main className="flex-grow">
-        <section className="section-padding">
-          <div className="container-width">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <motion.div 
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="space-y-6"
+    <PageTransition>
+      <div className="min-h-screen flex flex-col bg-background relative">
+        <AdvancedCursor />
+        <Navbar />
+
+        <main className="flex-grow">
+          {/* ===== HERO ===== */}
+          <section className="pt-44 pb-24 relative overflow-hidden">
+            <div className="blob blob-purple w-[600px] h-[600px] -top-48 -right-32 opacity-[0.05]" />
+            <div className="blob blob-blue w-[400px] h-[400px] bottom-0 left-[-15%] opacity-[0.04]" />
+
+            <div className="container-w relative z-10">
+              <motion.div
+                initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="max-w-4xl"
               >
-                <h2 className="text-3xl md:text-4xl font-bold">Who We Are</h2>
-                <div className="h-1 w-20 bg-blue-600 rounded-full"></div>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  Cubic Technologies is a premier software development company based in Jaipur, India. Since our inception, we have been dedicated to delivering top-tier digital solutions to businesses worldwide—from ambitious startups to established enterprises.
-                </p>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  Our mission is to bridge the gap between complex technology and business goals. We believe in creating software that is not just functional, but also intuitive, beautiful, and impactful. Every line of code we write is crafted with purpose.
+                <h1 className="text-display-hero">
+                  We engineer products<br /><span className="text-gradient italic">that dictate the future.</span>
+                </h1>
+                <p className="text-xl md:text-2xl t-muted leading-relaxed font-normal mb-12 max-w-3xl">
+                  CubicTech is a digital systems company. We design, architect, and deploy enterprise-grade applications, AI workflows, and digital infrastructure for global businesses.
                 </p>
                 
-                <div className="grid grid-cols-2 gap-6 pt-4">
-                  <div className="p-6 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                    <h4 className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">50+</h4>
-                    <p className="text-sm font-medium text-muted-foreground">Projects Completed</p>
-                  </div>
-                  <div className="p-6 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                    <h4 className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">100%</h4>
-                    <p className="text-sm font-medium text-muted-foreground">Client Satisfaction</p>
-                  </div>
-                  <div className="p-6 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                    <h4 className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">5+</h4>
-                    <p className="text-sm font-medium text-muted-foreground">Years Experience</p>
-                  </div>
-                  <div className="p-6 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                    <h4 className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">24/7</h4>
-                    <p className="text-sm font-medium text-muted-foreground">Support Available</p>
-                  </div>
+                <div className="flex flex-wrap gap-10 mb-12">
+                  {[
+                    ["Engineered", "Not just designed"],
+                    ["20+ Projects", "Early-stage momentum"],
+                    ["Long-Term", "Strategic thinking"]
+                  ].map(([v, l]) => (
+                    <div key={l}>
+                      <span className="block text-2xl font-bold t-primary">{v}</span>
+                      <span className="block text-[10px] t-deco mt-2 uppercase tracking-widest">{l}</span>
+                    </div>
+                  ))}
                 </div>
               </motion.div>
-              
-              <motion.div 
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="relative"
-              >
-                <div className="absolute inset-0 bg-blue-500/20 transform rotate-6 rounded-3xl"></div>
-                <img 
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200" 
-                  alt="Our Team" 
-                  className="relative rounded-3xl shadow-2xl"
-                />
+            </div>
+          </section>
+
+          <div className="divider" />
+
+          {/* ===== WHY WE EXIST ===== */}
+          <section className="section-pad">
+            <div className="container-w">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}>
+                  <p className="label mb-5">Why CubicTech Exists</p>
+                  <h2 className="text-4xl md:text-5xl t-primary mb-8 leading-tight font-display">
+                    Replacing agency chaos<br /><span className="text-gradient italic">with engineering discipline.</span>
+                  </h2>
+                </motion.div>
+                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1} variants={fadeUp}>
+                  <p className="t-secondary text-lg leading-relaxed mb-8 font-medium">
+                    The traditional agency model is broken. It prioritizes surface-level aesthetics over backend architecture, leading to products that look good in a portfolio but fail under the stress of real-world scale and data complexity.
+                  </p>
+                  <p className="t-muted text-lg leading-relaxed font-light">
+                    We formed CubicTech to bridge the gap between premium design and rigorous computer science. We believe a digital product is a cohesive system where UX, APIs, Database schema, and AI models must be designed concurrently. We exist to build platforms that companies can actually run their operations on.
+                  </p>
+                </motion.div>
+              </div>
+            </div>
+          </section>
+
+          <div className="divider" />
+
+          {/* ===== OUR ENGINEERING PHILOSOPHY ===== */}
+          <section className="section-pad relative overflow-hidden">
+            <div className="blob blob-pink w-[400px] h-[400px] top-0 right-[-10%] opacity-[0.03]" />
+            <div className="container-w relative z-10">
+              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="max-w-2xl mb-16">
+                <p className="label mb-4">Our Philosophy</p>
+                <h2 className="text-4xl md:text-5xl t-primary leading-[1.1] font-display">
+                  How we think about<br /><span className="text-gradient italic">digital systems.</span>
+                </h2>
+              </motion.div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[
+                  {
+                    icon: Terminal,
+                    title: "Structure precedes scale",
+                    desc: "We refuse to build on shaky foundations. Proper database modeling, caching strategies, and semantic architecture happen before a single aesthetic decision is finalized.",
+                  },
+                  {
+                    icon: BrainCircuit,
+                    title: "AI as native pluralism",
+                    desc: "We don't bolt AI onto legacy systems as an afterthought. We design modern infrastructures where deterministic logic and probabilistic models coexist natively within data pipelines.",
+                  },
+                  {
+                    icon: Shield,
+                    title: "Intentional resistance",
+                    desc: "We actively push back against short-term fixes. If a feature request introduces unmanageable technical debt, we will propose a structurally sound alternative. We engineer for the next 5 years.",
+                  }
+                ].map((v, i) => (
+                  <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} variants={fadeUp}
+                    className="glass-card p-10 flex flex-col gap-6"
+                  >
+                    <v.icon className="w-8 h-8 t-secondary" />
+                    <h3 className="text-xl font-bold t-primary">{v.title}</h3>
+                    <p className="t-muted text-sm leading-relaxed">{v.desc}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <div className="divider" />
+
+          {/* ===== BUILT IN INDIA / GLOBAL SCALE ===== */}
+          <section className="section-pad">
+            <div className="container-w">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="order-2 lg:order-1">
+                  <div className="relative rounded-[2rem] overflow-hidden glass aspect-square border border-border/40 p-2">
+                    <img
+                      src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
+                      alt="CubicTech engineering team"
+                      className="w-full h-full object-cover rounded-3xl grayscale hover:grayscale-0 transition-all duration-1000 opacity-60 hover:opacity-100"
+                    />
+                  </div>
+                </motion.div>
+                
+                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1} variants={fadeUp} className="order-1 lg:order-2">
+                  <p className="label mb-6">Global Mindset</p>
+                  <h2 className="text-4xl md:text-5xl t-primary font-display mb-8 leading-tight">
+                    Built in India.<br /><span className="text-gradient italic">Designed for global scale.</span>
+                  </h2>
+                  <p className="t-muted text-lg font-light leading-relaxed mb-6">
+                    We are headquartered in Jaipur, India. But our engineering protocols, compliance standards, and architectural decisions are dictated by the demands of a global tier-1 market.
+                  </p>
+                  <p className="t-muted text-lg font-light leading-relaxed mb-8">
+                    We combine the intense engineering talent of the Indian subcontinent with the rigorous design standards and product-thinking of Silicon Valley. The result is a highly capable systems firm that executes complex architectural builds efficiently.
+                  </p>
+                  <ul className="space-y-4">
+                    {[
+                      "Global compliance standards (GDPR, SOC2 awareness)",
+                      "Asynchronous communication protocols for global clients",
+                      "Strict CI/CD and deployment standards",
+                      "Codebases written in immaculate English with full documentation",
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-center gap-3 text-sm t-muted">
+                        <CheckCircle2 className="w-4 h-4 t-deco shrink-0 group-hover:t-secondary transition-colors" /> {item}
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              </div>
+            </div>
+          </section>
+
+          <div className="divider" />
+
+          {/* ===== WHERE WE'RE HEADED ===== */}
+          <section className="section-pad" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 100%, rgba(180,130,100,0.04) 0%, transparent 70%)" }}>
+            <div className="container-w text-center">
+              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="max-w-3xl mx-auto">
+                <p className="label mb-6 mx-auto">The Future</p>
+                <h2 className="text-4xl md:text-5xl t-primary mb-8 font-display">
+                  Where we are headed.
+                </h2>
+                <p className="t-muted text-xl leading-relaxed font-normal mb-8">
+                  CubicTech is currently a high-end services company, engineering platforms for select clients. But our trajectory is product-led.
+                </p>
+                <p className="t-muted text-xl leading-relaxed font-normal">
+                  The infrastructure, AI modules, and component systems we develop for our enterprise clients today are laying the foundation for our own proprietary SaaS platforms tomorrow. When you hire CubicTech, you aren't hiring freelancers executing a task — you are partnering with a serious software company building its own technological future.
+                </p>
               </motion.div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="section-padding bg-gradient-to-br from-slate-800 via-slate-900 to-gray-900 text-white">
-          <div className="container-width">
-            <div className="max-w-3xl mx-auto text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Values</h2>
-              <p className="text-white/80 text-lg">
-                The core principles that guide every project we undertake and every relationship we build.
-              </p>
+          {/* ===== CTA ===== */}
+          <section className="py-44 relative">
+            <div className="blob blob-blue w-[700px] h-[700px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.05]" />
+            <div className="divider mb-20" />
+            <div className="container-w text-center relative z-10">
+              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}>
+                <p className="label mb-5 mx-auto">Initiate Engagement</p>
+                <h2 className="text-4xl md:text-6xl font-bold t-primary mb-6 leading-tight font-display">
+                  Ready to engineer<br /><span className="text-gradient italic">your system?</span>
+                </h2>
+                <p className="t-muted text-lg max-w-md mx-auto mb-10 font-light">
+                  We don't do hard sales. We start with technical discovery. Drop us a message, and we will evaluate your architectural requirements.
+                </p>
+                <Link href="/contact">
+                  <Button data-cursor="button" size="lg" className="h-14 px-10 btn-primary text-white border-0 rounded-2xl text-base gap-2 shadow-xl shadow-primary/20">
+                    Book a Strategy Call <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
+                <p className="text-xs t-deco tracking-widest uppercase mt-6">Typically respond within 4 hours</p>
+              </motion.div>
             </div>
+          </section>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {values.map((value, i) => (
-                <motion.div 
-                  key={i} 
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  viewport={{ once: true }}
-                  className="p-8 rounded-2xl bg-white/10 border border-white/20 hover:bg-white/15 transition-colors"
-                >
-                  <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center mb-6">
-                    <CheckCircle2 className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3">{value.title}</h3>
-                  <p className="text-white/80">{value.desc}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section-padding">
-          <div className="container-width">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Meet Our Team</h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                The talented individuals behind Cubic Technologies who bring your vision to life.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {team.map((member, i) => (
-                <motion.div 
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  viewport={{ once: true }}
-                  className="text-center group"
-                >
-                  <div className="relative mb-6 overflow-hidden rounded-2xl">
-                    <img 
-                      src={member.image} 
-                      alt={member.name}
-                      className="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-6 gap-4">
-                      <a href="#" className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover-lift">
-                        <Linkedin className="w-5 h-5 text-blue-600" />
-                      </a>
-                      <a href="#" className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover-lift">
-                        <Twitter className="w-5 h-5 text-blue-600" />
-                      </a>
-                    </div>
-                  </div>
-                  <h3 className="text-lg font-bold mb-1">{member.name}</h3>
-                  <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-3">{member.role}</p>
-                  <p className="text-sm text-muted-foreground">{member.bio}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <Footer />
-    </div>
+        </main>
+        <Footer />
+      </div>
+    </PageTransition>
   );
 }

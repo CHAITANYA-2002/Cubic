@@ -91,7 +91,14 @@ app.use((req, res, next) => {
   // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || "5000", 10);
   const isProd = process.env.NODE_ENV === "production";
-  httpServer.listen(port, () => {
-    log(`serving on port ${port} [${isProd ? "production" : "development"}]`);
-  });
+  
+  httpServer.listen(
+    {
+      port,
+      host: "0.0.0.0",
+    },
+    () => {
+      log(`serving on port ${port} [${isProd ? 'production' : 'development'}]`);
+    },
+  );
 })();
