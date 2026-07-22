@@ -1,6 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { api } from "@shared/routes";
-import { type InsertConsultationRequest } from "@shared/schema";
+import { api, type InsertConsultationRequest } from "@shared/routes";
 import { useToast } from "@/hooks/use-toast";
 
 export function useSubmitContact() {

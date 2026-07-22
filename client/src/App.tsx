@@ -4,8 +4,6 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ScrollToTop } from "@/components/ScrollToTop";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import { AdvancedCursor } from "@/components/AdvancedCursor";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import Services from "@/pages/Services";
@@ -17,42 +15,47 @@ import WebApplications from "@/pages/services/WebApplications";
 import Maintenance from "@/pages/services/Maintenance";
 import AISolutions from "@/pages/services/AISolutions";
 import DigitalMarketing from "@/pages/services/DigitalMarketing";
+import Admin from "@/pages/Admin";
+import Terms from "@/pages/Terms";
+import Privacy from "@/pages/Privacy";
+import Cookies from "@/pages/Cookies";
 
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/services" component={Services} />
-      <Route path="/services/web-development" component={WebDevelopment} />
-      <Route path="/services/ui-ux-design" component={UIUXDesign} />
-      <Route path="/services/web-applications" component={WebApplications} />
-      <Route path="/services/maintenance" component={Maintenance} />
-      <Route path="/services/ai-solutions" component={AISolutions} />
-      <Route path="/services/digital-marketing" component={DigitalMarketing} />
-      <Route path="/about" component={About} />
-      <Route path="/contact" component={Contact} />
-      <Route component={NotFound} />
-    </Switch>
+    <>
+      <ScrollToTop />
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/services" component={Services} />
+        <Route path="/services/web-development" component={WebDevelopment} />
+        <Route path="/services/ui-ux-design" component={UIUXDesign} />
+        <Route path="/services/web-applications" component={WebApplications} />
+        <Route path="/services/maintenance" component={Maintenance} />
+        <Route path="/services/ai-solutions" component={AISolutions} />
+        <Route path="/services/digital-marketing" component={DigitalMarketing} />
+        <Route path="/about" component={About} />
+        <Route path="/contact" component={Contact} />
+        <Route path="/admin" component={Admin} />
+        <Route path="/terms" component={Terms} />
+        <Route path="/privacy" component={Privacy} />
+        <Route path="/cookies" component={Cookies} />
+        <Route component={NotFound} />
+      </Switch>
+    </>
   );
 }
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
+    <div className="relative min-h-screen">
+      <div className="site-background" />
+      <QueryClientProvider client={queryClient}>
         <TooltipProvider>
-          {/* Ambient background glow that sits behind the whole app */}
-          <div className="ct-app-bg" aria-hidden />
-          {/* Custom magnetic cursor (auto-disables on mobile / reduced motion) */}
-          <AdvancedCursor />
           <Toaster />
-          <ScrollToTop />
-          <div className="relative z-10">
-            <Router />
-          </div>
+          <Router />
         </TooltipProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </div>
   );
 }
 
