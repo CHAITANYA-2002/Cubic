@@ -166,7 +166,7 @@ export default function WebApplications() {
             <div className="container-w relative z-10">
               <Link href="/services">
                 <Button variant="ghost" className="mb-10 gap-2 t-muted hover:t-primary hover:bg-secondary/20 rounded-xl text-sm border border-border/20">
-                  <ArrowLeft className="w-3.5 h-3.5" /> Back to Capabilities
+                  <ArrowLeft className="w-3.5 h-3.5" /> Back to Services
                 </Button>
               </Link>
               <motion.div
