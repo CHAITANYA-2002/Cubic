@@ -19,7 +19,7 @@ const services = [
     desc: "Pixel-perfect, high-performance websites using React, Next.js, and Tailwind CSS. We build sites that not only look stunning but load fast, rank high, and convert visitors.",
     link: "/services/web-development",
     tags: ["React", "Next.js", "TypeScript"],
-    img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
+    img: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&q=80",
   },
   {
     icon: Layout,
@@ -27,7 +27,7 @@ const services = [
     desc: "Research-backed, user-first design that transforms complex workflows into delightful experiences. From wireframes to polished design systems.",
     link: "/services/ui-ux-design",
     tags: ["Figma", "User Research", "Prototyping"],
-    img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80",
+    img: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?auto=format&fit=crop&w=1200&q=80",
   },
   {
     icon: Globe,
@@ -35,7 +35,7 @@ const services = [
     desc: "Complex, scalable platforms built for the real world — real-time features, enterprise security, robust APIs, and seamless integrations.",
     link: "/services/web-applications",
     tags: ["Node.js", "PostgreSQL", "REST API"],
-    img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
+    img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80",
   },
   {
     icon: BrainCircuit,
@@ -43,7 +43,7 @@ const services = [
     desc: "Intelligent automation that transforms how your business operates. Custom LLM integrations, chatbots, recommendation engines, and predictive analytics.",
     link: "/services/ai-solutions",
     tags: ["OpenAI", "LangChain", "ML"],
-    img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
+    img: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&q=80",
   },
   {
     icon: Wrench,
@@ -51,7 +51,7 @@ const services = [
     desc: "Proactive 24/7 monitoring, regular updates, security patches, and performance optimization so you can focus on your business, not your website.",
     link: "/services/maintenance",
     tags: ["24/7 Monitoring", "Security", "Uptime"],
-    img: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80",
+    img: "https://images.unsplash.com/photo-1516110833967-0b5716ca1387?auto=format&fit=crop&w=1200&q=80",
   },
   {
     icon: Megaphone,
@@ -59,7 +59,7 @@ const services = [
     desc: "Data-driven campaigns that reach the right people at the right time. SEO, paid social, content marketing, and email that actually converts.",
     link: "/services/digital-marketing",
     tags: ["SEO", "Google Ads", "Analytics"],
-    img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+    img: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=1200&q=80",
   },
 ];
 
@@ -149,58 +149,58 @@ export default function Services() {
               <p className="t-muted text-lg font-light">We're cross-disciplinary by design — so you never have to piece together multiple vendors.</p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {services.map((s, i) => (
-                <motion.div
-                  key={i}
-                  initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} variants={fadeUp}
-                >
-                  <Link href={s.link}>
-                    <article
-                      className="group relative h-full flex flex-col rounded-[1.75rem] overflow-hidden border border-white/[0.06] bg-white/[0.02] cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:border-[rgba(214,167,122,0.35)]"
-                      style={{ boxShadow: "0 18px 50px -26px rgba(0,0,0,0.9)" }}
-                    >
-                      {/* Image */}
-                      <div className="relative h-52">
-                        <div className="absolute inset-0 overflow-hidden">
-                          <img
-                            src={s.img}
-                            alt={s.title}
-                            loading="lazy"
-                            className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-[1200ms] ease-out"
-                          />
-                          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, var(--bg-primary) 2%, rgba(11,11,12,0.25) 55%, transparent 100%)" }} />
-                        </div>
-                        <span className="absolute top-4 right-5 text-xs font-mono t-deco tracking-[0.3em]">0{i + 1}</span>
-                        <div className="absolute -bottom-7 left-6 z-10 w-14 h-14 rounded-2xl glass flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-500">
-                          <s.icon className="w-6 h-6" style={{ color: "var(--accent-primary)" }} />
-                        </div>
-                      </div>
+            {/* Immersive bento grid — varied widths, full-bleed imagery */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5">
+              {services.map((s, i) => {
+                const spans = ["lg:col-span-7", "lg:col-span-5", "lg:col-span-5", "lg:col-span-7", "lg:col-span-6", "lg:col-span-6"];
+                return (
+                  <motion.div
+                    key={i}
+                    initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} variants={fadeUp}
+                    className={spans[i]}
+                  >
+                    <Link href={s.link}>
+                      <article
+                        className="group relative h-[380px] lg:h-[420px] rounded-[1.75rem] overflow-hidden border border-white/[0.06] cursor-pointer transition-all duration-500 hover:-translate-y-1.5 hover:border-[rgba(214,167,122,0.4)]"
+                        style={{ boxShadow: "0 22px 60px -30px rgba(0,0,0,0.95)" }}
+                      >
+                        {/* full-bleed image */}
+                        <img
+                          src={s.img}
+                          alt={s.title}
+                          loading="lazy"
+                          className="absolute inset-0 w-full h-full object-cover opacity-[0.72] group-hover:opacity-90 group-hover:scale-105 transition-all duration-[1400ms] ease-out"
+                        />
+                        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(11,11,12,0.97) 6%, rgba(11,11,12,0.55) 48%, rgba(11,11,12,0.12) 100%)" }} />
+                        <span className="absolute top-6 right-7 text-xs font-mono tracking-[0.35em]" style={{ color: "rgba(245,245,245,0.5)" }}>0{i + 1}</span>
 
-                      <div className="p-7 pt-11 flex flex-col flex-grow">
-                        <h3 className="text-xl font-bold t-primary mb-3 group-hover:text-gradient transition-all duration-500">{s.title}</h3>
-                        <p className="t-muted text-sm leading-relaxed flex-grow mb-5">{s.desc}</p>
-
-                        <div className="flex flex-wrap gap-1.5 mb-6">
-                          {s.tags.map((tag) => (
-                            <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border t-secondary font-medium" style={{ borderColor: "var(--divider-color)", background: "rgba(255,255,255,0.02)" }}>
-                              {tag}
-                            </span>
-                          ))}
+                        {/* content pinned to bottom */}
+                        <div className="relative z-10 h-full flex flex-col justify-end p-8">
+                          <div className="w-12 h-12 rounded-2xl glass flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500">
+                            <s.icon className="w-5 h-5" style={{ color: "var(--accent-primary)" }} />
+                          </div>
+                          <h3 className="text-2xl font-bold t-primary mb-2 font-display">{s.title}</h3>
+                          <p className="t-secondary text-sm leading-relaxed max-w-md mb-4">{s.desc}</p>
+                          <div className="flex flex-wrap gap-1.5 mb-5">
+                            {s.tags.map((tag) => (
+                              <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border font-medium" style={{ borderColor: "rgba(255,255,255,0.14)", background: "rgba(0,0,0,0.4)", color: "rgba(245,245,245,0.82)" }}>
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                          <div className="flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--accent-primary)" }}>
+                            <span>Explore service</span>
+                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-500" />
+                          </div>
                         </div>
 
-                        <div className="flex items-center gap-2 text-sm font-semibold mt-auto" style={{ color: "var(--accent-primary)" }}>
-                          <span>Explore service</span>
-                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-500" />
-                        </div>
-                      </div>
-
-                      {/* hover glow */}
-                      <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: "radial-gradient(600px circle at 50% -10%, rgba(214,167,122,0.10), transparent 55%)" }} />
-                    </article>
-                  </Link>
-                </motion.div>
-              ))}
+                        {/* hover ring */}
+                        <div className="pointer-events-none absolute inset-0 rounded-[1.75rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ boxShadow: "inset 0 0 0 1px rgba(214,167,122,0.35)" }} />
+                      </article>
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </section>

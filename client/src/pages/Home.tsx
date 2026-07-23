@@ -468,6 +468,14 @@ export default function Home() {
               <div>
                 <p className="label mb-6">Expertise</p>
                 <h2 className="text-4xl md:text-6xl font-display t-primary tracking-tighter">Full-spectrum<br />capabilities.</h2>
+                <p className="t-muted text-lg font-light leading-relaxed mt-8 max-w-md">
+                  Design, engineering, and AI under one roof — your product is built as one coherent system, never stitched together from scattered vendors.
+                </p>
+                <Link href="/contact">
+                  <Button data-cursor="button" className="btn-primary text-white border-0 rounded-2xl h-12 px-8 gap-2 mt-8">
+                    Start a Project <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-16">
