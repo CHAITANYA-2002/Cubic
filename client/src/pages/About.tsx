@@ -2,6 +2,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AdvancedCursor } from "@/components/AdvancedCursor";
 import { PageTransition } from "@/components/PageTransition";
+import { HeroBackdrop } from "@/components/HeroBackdrop";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
@@ -30,6 +31,7 @@ export default function About() {
         <main className="flex-grow">
           {/* ===== HERO ===== */}
           <section className="pt-44 pb-24 relative overflow-hidden">
+            <HeroBackdrop image="/images/team.png" position="center" intensity={0.5} />
             <div className="blob blob-purple w-[600px] h-[600px] -top-48 -right-32 opacity-[0.05]" />
             <div className="blob blob-blue w-[400px] h-[400px] bottom-0 left-[-15%] opacity-[0.04]" />
 

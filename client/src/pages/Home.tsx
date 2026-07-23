@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { AdvancedCursor } from "@/components/AdvancedCursor";
 import { Particles } from "@/components/Particles";
 import { PageTransition } from "@/components/PageTransition";
+import { HeroBackdrop } from "@/components/HeroBackdrop";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, ChevronRight } from "lucide-react";
@@ -261,6 +262,28 @@ export default function Home() {
                 </span>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* ===== CINEMATIC BANNER ===== */}
+        <section className="relative h-[72vh] min-h-[520px] overflow-hidden flex items-center">
+          <HeroBackdrop image="/images/web_applications.png" position="center" intensity={0.55} />
+          <div className="container-w relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              className="max-w-3xl"
+            >
+              <p className="label mb-5">Engineered end-to-end</p>
+              <h2 className="text-4xl md:text-6xl font-bold t-primary leading-[1.05] font-display">
+                From architecture to <span className="text-gradient italic">interface.</span>
+              </h2>
+              <p className="t-muted text-lg mt-6 max-w-xl font-light">
+                Design, engineering, and AI — built as one coherent system, not stitched-together parts.
+              </p>
+            </motion.div>
           </div>
         </section>
 

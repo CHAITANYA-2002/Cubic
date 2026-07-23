@@ -2,6 +2,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AdvancedCursor } from "@/components/AdvancedCursor";
 import { PageTransition } from "@/components/PageTransition";
+import { HeroBackdrop } from "@/components/HeroBackdrop";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import {
@@ -160,6 +161,7 @@ export default function WebApplications() {
 
           {/* ===== HERO ===== */}
           <section className="pt-40 pb-32 relative overflow-hidden">
+            <HeroBackdrop image="/images/web_applications.png" position="70% 35%" intensity={0.5} />
             <div className="blob blob-blue w-[600px] h-[600px] -top-48 -right-24 opacity-[0.04]" />
             <div className="container-w relative z-10">
               <Link href="/services">

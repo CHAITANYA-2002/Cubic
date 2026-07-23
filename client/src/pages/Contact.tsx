@@ -2,6 +2,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AdvancedCursor } from "@/components/AdvancedCursor";
 import { PageTransition } from "@/components/PageTransition";
+import { HeroBackdrop } from "@/components/HeroBackdrop";
 import { ContactForm } from "@/components/ContactForm";
 import { MapPin, Phone, Mail, Clock, MessageSquare, CheckCircle2, ChevronDown } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
@@ -85,6 +86,7 @@ export default function Contact() {
 
         {/* ===== HERO ===== */}
         <section className="pt-44 pb-24 relative overflow-hidden">
+          <HeroBackdrop image="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=80" position="center" intensity={0.4} />
           <div className="blob blob-blue w-[500px] h-[500px] -top-32 -right-32 opacity-[0.05]" />
           <div className="blob blob-purple w-[350px] h-[350px] bottom-0 -left-20 opacity-[0.04]" />
           <div className="container-w relative z-10">
