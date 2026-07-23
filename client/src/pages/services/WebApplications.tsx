@@ -161,7 +161,7 @@ export default function WebApplications() {
 
           {/* ===== HERO ===== */}
           <section className="pt-40 pb-32 relative overflow-hidden">
-            <HeroBackdrop image="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1920&q=80" position="center" intensity={0.55} />
+            <HeroBackdrop image="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1920&q=80" position="center" intensity={0.55} accent="#22D3EE" />
             <div className="blob blob-blue w-[600px] h-[600px] -top-48 -right-24 opacity-[0.04]" />
             <div className="container-w relative z-10">
               <Link href="/services">
@@ -175,7 +175,7 @@ export default function WebApplications() {
                 transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                 className="max-w-3xl"
               >
-                <p className="label mb-10 inline-flex items-center gap-2"><Globe className="w-4 h-4" /> Web Applications</p>
+                <p className="label mb-10 inline-flex items-center gap-2" style={{ color: "#22D3EE" }}><Globe className="w-4 h-4" /> Web Applications</p>
                 <h1 className="text-display-hero">
                   Application engineering<br />
                   <span className="text-gradient italic">for enterprise scale.</span>

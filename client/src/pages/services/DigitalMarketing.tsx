@@ -151,7 +151,7 @@ export default function DigitalMarketing() {
 
           {/* ===== HERO ===== */}
           <section className="pt-40 pb-32 relative overflow-hidden">
-            <HeroBackdrop image="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80" position="center" intensity={0.55} />
+            <HeroBackdrop image="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80" position="center" intensity={0.55} accent="#FB923C" />
             <div className="blob blob-blue w-[600px] h-[600px] -top-48 -right-24 opacity-[0.04]" />
             <div className="container-w relative z-10">
               <Link href="/services">
@@ -165,7 +165,7 @@ export default function DigitalMarketing() {
                 transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                 className="max-w-3xl"
               >
-                <p className="label mb-10 inline-flex items-center gap-2"><Megaphone className="w-4 h-4" /> Growth Engineering</p>
+                <p className="label mb-10 inline-flex items-center gap-2" style={{ color: "#FB923C" }}><Megaphone className="w-4 h-4" /> Growth Engineering</p>
                 <h1 className="text-display-hero">
                   Marketing engines built<br />
                   <span className="text-gradient italic">on data architecture.</span>

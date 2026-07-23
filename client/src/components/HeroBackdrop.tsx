@@ -5,6 +5,8 @@ interface HeroBackdropProps {
   position?: string;
   /** 0–1, how visible the raw image is under the overlays */
   intensity?: number;
+  /** hex accent colour for the ambient glow; defaults to brand rose-gold */
+  accent?: string;
 }
 
 /**
@@ -13,7 +15,7 @@ interface HeroBackdropProps {
  * gradients so any headline stays readable and the image melts into the
  * near-black theme, with a rose-gold ambient glow to match the brand.
  */
-export function HeroBackdrop({ image, position = "center", intensity = 0.45 }: HeroBackdropProps) {
+export function HeroBackdrop({ image, position = "center", intensity = 0.45, accent }: HeroBackdropProps) {
   return (
     <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
       <img
@@ -40,12 +42,13 @@ export function HeroBackdrop({ image, position = "center", intensity = 0.45 }: H
             "linear-gradient(to bottom, rgba(11,11,12,0.85) 0%, transparent 22%, transparent 55%, var(--bg-primary) 100%)",
         }}
       />
-      {/* brand ambient glow */}
+      {/* ambient glow — accent-tinted when provided, else brand rose-gold */}
       <div
         className="absolute inset-0"
         style={{
-          background:
-            "radial-gradient(ellipse 55% 50% at 72% 38%, rgba(214,167,122,0.14), transparent 60%)",
+          background: accent
+            ? `radial-gradient(ellipse 58% 55% at 74% 32%, ${accent}3a, transparent 62%)`
+            : "radial-gradient(ellipse 55% 50% at 72% 38%, rgba(214,167,122,0.14), transparent 60%)",
         }}
       />
       {/* faint grid texture */}
