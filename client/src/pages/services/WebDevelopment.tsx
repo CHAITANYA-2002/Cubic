@@ -171,8 +171,9 @@ export default function WebDevelopment() {
           <div className="divider" />
 
           {/* ===== 2. WHO THIS IS FOR ===== */}
-          <section className="section-pad">
-            <div className="container-w">
+          <section className="section-pad relative overflow-hidden">
+            <div className="aurora opacity-30" />
+            <div className="container-w relative z-10">
               <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-16 gap-6">
                 <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}>
                   <p className="label mb-4">Strategic Filter</p>
@@ -191,10 +192,17 @@ export default function WebDevelopment() {
                   { title: "Companies replacing legacy infrastructure", desc: "Teams whose current site is a bottleneck — slow, hard to update, and impossible to grow on. Time to rebuild properly." },
                 ].map((item, i) => (
                   <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} variants={fadeUp}
-                    className="glass-card p-8 flex flex-col gap-4 hover:-translate-y-1.5 transition-transform duration-500 group">
-                    <span className="text-[10px] t-deco tracking-widest uppercase font-bold opacity-60">0{i + 1}</span>
-                    <h3 className="font-semibold t-primary text-lg leading-snug">{item.title}</h3>
-                    <p className="text-sm t-muted leading-relaxed">{item.desc}</p>
+                    className="glass-card p-8 flex flex-col gap-4 hover:-translate-y-1.5 transition-transform duration-500 group relative overflow-hidden"
+                    onMouseMove={(e) => {
+                      const r = e.currentTarget.getBoundingClientRect();
+                      e.currentTarget.style.setProperty("--mx", `${((e.clientX - r.left) / r.width) * 100}%`);
+                      e.currentTarget.style.setProperty("--my", `${((e.clientY - r.top) / r.height) * 100}%`);
+                    }}
+                  >
+                    <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "radial-gradient(350px circle at var(--mx,50%) var(--my,50%), rgba(108,140,255,0.22), transparent 65%)" }} />
+                    <span className="text-[10px] tracking-widest uppercase font-bold font-mono" style={{ color: "#6C8CFF" }}>0{i + 1}</span>
+                    <h3 className="text-base font-semibold t-primary relative z-10">{item.title}</h3>
+                    <p className="text-xs t-muted leading-relaxed flex-1 relative z-10">{item.desc}</p>
                   </motion.div>
                 ))}
               </div>
@@ -484,20 +492,20 @@ export default function WebDevelopment() {
                   Benchmarks we engineer for —<br /><span className="t-secondary italic">not afterthoughts.</span>
                 </h2>
               </motion.div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 text-center">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-center">
                 {[
                   { label: "Lighthouse Score", value: 90, suffix: "+", note: "Speed, SEO strength, and technical credibility — all in one number." },
-                  { label: "Initial Load Time", value: 2.5, suffix: "s", prefix: "<", note: "First contentful paint under 2.5 seconds. Abandonment drops sharply above this." },
+                  { label: "Initial Load Time", value: 2.5, decimals: 1, suffix: "s", prefix: "<", note: "First contentful paint under 2.5 seconds. Abandonment drops sharply above this." },
                   { label: "SEO Audit Score", value: 100, suffix: "", note: "Correct schema, canonical tags, metadata, and semantic structure — always." },
                   { label: "Core Web Vitals", value: 0, suffix: " Passed", note: "Layout stability, input delay, and load performance validated across all pages." },
                 ].map((stat, i) => (
                   <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }}
                     custom={i} variants={fadeUp} className="flex flex-col items-center">
-                    <div className="text-6xl md:text-8xl font-bold font-display text-gradient mb-3 tracking-tight">
-                      {stat.value === 0 ? "✓" : <><CountUp end={stat.value} suffix={stat.suffix} prefix={stat.prefix || ""} /></>}
+                    <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-display text-gradient mb-3 tracking-tight whitespace-nowrap">
+                      {stat.value === 0 ? "✓" : <CountUp end={stat.value} suffix={stat.suffix} prefix={stat.prefix || ""} decimals={stat.decimals || 0} />}
                     </div>
                     <p className="text-xs uppercase tracking-[0.2em] t-deco font-bold mb-3">{stat.label}</p>
-                    <p className="text-xs t-muted leading-relaxed max-w-[160px]">{stat.note}</p>
+                    <p className="text-xs t-muted leading-relaxed max-w-[200px]">{stat.note}</p>
                   </motion.div>
                 ))}
               </div>

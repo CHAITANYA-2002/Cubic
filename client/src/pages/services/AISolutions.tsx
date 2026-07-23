@@ -487,20 +487,20 @@ export default function AISolutions() {
                   Benchmarks we engineer for —<br /><span className="t-secondary italic">not afterthoughts.</span>
                 </h2>
               </motion.div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 text-center">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-center">
                 {[
                   { label: "Model Accuracy", value: 98, suffix: "%", note: "Validated via custom evaluation sets and human-in-the-loop auditing." },
                   { label: "Request Latency", value: 450, suffix: "ms", prefix: "<", note: "Optimized inference pipelines for real-time application integration." },
                   { label: "Data Security", value: 100, suffix: "%", note: "SOC2-compliant architecture with zero-data-retention AI protocols." },
-                  { label: "System Uptime", value: 99.9, suffix: "%", note: "Hardened infrastructure designed for mission-critical AI workloads." },
+                  { label: "System Uptime", value: 99.9, decimals: 1, suffix: "%", note: "Hardened infrastructure designed for mission-critical AI workloads." },
                 ].map((stat, i) => (
                   <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }}
                     custom={i} variants={fadeUp} className="flex flex-col items-center">
-                    <div className="text-4xl md:text-5xl font-bold font-display text-gradient mb-3 tracking-tight">
-                      <CountUp end={stat.value} suffix={stat.suffix} prefix={stat.prefix || ""} />
+                    <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-display text-gradient mb-3 tracking-tight whitespace-nowrap">
+                      <CountUp end={stat.value} suffix={stat.suffix} prefix={stat.prefix || ""} decimals={stat.decimals || 0} />
                     </div>
                     <p className="text-xs uppercase tracking-[0.2em] t-deco font-bold mb-3">{stat.label}</p>
-                    <p className="text-xs t-muted leading-relaxed max-w-[160px]">{stat.note}</p>
+                    <p className="text-xs t-muted leading-relaxed max-w-[200px]">{stat.note}</p>
                   </motion.div>
                 ))}
               </div>

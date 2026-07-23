@@ -487,20 +487,20 @@ export default function WebApplications() {
                   Benchmarks we engineer for —<br /><span className="t-secondary italic">not afterthoughts.</span>
                 </h2>
               </motion.div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 text-center">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-center">
                 {[
-                  { label: "Uptime SLA", value: 99.9, suffix: "%", note: "Guaranteed availability for mission-critical enterprise applications." },
+                  { label: "Uptime SLA", value: 99.9, decimals: 1, suffix: "%", note: "Guaranteed availability for mission-critical enterprise applications." },
                   { label: "API Latency", value: 200, suffix: "ms", prefix: "<", note: "Optimised response times for core API endpoints under concurrent load." },
                   { label: "Security Score", value: 100, suffix: "%", note: "A+ rating on industry-standard security verification and audit tools." },
                   { label: "Stability Delta", value: 0, suffix: " Regressions", note: "Automated CI/CD and unit testing ensure zero-regression deployments." },
                 ].map((stat, i) => (
                   <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }}
                     custom={i} variants={fadeUp} className="flex flex-col items-center">
-                    <div className="text-6xl md:text-8xl font-bold font-display text-gradient mb-3 tracking-tight">
-                      {stat.value === 0 ? "✓" : <><CountUp end={stat.value} suffix={stat.suffix} prefix={stat.prefix || ""} /></>}
+                    <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-display text-gradient mb-3 tracking-tight whitespace-nowrap">
+                      {stat.value === 0 ? "✓" : <CountUp end={stat.value} suffix={stat.suffix} prefix={stat.prefix || ""} decimals={stat.decimals || 0} />}
                     </div>
                     <p className="text-xs uppercase tracking-[0.2em] t-deco font-bold mb-3">{stat.label}</p>
-                    <p className="text-xs t-muted leading-relaxed max-w-[160px]">{stat.note}</p>
+                    <p className="text-xs t-muted leading-relaxed max-w-[200px]">{stat.note}</p>
                   </motion.div>
                 ))}
               </div>

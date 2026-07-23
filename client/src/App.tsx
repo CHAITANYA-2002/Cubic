@@ -46,10 +46,13 @@ function Router() {
   );
 }
 
+import { AdvancedCursor } from "@/components/AdvancedCursor";
+
 function App() {
   return (
     <div className="relative min-h-screen">
       <div className="site-background" />
+      <AdvancedCursor />
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
