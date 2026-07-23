@@ -123,12 +123,12 @@ export default function Services() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="flex flex-wrap gap-6 mt-12"
+              className="flex flex-wrap items-end gap-x-12 gap-y-6 mt-14 pt-8 border-t border-white/[0.07] max-w-2xl"
             >
               {[["20+", "Projects Delivered"], ["100%", "Client Commitment"], ["Startup", "Phase & Agility"], ["24/7", "Support Available"]].map(([val, lbl]) => (
-                <div key={lbl} className="text-center">
-                  <span className="block text-2xl font-bold text-gradient">{val}</span>
-                  <span className="block text-xs t-muted mt-1 uppercase tracking-wider">{lbl}</span>
+                <div key={lbl} className="flex flex-col">
+                  <span className="text-3xl md:text-4xl font-bold text-gradient font-display leading-none">{val}</span>
+                  <span className="text-[11px] t-muted mt-2 uppercase tracking-[0.18em]">{lbl}</span>
                 </div>
               ))}
             </motion.div>
@@ -138,11 +138,11 @@ export default function Services() {
         <div className="divider" />
 
         {/* ===== SERVICES GRID ===== */}
-        <section className="section-pad">
+        <section className="pt-20 pb-28 relative">
           <div className="container-w">
             <motion.div
               initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}
-              className="text-center max-w-2xl mx-auto mb-20"
+              className="text-center max-w-2xl mx-auto mb-14"
             >
               <p className="label mb-4">What We Build</p>
               <h2 className="text-3xl md:text-5xl t-primary mb-4">Six disciplines,<br /><span className="text-gradient">one team.</span></h2>
@@ -156,36 +156,48 @@ export default function Services() {
                   initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} variants={fadeUp}
                 >
                   <Link href={s.link}>
-                    <div className="glass-card overflow-hidden cursor-pointer group h-full flex flex-col border-border/20 hover:border-border/60 transition-all duration-500">
+                    <article
+                      className="group relative h-full flex flex-col rounded-[1.75rem] overflow-hidden border border-white/[0.06] bg-white/[0.02] cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:border-[rgba(214,167,122,0.35)]"
+                      style={{ boxShadow: "0 18px 50px -26px rgba(0,0,0,0.9)" }}
+                    >
                       {/* Image */}
-                      <div className="relative overflow-hidden h-56 flex-shrink-0">
-                        <img
-                          src={s.img}
-                          alt={s.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-all duration-1000"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
-                        <div className="absolute top-4 left-4 w-10 h-10 rounded-xl glass flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                          <s.icon className="w-5 h-5 t-primary" />
+                      <div className="relative h-52">
+                        <div className="absolute inset-0 overflow-hidden">
+                          <img
+                            src={s.img}
+                            alt={s.title}
+                            loading="lazy"
+                            className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-[1200ms] ease-out"
+                          />
+                          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, var(--bg-primary) 2%, rgba(11,11,12,0.25) 55%, transparent 100%)" }} />
+                        </div>
+                        <span className="absolute top-4 right-5 text-xs font-mono t-deco tracking-[0.3em]">0{i + 1}</span>
+                        <div className="absolute -bottom-7 left-6 z-10 w-14 h-14 rounded-2xl glass flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-500">
+                          <s.icon className="w-6 h-6" style={{ color: "var(--accent-primary)" }} />
                         </div>
                       </div>
 
-                      <div className="p-8 flex flex-col flex-grow">
+                      <div className="p-7 pt-11 flex flex-col flex-grow">
                         <h3 className="text-xl font-bold t-primary mb-3 group-hover:text-gradient transition-all duration-500">{s.title}</h3>
-                        <p className="t-muted text-base leading-relaxed flex-grow mb-6">{s.desc}</p>
+                        <p className="t-muted text-sm leading-relaxed flex-grow mb-5">{s.desc}</p>
 
-                        <div className="flex items-center justify-between">
-                          <div className="flex flex-wrap gap-1">
-                            {s.tags.map((tag) => (
-                              <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full border t-muted font-medium bg-primary/[0.03]" style={{ borderColor: "var(--divider-color)" }}>
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                          <ArrowRight className="w-4 h-4 t-ghost group-hover:t-muted transition-colors duration-400 shrink-0" />
+                        <div className="flex flex-wrap gap-1.5 mb-6">
+                          {s.tags.map((tag) => (
+                            <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border t-secondary font-medium" style={{ borderColor: "var(--divider-color)", background: "rgba(255,255,255,0.02)" }}>
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+
+                        <div className="flex items-center gap-2 text-sm font-semibold mt-auto" style={{ color: "var(--accent-primary)" }}>
+                          <span>Explore service</span>
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-500" />
                         </div>
                       </div>
-                    </div>
+
+                      {/* hover glow */}
+                      <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: "radial-gradient(600px circle at 50% -10%, rgba(214,167,122,0.10), transparent 55%)" }} />
+                    </article>
                   </Link>
                 </motion.div>
               ))}
