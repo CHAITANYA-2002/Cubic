@@ -208,35 +208,35 @@ export default function Services() {
         <div className="divider" />
 
         {/* ===== OUR PROCESS ===== */}
-        <section className="section-pad relative overflow-hidden">
+        <section className="py-24 relative overflow-hidden">
           <div className="blob blob-purple w-[500px] h-[500px] top-0 right-[-15%] opacity-[0.04]" />
           <div className="container-w relative z-10">
             <motion.div
               initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}
-              className="max-w-2xl mb-20"
+              className="text-center max-w-2xl mx-auto mb-14"
             >
               <p className="label mb-4">How We Work</p>
-              <h2 className="text-3xl md:text-5xl t-primary mb-4">A process built for<br /><span className="text-gradient">transparency.</span></h2>
+              <h2 className="text-3xl md:text-5xl t-primary mb-4">A process built for <span className="text-gradient">transparency.</span></h2>
               <p className="t-muted text-lg font-light">No black boxes. You'll know exactly where your project is at every stage.</p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {/* connecting timeline line */}
+              <div className="hidden lg:block absolute top-9 left-[12%] right-[12%] h-px" style={{ background: "linear-gradient(90deg, transparent, var(--divider-color), var(--divider-color), transparent)" }} />
               {process.map((p, i) => (
                 <motion.div
                   key={i}
                   initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} variants={fadeUp}
-                  className="glass-card p-8 flex gap-6"
+                  className="glass-card p-7 flex flex-col relative"
                 >
-                  <div>
-                    <span className="text-4xl font-bold t-ghost font-mono" style={{ color: "var(--t-ghost)" }}>{p.step}</span>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-3">
-                      <p.icon className="w-4 h-4 t-secondary" />
-                      <h3 className="text-base font-semibold t-primary">{p.title}</h3>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-12 h-12 rounded-2xl glass flex items-center justify-center">
+                      <p.icon className="w-5 h-5" style={{ color: "var(--accent-primary)" }} />
                     </div>
-                    <p className="t-muted text-sm leading-relaxed">{p.desc}</p>
+                    <span className="text-3xl font-bold font-mono" style={{ color: "var(--t-ghost)" }}>{p.step}</span>
                   </div>
+                  <h3 className="text-base font-bold t-primary mb-2">{p.title}</h3>
+                  <p className="t-muted text-sm leading-relaxed">{p.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -246,49 +246,51 @@ export default function Services() {
         <div className="divider" />
 
         {/* ===== WHY US ===== */}
-        <section className="section-pad">
-          <div className="container-w">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}>
+        <section className="py-24 relative overflow-hidden">
+          <div className="blob blob-blue w-[500px] h-[500px] bottom-0 left-[-15%] opacity-[0.04]" />
+          <div className="container-w relative z-10">
+            <motion.div
+              initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}
+              className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-14"
+            >
+              <div className="max-w-xl">
                 <p className="label mb-4">Why CubicTech</p>
-                <h2 className="text-3xl md:text-5xl t-primary mb-6 leading-[1.1]">
-                  We treat your<br />business like <span className="text-gradient">our own.</span>
+                <h2 className="text-3xl md:text-5xl t-primary leading-[1.1] mb-5">
+                  We treat your business like <span className="text-gradient">our own.</span>
                 </h2>
-                <p className="t-muted text-lg leading-relaxed font-light mb-8">
+                <p className="t-muted text-lg leading-relaxed font-light">
                   Lots of agencies promise quality. We deliver it consistently — because we care about long-term relationships, not one-off transactions.
                 </p>
-                <Link href="/contact">
-                  <Button data-cursor="button" className="btn-primary text-white border-0 rounded-2xl h-12 px-8 gap-2">
-                    Start a Project <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </Link>
-              </motion.div>
-
-              <div className="grid grid-cols-1 gap-6">
-                {whyUs.map((w, i) => (
-                  <motion.div
-                    key={i}
-                    initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} variants={fadeUp}
-                    className="flex items-start gap-6 p-7 rounded-3xl hover:bg-secondary/10 border border-transparent hover:border-border/20 transition-all duration-500 group"
-                  >
-                    <div className="w-12 h-12 rounded-2xl glass flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-500">
-                      <w.icon className="w-5 h-5 t-secondary" />
-                    </div>
-                    <div>
-                      <h3 className="text-base font-bold t-primary mb-2">{w.title}</h3>
-                      <p className="t-muted text-base leading-relaxed">{w.desc}</p>
-                    </div>
-                  </motion.div>
-                ))}
               </div>
+              <Link href="/contact">
+                <Button data-cursor="button" className="btn-primary text-white border-0 rounded-2xl h-12 px-8 gap-2 shrink-0">
+                  Start a Project <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
+            </motion.div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {whyUs.map((w, i) => (
+                <motion.div
+                  key={i}
+                  initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} variants={fadeUp}
+                  className="glass-card p-7 flex flex-col gap-4 group"
+                >
+                  <div className="w-12 h-12 rounded-2xl glass flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                    <w.icon className="w-5 h-5" style={{ color: "var(--accent-primary)" }} />
+                  </div>
+                  <h3 className="text-base font-bold t-primary">{w.title}</h3>
+                  <p className="t-muted text-sm leading-relaxed">{w.desc}</p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
 
         {/* ===== CTA ===== */}
-        <section className="section-pad-lg relative overflow-hidden">
+        <section className="py-28 relative overflow-hidden">
           <div className="blob blob-blue w-[600px] h-[400px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.04]" />
-          <div className="divider mb-20" />
+          <div className="divider mb-16" />
           <div className="container-w text-center relative z-10">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}>
               <p className="label mb-5">Ready to Start?</p>
