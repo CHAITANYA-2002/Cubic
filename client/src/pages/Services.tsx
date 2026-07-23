@@ -138,14 +138,15 @@ export default function Services() {
         <div className="divider" />
 
         {/* ===== SERVICES GRID ===== */}
-        <section className="pt-20 pb-28 relative">
-          <div className="container-w">
+        <section className="pt-20 pb-28 relative overflow-hidden">
+          <div className="aurora" />
+          <div className="container-w relative z-10">
             <motion.div
               initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}
               className="text-center max-w-2xl mx-auto mb-14"
             >
               <p className="label mb-4">What We Build</p>
-              <h2 className="text-3xl md:text-5xl t-primary mb-4">Six disciplines,<br /><span className="text-gradient">one team.</span></h2>
+              <h2 className="text-3xl md:text-5xl t-primary mb-4">Six disciplines,<br /><span className="text-gradient-flow">one team.</span></h2>
               <p className="t-muted text-lg font-light">We're cross-disciplinary by design — so you never have to piece together multiple vendors.</p>
             </motion.div>
 
@@ -153,6 +154,8 @@ export default function Services() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5">
               {services.map((s, i) => {
                 const spans = ["lg:col-span-7", "lg:col-span-5", "lg:col-span-5", "lg:col-span-7", "lg:col-span-6", "lg:col-span-6"];
+                const accents = ["#6C8CFF", "#E879C7", "#22D3EE", "#A78BFA", "#34D399", "#FB923C"];
+                const accent = accents[i];
                 return (
                   <motion.div
                     key={i}
@@ -161,7 +164,12 @@ export default function Services() {
                   >
                     <Link href={s.link}>
                       <article
-                        className="group relative h-[380px] lg:h-[420px] rounded-[1.75rem] overflow-hidden border border-white/[0.06] cursor-pointer transition-all duration-500 hover:-translate-y-1.5 hover:border-[rgba(214,167,122,0.4)]"
+                        onMouseMove={(e) => {
+                          const r = e.currentTarget.getBoundingClientRect();
+                          e.currentTarget.style.setProperty("--mx", `${((e.clientX - r.left) / r.width) * 100}%`);
+                          e.currentTarget.style.setProperty("--my", `${((e.clientY - r.top) / r.height) * 100}%`);
+                        }}
+                        className="group relative h-[380px] lg:h-[420px] rounded-[1.75rem] overflow-hidden border border-white/[0.06] cursor-pointer transition-all duration-500 hover:-translate-y-2"
                         style={{ boxShadow: "0 22px 60px -30px rgba(0,0,0,0.95)" }}
                       >
                         {/* full-bleed image */}
@@ -169,33 +177,42 @@ export default function Services() {
                           src={s.img}
                           alt={s.title}
                           loading="lazy"
-                          className="absolute inset-0 w-full h-full object-cover opacity-[0.72] group-hover:opacity-90 group-hover:scale-105 transition-all duration-[1400ms] ease-out"
+                          className="absolute inset-0 w-full h-full object-cover opacity-[0.7] group-hover:opacity-95 group-hover:scale-105 transition-all duration-[1400ms] ease-out"
                         />
-                        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(11,11,12,0.97) 6%, rgba(11,11,12,0.55) 48%, rgba(11,11,12,0.12) 100%)" }} />
-                        <span className="absolute top-6 right-7 text-xs font-mono tracking-[0.35em]" style={{ color: "rgba(245,245,245,0.5)" }}>0{i + 1}</span>
+                        {/* base dark gradient */}
+                        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(11,11,12,0.97) 6%, rgba(11,11,12,0.5) 48%, rgba(11,11,12,0.1) 100%)" }} />
+                        {/* accent colour wash rising from the bottom */}
+                        <div className="absolute inset-0 opacity-70 group-hover:opacity-100 transition-opacity duration-700" style={{ background: `linear-gradient(to top, ${accent}33 0%, transparent 46%)` }} />
+                        {/* cursor spotlight */}
+                        <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: `radial-gradient(360px circle at var(--mx,50%) var(--my,50%), ${accent}38, transparent 62%)` }} />
+
+                        <span className="absolute top-6 right-7 text-xs font-mono tracking-[0.35em]" style={{ color: accent, opacity: 0.75 }}>0{i + 1}</span>
 
                         {/* content pinned to bottom */}
                         <div className="relative z-10 h-full flex flex-col justify-end p-8">
-                          <div className="w-12 h-12 rounded-2xl glass flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500">
-                            <s.icon className="w-5 h-5" style={{ color: "var(--accent-primary)" }} />
+                          <div
+                            className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 border transition-all duration-500 group-hover:scale-110"
+                            style={{ background: `${accent}1f`, borderColor: `${accent}59`, boxShadow: `0 0 26px -6px ${accent}70` }}
+                          >
+                            <s.icon className="w-5 h-5" style={{ color: accent }} />
                           </div>
                           <h3 className="text-2xl font-bold t-primary mb-2 font-display">{s.title}</h3>
                           <p className="t-secondary text-sm leading-relaxed max-w-md mb-4">{s.desc}</p>
                           <div className="flex flex-wrap gap-1.5 mb-5">
                             {s.tags.map((tag) => (
-                              <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border font-medium" style={{ borderColor: "rgba(255,255,255,0.14)", background: "rgba(0,0,0,0.4)", color: "rgba(245,245,245,0.82)" }}>
+                              <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border font-medium" style={{ borderColor: `${accent}44`, background: "rgba(0,0,0,0.4)", color: "rgba(245,245,245,0.85)" }}>
                                 {tag}
                               </span>
                             ))}
                           </div>
-                          <div className="flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--accent-primary)" }}>
+                          <div className="flex items-center gap-2 text-sm font-bold group-hover:gap-3 transition-all duration-500" style={{ color: accent }}>
                             <span>Explore service</span>
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-500" />
+                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-500" />
                           </div>
                         </div>
 
-                        {/* hover ring */}
-                        <div className="pointer-events-none absolute inset-0 rounded-[1.75rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ boxShadow: "inset 0 0 0 1px rgba(214,167,122,0.35)" }} />
+                        {/* accent hover ring + glow */}
+                        <div className="pointer-events-none absolute inset-0 rounded-[1.75rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ boxShadow: `inset 0 0 0 1px ${accent}77, 0 0 44px -8px ${accent}55` }} />
                       </article>
                     </Link>
                   </motion.div>
