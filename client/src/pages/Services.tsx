@@ -19,7 +19,7 @@ const services = [
     desc: "Pixel-perfect, high-performance websites using React, Next.js, and Tailwind CSS. We build sites that not only look stunning but load fast, rank high, and convert visitors.",
     link: "/services/web-development",
     tags: ["React", "Next.js", "TypeScript"],
-    img: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?auto=format&fit=crop&w=1200&q=80",
     accent: "#6C8CFF",
   },
   {
