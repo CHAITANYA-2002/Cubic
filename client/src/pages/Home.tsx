@@ -267,7 +267,7 @@ export default function Home() {
 
         {/* ===== CINEMATIC BANNER ===== */}
         <section className="relative h-[72vh] min-h-[520px] overflow-hidden flex items-center">
-          <HeroBackdrop image="/images/web_applications.png" position="center" intensity={0.55} />
+          <HeroBackdrop image="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80" position="center" intensity={0.6} />
           <div className="container-w relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}

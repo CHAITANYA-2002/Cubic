@@ -162,7 +162,7 @@ export default function UIUXDesign() {
 
           {/* ===== HERO ===== */}
           <section className="pt-40 pb-32 relative overflow-hidden">
-            <HeroBackdrop image="/images/ui_ux_design.png" position="70% 35%" intensity={0.5} />
+            <HeroBackdrop image="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1920&q=80" position="center" intensity={0.55} />
             <div className="blob blob-blue w-[600px] h-[600px] -top-48 -right-24 opacity-[0.04]" />
             <div className="container-w relative z-10">
               <Link href="/services">

@@ -98,7 +98,7 @@ export default function Services() {
 
         {/* ===== HERO ===== */}
         <section className="pt-44 pb-24 relative overflow-hidden">
-          <HeroBackdrop image="/images/web_applications.png" position="center" intensity={0.45} />
+          <HeroBackdrop image="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80" position="center" intensity={0.55} />
           <div className="blob blob-blue w-[600px] h-[600px] -top-48 right-[-15%] opacity-[0.05]" />
           <div className="blob blob-purple w-[400px] h-[400px] bottom-[-10%] left-[-10%] opacity-[0.04]" />
           <div className="container-w relative z-10">

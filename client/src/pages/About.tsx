@@ -31,7 +31,7 @@ export default function About() {
         <main className="flex-grow">
           {/* ===== HERO ===== */}
           <section className="pt-44 pb-24 relative overflow-hidden">
-            <HeroBackdrop image="/images/team.png" position="center" intensity={0.5} />
+            <HeroBackdrop image="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80" position="center" intensity={0.55} />
             <div className="blob blob-purple w-[600px] h-[600px] -top-48 -right-32 opacity-[0.05]" />
             <div className="blob blob-blue w-[400px] h-[400px] bottom-0 left-[-15%] opacity-[0.04]" />
 
