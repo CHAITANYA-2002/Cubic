@@ -192,6 +192,19 @@ export default function About() {
                 <p className="t-muted text-xl leading-relaxed font-normal">
                   The infrastructure, AI modules, and component systems we develop for our enterprise clients today are laying the foundation for our own proprietary SaaS platforms tomorrow. When you hire CubicTech, you aren't hiring freelancers executing a task — you are partnering with a serious software company building its own technological future.
                 </p>
+
+                <div className="grid sm:grid-cols-3 gap-5 mt-16 text-left">
+                  {[
+                    ["Proprietary SaaS", "Turning the infrastructure we build for clients into our own products."],
+                    ["AI Infrastructure", "Reusable, private AI modules that compound across every build."],
+                    ["Component Systems", "An internal library that makes each new project faster than the last."],
+                  ].map(([t, d]) => (
+                    <div key={t} className="glass-card p-6">
+                      <h3 className="text-base font-bold t-primary mb-2">{t}</h3>
+                      <p className="t-muted text-sm leading-relaxed">{d}</p>
+                    </div>
+                  ))}
+                </div>
               </motion.div>
             </div>
           </section>
