@@ -57,9 +57,10 @@ export function AdvancedCursor() {
   const modeRef = useRef<CursorMode>("default");
 
   useEffect(() => {
-    const isMobile = window.innerWidth < 1024;
+    if (!isPrimary) return;
+    const isTouch = window.matchMedia("(pointer: coarse)").matches;
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (isMobile || prefersReduced) return;
+    if (isTouch || prefersReduced) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -113,6 +114,7 @@ export function AdvancedCursor() {
       }
 
       const target = e.target as HTMLElement;
+      if (!target || typeof target.closest !== "function") return;
       const closest = target.closest("[data-cursor]") as HTMLElement | null;
 
       let newMode: CursorMode = "default";
@@ -254,7 +256,7 @@ export function AdvancedCursor() {
       document.removeEventListener("mouseleave", onMouseLeave);
       document.removeEventListener("mouseenter", onMouseEnter);
     };
-  }, []);
+  }, [isPrimary]);
 
   if (!isPrimary) return null;
 
