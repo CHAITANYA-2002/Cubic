@@ -133,7 +133,7 @@ export default function Contact() {
 
                 {[
                   { icon: Phone, title: "Phone", lines: ["+91 79769 89699", "Mon–Sat, 10am–7pm IST"] },
-                  { icon: Mail, title: "Email", lines: ["info@cubictech.in", "support@cubictech.in"] },
+                  { icon: Mail, title: "Email", lines: ["chaitanyakhurana10@gmail.com", "chaitanyakhurana10@gmail.com"] },
                   { icon: Clock, title: "Response", lines: ["2–4 hours (Business days)", "24 hours max, always"] },
                 ].map((item, i) => (
                   <motion.div
@@ -164,7 +164,7 @@ export default function Contact() {
                   </a>
 
                   <a
-                    href="mailto:info@cubictech.in"
+                    href="mailto:chaitanyakhurana10@gmail.com"
                     data-cursor="button"
                     className="ml-3 inline-flex items-center gap-2.5 px-5 py-3 rounded-xl transition-all duration-500 btn-ghost"
                   >
