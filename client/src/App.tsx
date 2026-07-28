@@ -15,6 +15,8 @@ import WebApplications from "@/pages/services/WebApplications";
 import Maintenance from "@/pages/services/Maintenance";
 import AISolutions from "@/pages/services/AISolutions";
 import DigitalMarketing from "@/pages/services/DigitalMarketing";
+import CaseStudies from "@/pages/CaseStudies";
+import Insights from "@/pages/Insights";
 import Admin from "@/pages/Admin";
 import Terms from "@/pages/Terms";
 import Privacy from "@/pages/Privacy";
@@ -33,6 +35,8 @@ function Router() {
         <Route path="/services/maintenance" component={Maintenance} />
         <Route path="/services/ai-solutions" component={AISolutions} />
         <Route path="/services/digital-marketing" component={DigitalMarketing} />
+        <Route path="/work" component={CaseStudies} />
+        <Route path="/insights" component={Insights} />
         <Route path="/about" component={About} />
         <Route path="/contact" component={Contact} />
         <Route path="/admin" component={Admin} />
