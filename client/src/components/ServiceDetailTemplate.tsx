@@ -46,11 +46,12 @@ export function ServiceDetailTemplate(props: ServiceDetailProps) {
 
         <main className="flex-grow">
           <section className="pt-40 pb-28 relative overflow-hidden">
+            <div className="aurora opacity-50" />
             <div className="blob blob-blue w-[500px] h-[500px] -top-48 right-[-10%] opacity-[0.06]" />
             <div className="container-w relative z-10">
               <Link href="/services">
                 <Button variant="ghost" className="mb-10 gap-2 t-muted hover:t-primary hover:bg-secondary/20 rounded-xl text-sm border border-border/20">
-                  <ArrowLeft className="w-3.5 h-3.5" /> Back to Capabilities
+                  <ArrowLeft className="w-3.5 h-3.5" /> Back to Services
                 </Button>
               </Link>
               <motion.div
@@ -73,18 +74,36 @@ export function ServiceDetailTemplate(props: ServiceDetailProps) {
 
           <div className="divider" />
 
-          <section className="section-pad">
-            <div className="container-w">
+          <section className="section-pad relative overflow-hidden">
+            <div className="aurora opacity-30" />
+            <div className="container-w relative z-10">
               <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}>
                 <p className="label mb-4">Capabilities</p>
                 <h2 className="text-3xl md:text-4xl t-primary mb-14 mt-2">{featuresTitle}</h2>
               </motion.div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {features.map((f, i) => (
-                  <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} variants={fadeUp} className="glass-card p-7 group">
-                    <f.icon className="w-7 h-7 t-ghost mb-5 group-hover:t-primary transition-colors duration-500" />
-                    <h3 className="font-semibold t-primary mb-2">{f.title}</h3>
-                    <p className="text-sm t-muted leading-relaxed">{f.desc}</p>
+                  <motion.div
+                    key={i}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    custom={i}
+                    variants={fadeUp}
+                    className="glass-card p-7 group relative overflow-hidden transition-all duration-500 hover:-translate-y-1.5"
+                    onMouseMove={(e) => {
+                      const r = e.currentTarget.getBoundingClientRect();
+                      e.currentTarget.style.setProperty("--mx", `${((e.clientX - r.left) / r.width) * 100}%`);
+                      e.currentTarget.style.setProperty("--my", `${((e.clientY - r.top) / r.height) * 100}%`);
+                    }}
+                  >
+                    <div
+                      className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{ background: "radial-gradient(300px circle at var(--mx,50%) var(--my,50%), rgba(214,167,122,0.15), transparent 65%)" }}
+                    />
+                    <f.icon className="w-7 h-7 t-ghost mb-5 group-hover:t-primary transition-colors duration-500 relative z-10" />
+                    <h3 className="font-semibold t-primary mb-2 relative z-10">{f.title}</h3>
+                    <p className="text-sm t-muted leading-relaxed relative z-10">{f.desc}</p>
                   </motion.div>
                 ))}
               </div>

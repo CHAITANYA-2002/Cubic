@@ -4,6 +4,8 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { FloatingCTA } from "@/components/FloatingCTA";
+import { CookieConsent } from "@/components/CookieConsent";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import Services from "@/pages/Services";
@@ -49,14 +51,19 @@ function Router() {
   );
 }
 
+import { AdvancedCursor } from "@/components/AdvancedCursor";
+
 function App() {
   return (
     <div className="relative min-h-screen">
       <div className="site-background" />
+      <AdvancedCursor />
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
           <Router />
+          <FloatingCTA />
+          <CookieConsent />
         </TooltipProvider>
       </QueryClientProvider>
     </div>

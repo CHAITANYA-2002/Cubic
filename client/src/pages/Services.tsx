@@ -2,14 +2,15 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AdvancedCursor } from "@/components/AdvancedCursor";
 import { PageTransition } from "@/components/PageTransition";
+import { HeroBackdrop } from "@/components/HeroBackdrop";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import {
   Monitor, Layout, Globe, BrainCircuit, Wrench, Megaphone,
   ArrowRight, Zap, Shield, Code2, Users, BarChart3, CheckCircle2
 } from "lucide-react";
-import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 const services = [
   {
@@ -18,7 +19,8 @@ const services = [
     desc: "Pixel-perfect, high-performance websites using React, Next.js, and Tailwind CSS. We build sites that not only look stunning but load fast, rank high, and convert visitors.",
     link: "/services/web-development",
     tags: ["React", "Next.js", "TypeScript"],
-    img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
+    img: "https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?auto=format&fit=crop&w=1200&q=80",
+    accent: "#6C8CFF",
   },
   {
     icon: Layout,
@@ -26,7 +28,8 @@ const services = [
     desc: "Research-backed, user-first design that transforms complex workflows into delightful experiences. From wireframes to polished design systems.",
     link: "/services/ui-ux-design",
     tags: ["Figma", "User Research", "Prototyping"],
-    img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80",
+    img: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?auto=format&fit=crop&w=1200&q=80",
+    accent: "#E879C7",
   },
   {
     icon: Globe,
@@ -34,7 +37,8 @@ const services = [
     desc: "Complex, scalable platforms built for the real world — real-time features, enterprise security, robust APIs, and seamless integrations.",
     link: "/services/web-applications",
     tags: ["Node.js", "PostgreSQL", "REST API"],
-    img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
+    img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80",
+    accent: "#22D3EE",
   },
   {
     icon: BrainCircuit,
@@ -42,7 +46,8 @@ const services = [
     desc: "Intelligent automation that transforms how your business operates. Custom LLM integrations, chatbots, recommendation engines, and predictive analytics.",
     link: "/services/ai-solutions",
     tags: ["OpenAI", "LangChain", "ML"],
-    img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
+    img: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&q=80",
+    accent: "#A78BFA",
   },
   {
     icon: Wrench,
@@ -50,7 +55,8 @@ const services = [
     desc: "Proactive 24/7 monitoring, regular updates, security patches, and performance optimization so you can focus on your business, not your website.",
     link: "/services/maintenance",
     tags: ["24/7 Monitoring", "Security", "Uptime"],
-    img: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80",
+    img: "https://images.unsplash.com/photo-1516110833967-0b5716ca1387?auto=format&fit=crop&w=1200&q=80",
+    accent: "#34D399",
   },
   {
     icon: Megaphone,
@@ -58,7 +64,8 @@ const services = [
     desc: "Data-driven campaigns that reach the right people at the right time. SEO, paid social, content marketing, and email that actually converts.",
     link: "/services/digital-marketing",
     tags: ["SEO", "Google Ads", "Analytics"],
-    img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+    img: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=1200&q=80",
+    accent: "#FB923C",
   },
 ];
 
@@ -84,6 +91,114 @@ const fadeUp = {
   }),
 };
 
+/* ===== SCROLL-DRIVEN SERVICE CARD ===== */
+function ScrollServiceCard({ service, index, span }: { service: typeof services[0]; index: number; span: string }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "center center"]
+  });
+
+  const scale = useTransform(scrollYProgress, [0, 1], [0.88, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6, 1], [0, 0.85, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [70, 0]);
+  const rotateX = useTransform(scrollYProgress, [0, 1], [14, 0]);
+  const filter = useTransform(scrollYProgress, [0, 1], ["blur(10px)", "blur(0px)"]);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1.25, 1]);
+
+  const accent = service.accent;
+
+  return (
+    <motion.div
+      ref={cardRef}
+      style={{
+        scale,
+        opacity,
+        y,
+        rotateX,
+        filter,
+        transformPerspective: 1000
+      }}
+      className={span}
+    >
+      <Link href={service.link}>
+        <article
+          onMouseMove={(e) => {
+            const r = e.currentTarget.getBoundingClientRect();
+            e.currentTarget.style.setProperty("--mx", `${((e.clientX - r.left) / r.width) * 100}%`);
+            e.currentTarget.style.setProperty("--my", `${((e.clientY - r.top) / r.height) * 100}%`);
+          }}
+          className="group relative h-[400px] lg:h-[450px] rounded-[2rem] overflow-hidden border border-white/[0.08] cursor-pointer transition-all duration-500 hover:-translate-y-2"
+          style={{ boxShadow: `0 30px 80px -30px ${accent}30, 0 0 0 1px ${accent}20` }}
+        >
+          {/* Full-bleed Image with Parallax Zoom */}
+          <motion.img
+            style={{ scale: imgScale }}
+            src={service.img}
+            alt={service.title}
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover opacity-[0.7] group-hover:opacity-95 transition-opacity duration-700 ease-out"
+          />
+
+          {/* Base Gradient Overlay */}
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(11,11,12,0.98) 6%, rgba(11,11,12,0.55) 48%, rgba(11,11,12,0.12) 100%)" }} />
+
+          {/* Glowing Accent Wash */}
+          <div className="absolute inset-0 opacity-70 group-hover:opacity-100 transition-opacity duration-700" style={{ background: `linear-gradient(to top, ${accent}38 0%, transparent 48%)` }} />
+
+          {/* Mouse Tracking Spotlight */}
+          <div
+            className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            style={{ background: `radial-gradient(400px circle at var(--mx,50%) var(--my,50%), ${accent}45, transparent 65%)` }}
+          />
+
+          {/* Card Number Index */}
+          <span className="absolute top-6 right-8 text-xs font-mono tracking-[0.35em] font-bold px-3.5 py-1 rounded-full border backdrop-blur-md z-10"
+                style={{ color: accent, borderColor: `${accent}44`, background: "rgba(0,0,0,0.5)" }}>
+            0{index + 1}
+          </span>
+
+          {/* Content Box Pinned to Bottom */}
+          <div className="relative z-10 h-full flex flex-col justify-end p-8 lg:p-10">
+            <div
+              className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 border transition-all duration-500 group-hover:scale-110 shadow-lg"
+              style={{ background: `${accent}25`, borderColor: `${accent}66`, boxShadow: `0 0 30px -4px ${accent}80` }}
+            >
+              <service.icon className="w-6 h-6" style={{ color: accent }} />
+            </div>
+
+            <h3 className="text-2xl lg:text-3xl font-bold t-primary mb-2 font-display tracking-tight">{service.title}</h3>
+            <p className="t-secondary text-sm leading-relaxed max-w-lg mb-5">{service.desc}</p>
+
+            <div className="flex flex-wrap gap-2 mb-6">
+              {service.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="text-[11px] px-3 py-1 rounded-full border font-medium backdrop-blur-md transition-colors"
+                  style={{ borderColor: `${accent}44`, background: "rgba(0,0,0,0.5)", color: "rgba(245,245,245,0.9)" }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-2 text-sm font-bold group-hover:gap-3 transition-all duration-500" style={{ color: accent }}>
+              <span>Explore service</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-500" />
+            </div>
+          </div>
+
+          {/* Interactive Accent Ring */}
+          <div
+            className="pointer-events-none absolute inset-0 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            style={{ boxShadow: `inset 0 0 0 1.5px ${accent}88, 0 0 50px -5px ${accent}66` }}
+          />
+        </article>
+      </Link>
+    </motion.div>
+  );
+}
+
 export default function Services() {
   useEffect(() => {
     document.title = "Our Capabilities | Machine Learning & Software Engineering | CubicTech";
@@ -97,10 +212,10 @@ export default function Services() {
 
         {/* ===== HERO ===== */}
         <section className="pt-44 pb-24 relative overflow-hidden">
+          <HeroBackdrop image="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80" position="center" intensity={0.55} />
           <div className="blob blob-blue w-[600px] h-[600px] -top-48 right-[-15%] opacity-[0.05]" />
           <div className="blob blob-purple w-[400px] h-[400px] bottom-[-10%] left-[-10%] opacity-[0.04]" />
           <div className="container-w relative z-10">
-            <div className="grid lg:grid-cols-[1.05fr_.95fr] gap-12 lg:gap-20 items-end">
             <motion.div
               initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -108,35 +223,26 @@ export default function Services() {
               className="max-w-3xl"
             >
               <p className="label mb-5">Our Services</p>
-              <h1 className="text-5xl md:text-7xl font-bold t-primary mb-8 leading-[0.9] tracking-tighter">
-                Built with intent.<br />
-                <span className="text-gradient italic">Made to endure.</span>
+              <h1 className="text-5xl md:text-8xl font-bold t-primary mb-8 leading-[0.85] tracking-tighter">
+                Everything your<br />
+                brand needs to<br />
+                <span className="text-gradient">win online.</span>
               </h1>
               <p className="text-xl md:text-2xl t-muted leading-relaxed font-light max-w-2xl">
-                End-to-end product work for businesses that care how they are perceived, how they operate, and what their next chapter demands.
+                End-to-end digital solutions — from strategy and design to development and continuous growth. We handle the tech so you can focus on your business.
               </p>
-              <Link href="/contact"><Button className="btn-primary text-white border-0 rounded-2xl h-13 px-7 gap-2 mt-9">Discuss your next build <ArrowRight className="w-4 h-4" /></Button></Link>
             </motion.div>
-            <motion.div initial={{ opacity: 0, y: 36, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: .18, duration: 1, ease: [0.16, 1, 0.3, 1] }} className="relative lg:mb-2">
-              <div className="absolute -inset-5 rounded-[2rem] bg-[radial-gradient(circle_at_65%_35%,rgba(214,167,122,.22),transparent_62%)] blur-2xl" />
-              <div className="relative overflow-hidden rounded-[1.75rem] border border-white/[0.1] shadow-2xl shadow-black/40 aspect-[4/3]">
-                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1400&q=85" alt="CubicTech team reviewing a digital product" className="w-full h-full object-cover opacity-80" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0c] via-transparent to-transparent" />
-                <div className="absolute bottom-0 inset-x-0 p-6 flex justify-between items-end"><div><p className="text-[10px] tracking-[.2em] uppercase t-deco">CubicTech / Systems studio</p><p className="t-primary font-display text-2xl mt-2">Strategy, craft, continuity.</p></div><span className="w-10 h-10 rounded-full glass flex items-center justify-center"><ArrowRight className="w-4 h-4 t-primary" /></span></div>
-              </div>
-            </motion.div>
-            </div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="flex flex-wrap gap-6 mt-12"
+              className="flex flex-wrap items-end gap-x-12 gap-y-6 mt-14 pt-8 border-t border-white/[0.07] max-w-2xl"
             >
               {[["20+", "Projects Delivered"], ["100%", "Client Commitment"], ["Startup", "Phase & Agility"], ["24/7", "Support Available"]].map(([val, lbl]) => (
-                <div key={lbl} className="text-center">
-                  <span className="block text-2xl font-bold text-gradient">{val}</span>
-                  <span className="block text-xs t-muted mt-1 uppercase tracking-wider">{lbl}</span>
+                <div key={lbl} className="flex flex-col">
+                  <span className="text-3xl md:text-4xl font-bold text-gradient font-display leading-none">{val}</span>
+                  <span className="text-[11px] t-muted mt-2 uppercase tracking-[0.18em]">{lbl}</span>
                 </div>
               ))}
             </motion.div>
@@ -145,58 +251,32 @@ export default function Services() {
 
         <div className="divider" />
 
-        {/* ===== SERVICES GRID ===== */}
-        <section className="section-pad">
-          <div className="container-w">
+        {/* ===== SCROLL REVEAL SERVICES BENTO (SINGLE UNIFIED SECTION) ===== */}
+        <section className="pt-20 pb-28 relative overflow-hidden">
+          <div className="aurora" />
+          <div className="container-w relative z-10">
             <motion.div
               initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}
-              className="text-center max-w-2xl mx-auto mb-20"
+              className="text-center max-w-2xl mx-auto mb-16"
             >
-              <p className="label mb-4">What We Build</p>
-              <h2 className="text-3xl md:text-5xl t-primary mb-4">Six disciplines,<br /><span className="text-gradient">one team.</span></h2>
-              <p className="t-muted text-lg font-light">We're cross-disciplinary by design — so you never have to piece together multiple vendors.</p>
+              <p className="label mb-4">Capabilities Unveiled</p>
+              <h2 className="text-3xl md:text-5xl t-primary mb-4">Six disciplines,<br /><span className="text-gradient-flow">one team.</span></h2>
+              <p className="t-muted text-lg font-light">Scroll down to reveal each service card with 3D depth unfolds, interactive spotlights, and parallax visuals.</p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {services.map((s, i) => (
-                <motion.div
-                  key={i}
-                  initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} variants={fadeUp}
-                >
-                  <Link href={s.link}>
-                    <div className="glass-card overflow-hidden cursor-pointer group h-full flex flex-col border-border/20 hover:border-border/60 transition-all duration-500">
-                      {/* Image */}
-                      <div className="relative overflow-hidden h-56 flex-shrink-0">
-                        <img
-                          src={s.img}
-                          alt={s.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-all duration-1000"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
-                        <div className="absolute top-4 left-4 w-10 h-10 rounded-xl glass flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                          <s.icon className="w-5 h-5 t-primary" />
-                        </div>
-                      </div>
-
-                      <div className="p-8 flex flex-col flex-grow">
-                        <h3 className="text-xl font-bold t-primary mb-3 group-hover:text-gradient transition-all duration-500">{s.title}</h3>
-                        <p className="t-muted text-base leading-relaxed flex-grow mb-6">{s.desc}</p>
-
-                        <div className="flex items-center justify-between">
-                          <div className="flex flex-wrap gap-1">
-                            {s.tags.map((tag) => (
-                              <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full border t-muted font-medium bg-primary/[0.03]" style={{ borderColor: "var(--divider-color)" }}>
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                          <ArrowRight className="w-4 h-4 t-ghost group-hover:t-muted transition-colors duration-400 shrink-0" />
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
+            {/* Scroll-Driven Bento Grid with 3D perspective reveal */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
+              {services.map((s, i) => {
+                const spans = ["lg:col-span-7", "lg:col-span-5", "lg:col-span-5", "lg:col-span-7", "lg:col-span-6", "lg:col-span-6"];
+                return (
+                  <ScrollServiceCard
+                    key={s.title}
+                    service={s}
+                    index={i}
+                    span={spans[i]}
+                  />
+                );
+              })}
             </div>
           </div>
         </section>
@@ -204,35 +284,35 @@ export default function Services() {
         <div className="divider" />
 
         {/* ===== OUR PROCESS ===== */}
-        <section className="section-pad relative overflow-hidden">
+        <section className="py-24 relative overflow-hidden">
           <div className="blob blob-purple w-[500px] h-[500px] top-0 right-[-15%] opacity-[0.04]" />
           <div className="container-w relative z-10">
             <motion.div
               initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}
-              className="max-w-2xl mb-20"
+              className="text-center max-w-2xl mx-auto mb-14"
             >
               <p className="label mb-4">How We Work</p>
-              <h2 className="text-3xl md:text-5xl t-primary mb-4">A process built for<br /><span className="text-gradient">transparency.</span></h2>
+              <h2 className="text-3xl md:text-5xl t-primary mb-4">A process built for <span className="text-gradient">transparency.</span></h2>
               <p className="t-muted text-lg font-light">No black boxes. You'll know exactly where your project is at every stage.</p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {/* connecting timeline line */}
+              <div className="hidden lg:block absolute top-9 left-[12%] right-[12%] h-px" style={{ background: "linear-gradient(90deg, transparent, var(--divider-color), var(--divider-color), transparent)" }} />
               {process.map((p, i) => (
                 <motion.div
                   key={i}
                   initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} variants={fadeUp}
-                  className="glass-card p-8 flex gap-6"
+                  className="glass-card p-7 flex flex-col relative"
                 >
-                  <div>
-                    <span className="text-4xl font-bold t-ghost font-mono" style={{ color: "var(--t-ghost)" }}>{p.step}</span>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-3">
-                      <p.icon className="w-4 h-4 t-secondary" />
-                      <h3 className="text-base font-semibold t-primary">{p.title}</h3>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-12 h-12 rounded-2xl glass flex items-center justify-center">
+                      <p.icon className="w-5 h-5" style={{ color: "var(--accent-primary)" }} />
                     </div>
-                    <p className="t-muted text-sm leading-relaxed">{p.desc}</p>
+                    <span className="text-3xl font-bold font-mono" style={{ color: "var(--t-ghost)" }}>{p.step}</span>
                   </div>
+                  <h3 className="text-base font-bold t-primary mb-2">{p.title}</h3>
+                  <p className="t-muted text-sm leading-relaxed">{p.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -242,49 +322,51 @@ export default function Services() {
         <div className="divider" />
 
         {/* ===== WHY US ===== */}
-        <section className="section-pad">
-          <div className="container-w">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}>
+        <section className="py-24 relative overflow-hidden">
+          <div className="blob blob-blue w-[500px] h-[500px] bottom-0 left-[-15%] opacity-[0.04]" />
+          <div className="container-w relative z-10">
+            <motion.div
+              initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}
+              className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-14"
+            >
+              <div className="max-w-xl">
                 <p className="label mb-4">Why CubicTech</p>
-                <h2 className="text-3xl md:text-5xl t-primary mb-6 leading-[1.1]">
-                  We treat your<br />business like <span className="text-gradient">our own.</span>
+                <h2 className="text-3xl md:text-5xl t-primary leading-[1.1] mb-5">
+                  We treat your business like <span className="text-gradient">our own.</span>
                 </h2>
-                <p className="t-muted text-lg leading-relaxed font-light mb-8">
+                <p className="t-muted text-lg leading-relaxed font-light">
                   Lots of agencies promise quality. We deliver it consistently — because we care about long-term relationships, not one-off transactions.
                 </p>
-                <Link href="/contact">
-                  <Button data-cursor="button" className="btn-primary text-white border-0 rounded-2xl h-12 px-8 gap-2">
-                    Start a Project <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </Link>
-              </motion.div>
-
-              <div className="grid grid-cols-1 gap-6">
-                {whyUs.map((w, i) => (
-                  <motion.div
-                    key={i}
-                    initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} variants={fadeUp}
-                    className="flex items-start gap-6 p-7 rounded-3xl hover:bg-secondary/10 border border-transparent hover:border-border/20 transition-all duration-500 group"
-                  >
-                    <div className="w-12 h-12 rounded-2xl glass flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-500">
-                      <w.icon className="w-5 h-5 t-secondary" />
-                    </div>
-                    <div>
-                      <h3 className="text-base font-bold t-primary mb-2">{w.title}</h3>
-                      <p className="t-muted text-base leading-relaxed">{w.desc}</p>
-                    </div>
-                  </motion.div>
-                ))}
               </div>
+              <Link href="/contact">
+                <Button data-cursor="button" className="btn-primary text-white border-0 rounded-2xl h-12 px-8 gap-2 shrink-0">
+                  Start a Project <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
+            </motion.div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {whyUs.map((w, i) => (
+                <motion.div
+                  key={i}
+                  initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} variants={fadeUp}
+                  className="glass-card p-7 flex flex-col gap-4 group"
+                >
+                  <div className="w-12 h-12 rounded-2xl glass flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                    <w.icon className="w-5 h-5" style={{ color: "var(--accent-primary)" }} />
+                  </div>
+                  <h3 className="text-base font-bold t-primary">{w.title}</h3>
+                  <p className="t-muted text-sm leading-relaxed">{w.desc}</p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
 
         {/* ===== CTA ===== */}
-        <section className="section-pad-lg relative overflow-hidden">
+        <section className="py-28 relative overflow-hidden">
           <div className="blob blob-blue w-[600px] h-[400px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.04]" />
-          <div className="divider mb-20" />
+          <div className="divider mb-16" />
           <div className="container-w text-center relative z-10">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}>
               <p className="label mb-5">Ready to Start?</p>

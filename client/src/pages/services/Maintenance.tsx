@@ -2,6 +2,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AdvancedCursor } from "@/components/AdvancedCursor";
 import { PageTransition } from "@/components/PageTransition";
+import { HeroBackdrop } from "@/components/HeroBackdrop";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import {
@@ -150,11 +151,12 @@ export default function Maintenance() {
 
           {/* ===== HERO ===== */}
           <section className="pt-40 pb-32 relative overflow-hidden">
+            <HeroBackdrop image="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1920&q=80" position="center" intensity={0.55} accent="#34D399" />
             <div className="blob blob-blue w-[600px] h-[600px] -top-48 -right-24 opacity-[0.04]" />
             <div className="container-w relative z-10">
               <Link href="/services">
                 <Button variant="ghost" className="mb-10 gap-2 t-muted hover:t-primary hover:bg-secondary/20 rounded-xl text-sm border border-border/20">
-                  <ArrowLeft className="w-3.5 h-3.5" /> Back to Capabilities
+                  <ArrowLeft className="w-3.5 h-3.5" /> Back to Services
                 </Button>
               </Link>
               <motion.div
@@ -163,7 +165,7 @@ export default function Maintenance() {
                 transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                 className="max-w-3xl"
               >
-                <p className="label mb-10 inline-flex items-center gap-2"><Wrench className="w-4 h-4" /> Infrastructure Maintenance</p>
+                <p className="label mb-10 inline-flex items-center gap-2" style={{ color: "#34D399" }}><Wrench className="w-4 h-4" /> Infrastructure Maintenance</p>
                 <h1 className="text-display-hero">
                   Engineering systems<br />
                   <span className="text-gradient italic">that never stop evolving.</span>

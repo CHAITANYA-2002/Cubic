@@ -2,6 +2,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AdvancedCursor } from "@/components/AdvancedCursor";
 import { PageTransition } from "@/components/PageTransition";
+import { HeroBackdrop } from "@/components/HeroBackdrop";
 import { ContactForm } from "@/components/ContactForm";
 import { MapPin, Phone, Mail, Clock, MessageSquare, CheckCircle2, ChevronDown } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
@@ -85,6 +86,7 @@ export default function Contact() {
 
         {/* ===== HERO ===== */}
         <section className="pt-44 pb-24 relative overflow-hidden">
+          <HeroBackdrop image="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1920&q=80" position="center" intensity={0.5} />
           <div className="blob blob-blue w-[500px] h-[500px] -top-32 -right-32 opacity-[0.05]" />
           <div className="blob blob-purple w-[350px] h-[350px] bottom-0 -left-20 opacity-[0.04]" />
           <div className="container-w relative z-10">
@@ -131,7 +133,7 @@ export default function Contact() {
 
                 {[
                   { icon: Phone, title: "Phone", lines: ["+91 79769 89699", "Mon–Sat, 10am–7pm IST"] },
-                  { icon: Mail, title: "Email", lines: ["info@cubictech.in", "support@cubictech.in"] },
+                  { icon: Mail, title: "Email", lines: ["chaitanyakhurana10@gmail.com", "chaitanyakhurana10@gmail.com"] },
                   { icon: Clock, title: "Response", lines: ["2–4 hours (Business days)", "24 hours max, always"] },
                 ].map((item, i) => (
                   <motion.div
@@ -162,7 +164,7 @@ export default function Contact() {
                   </a>
 
                   <a
-                    href="mailto:info@cubictech.in"
+                    href="mailto:chaitanyakhurana10@gmail.com"
                     data-cursor="button"
                     className="ml-3 inline-flex items-center gap-2.5 px-5 py-3 rounded-xl transition-all duration-500 btn-ghost"
                   >

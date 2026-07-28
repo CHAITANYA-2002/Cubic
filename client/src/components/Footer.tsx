@@ -34,11 +34,11 @@ export function Footer() {
             {/* Contact details — spacious, clearly readable in both modes */}
             <div className="flex flex-col gap-6">
               <a
-                href="mailto:info@cubictech.in"
+                href="mailto:chaitanyakhurana10@gmail.com"
                 className="inline-flex items-center gap-3 text-sm font-medium t-secondary hover:t-primary transition-all duration-500 group"
               >
                 <Mail className="w-4 h-4 t-deco group-hover:t-primary transition-colors" />
-                info@cubictech.in
+                chaitanyakhurana10@gmail.com
               </a>
               <a
                 href="tel:+917976989699"

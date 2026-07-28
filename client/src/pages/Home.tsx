@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { AdvancedCursor } from "@/components/AdvancedCursor";
 import { Particles } from "@/components/Particles";
 import { PageTransition } from "@/components/PageTransition";
+import { HeroBackdrop } from "@/components/HeroBackdrop";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, ChevronRight } from "lucide-react";
@@ -21,7 +22,8 @@ const systemsData = [
     capabilities: ["Conversion Strategy", "High-Fidelity UI", "Technical SEO", "Speed Optimization"],
     scope: "8–12 weeks",
     stack: "React / Next.js, Framer Motion, TailWind",
-    desc: "We don't build generic sites. We engineer growth engines that generate trust and securing high-value traffic."
+    desc: "We don't build generic sites. We engineer growth engines that generate trust and securing high-value traffic.",
+    accent: "#6C8CFF"
   },
   {
     id: "saas",
@@ -30,7 +32,8 @@ const systemsData = [
     capabilities: ["Multi-tenant Architecture", "Dashboard Systems", "Subscription Logic", "Scalability Engineering"],
     scope: "12–24 weeks",
     stack: "Node.js, PostgreSQL, Cloud Infra, React",
-    desc: "Full-cycle product engineering. We turn complex requirements into clean, scalable, production-grade platforms."
+    desc: "Full-cycle product engineering. We turn complex requirements into clean, scalable, production-grade platforms.",
+    accent: "#22D3EE"
   },
   {
     id: "ai",
@@ -39,7 +42,8 @@ const systemsData = [
     capabilities: ["LLM Integration", "Workflow Automation", "Predictive Models", "Custom RAG Systems"],
     scope: "6–16 weeks",
     stack: "Python, OpenAI/Anthropic, Vector DBs, LangChain",
-    desc: "AI integrated as core infrastructure—not a gimmick. Automate high-friction processes with secure, private models."
+    desc: "AI integrated as core infrastructure—not a gimmick. Automate high-friction processes with secure, private models.",
+    accent: "#A78BFA"
   },
   {
     id: "internal",
@@ -48,12 +52,29 @@ const systemsData = [
     capabilities: ["Custom CRMs", "Operational Dashboards", "Inventory Systems", "Legacy Integrations"],
     scope: "8–20 weeks",
     stack: "Modern Full-stack, Secure APIs, Cloud Sync",
-    desc: "Tools designed to solve internal friction. We streamline operations by building software that fits your specific workflow."
+    desc: "Tools designed to solve internal friction. We streamline operations by building software that fits your specific workflow.",
+    accent: "#34D399"
   }
 ];
 
+function CountUp({ end, suffix = "", prefix = "", decimals = 0 }: { end: number; suffix?: string; prefix?: string; decimals?: number }) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    let start = 0;
+    const duration = 2000;
+    const step = end / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= end) { setCount(end); clearInterval(timer); }
+      else { setCount(Number(start.toFixed(decimals))); }
+    }, 16);
+    return () => clearInterval(timer);
+  }, [end, decimals]);
+  return <span>{prefix}{decimals > 0 ? count.toFixed(decimals) : count}{suffix}</span>;
+}
+
 /* ===== SPOTLIGHT CARD ===== */
-function SpotlightCard({ children, className = "", active = false }: { children: React.ReactNode; className?: string; active?: boolean }) {
+function SpotlightCard({ children, className = "", active = false, style }: { children: React.ReactNode; className?: string; active?: boolean; style?: React.CSSProperties }) {
   const ref = useRef<HTMLDivElement>(null);
   const onMouseMove = (e: React.MouseEvent) => {
     const rect = ref.current?.getBoundingClientRect();
@@ -66,7 +87,7 @@ function SpotlightCard({ children, className = "", active = false }: { children:
   };
 
   return (
-    <div ref={ref} onMouseMove={onMouseMove} className={`${className} ${active ? 'system-card-active' : ''}`}>
+    <div ref={ref} onMouseMove={onMouseMove} style={style} className={`${className} ${active ? 'system-card-active' : ''}`}>
       {children}
     </div>
   );
@@ -251,9 +272,27 @@ export default function Home() {
           </motion.div>
         </section>
 
-        <section className="py-20 border-y border-border/40 bg-background/50 backdrop-blur-sm">
-          <div className="container-w">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 items-center gap-8 lg:gap-16 opacity-70">
+        <section className="py-20 border-y border-border/40 bg-background/50 backdrop-blur-sm relative overflow-hidden">
+          <div className="aurora opacity-40" />
+          <div className="container-w relative z-10">
+            {/* Animated Hero Stats Row */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 text-center">
+              {[
+                { label: "Projects Delivered", value: 50, suffix: "+" },
+                { label: "Uptime SLA", value: 99.9, suffix: "%", decimals: 1 },
+                { label: "Response Latency", value: 200, prefix: "<", suffix: "ms" },
+                { label: "Client Retention", value: 98, suffix: "%" }
+              ].map((stat, i) => (
+                <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} variants={fadeUp} className="flex flex-col items-center">
+                  <span className="text-3xl md:text-5xl font-bold font-display text-gradient mb-2">
+                    <CountUp end={stat.value} suffix={stat.suffix} prefix={stat.prefix || ""} decimals={stat.decimals || 0} />
+                  </span>
+                  <span className="text-xs uppercase tracking-[0.2em] t-deco font-semibold">{stat.label}</span>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 items-center gap-8 lg:gap-16 opacity-70 border-t border-white/[0.05] pt-12">
               <span className="col-span-2 md:col-span-3 lg:col-span-1 t-deco text-[10px] uppercase tracking-[0.4em] font-bold text-center lg:text-left mb-4 lg:mb-0">CubicTech Systems Built For:</span>
               {["SaaS", "Fintech", "E-commerce", "Real Estate", "Healthcare", "Internal Systems"].map((tag, i) => (
                 <span key={i} className="t-primary text-sm font-medium tracking-wide hover:t-secondary transition-colors cursor-default text-center whitespace-nowrap">
@@ -264,9 +303,32 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ===== CINEMATIC BANNER ===== */}
+        <section className="relative h-[72vh] min-h-[520px] overflow-hidden flex items-center">
+          <HeroBackdrop image="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80" position="center" intensity={0.6} />
+          <div className="container-w relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              className="max-w-3xl"
+            >
+              <p className="label mb-5">Engineered end-to-end</p>
+              <h2 className="text-4xl md:text-6xl font-bold t-primary leading-[1.05] font-display">
+                From architecture to <span className="text-gradient italic">interface.</span>
+              </h2>
+              <p className="t-muted text-lg mt-6 max-w-xl font-light">
+                Design, engineering, and AI — built as one coherent system, not stitched-together parts.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
         {/* ===== SYSTEMS SECTION ===== */}
-        <section className="section-pad bg-background">
-          <div className="container-w relative">
+        <section className="section-pad bg-background relative overflow-hidden">
+          <div className="aurora" />
+          <div className="container-w relative z-10">
             {/* Subtle Brand Watermark */}
             <div className="absolute -top-24 -right-12 text-[12vw] font-display font-black t-ghost select-none pointer-events-none opacity-[0.03] uppercase tracking-tighter">
               CubicTech
@@ -276,7 +338,7 @@ export default function Home() {
               <p className="label mb-6">Capabilities</p>
               <h2 className="text-4xl md:text-7xl t-primary tracking-tighter font-display leading-[0.95]">
                 We don’t build pages.<br />
-                <span className="text-gradient italic">We build digital systems.</span>
+                <span className="text-gradient-flow italic">We build digital systems.</span>
               </h2>
             </motion.div>
 
@@ -285,8 +347,17 @@ export default function Home() {
                 <SpotlightCard
                   key={item.id}
                   active={expandedSystem === item.id}
-                  className={`glass-card overflow-hidden transition-all duration-700 ${expandedSystem === item.id ? '' : 'bg-white/[0.01] hover:bg-white/[0.02]'}`}
+                  className={`glass-card overflow-hidden transition-all duration-700 relative group ${expandedSystem === item.id ? '' : 'bg-white/[0.01] hover:bg-white/[0.02]'}`}
+                  style={{
+                    borderColor: expandedSystem === item.id ? `${item.accent}55` : undefined,
+                    boxShadow: expandedSystem === item.id ? `0 0 50px -10px ${item.accent}33` : undefined,
+                  }}
                 >
+                  {/* Spotlight cursor glow */}
+                  <div
+                    className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: `radial-gradient(400px circle at var(--mouse-x,50%) var(--mouse-y,50%), ${item.accent}22, transparent 65%)` }}
+                  />
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -298,15 +369,16 @@ export default function Home() {
                       className="w-full text-left p-8 md:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6"
                     >
                       <div className="flex items-center gap-8">
-                        <span className="text-sm font-mono opacity-20 font-bold">0{i + 1}</span>
-                        <h3 className={`text-2xl md:text-4xl font-display tracking-tight transition-colors ${expandedSystem === item.id ? 't-primary text-gradient' : 't-secondary'}`}>
+                        <span className="text-sm font-mono tracking-[0.2em] font-bold" style={{ color: item.accent }}>0{i + 1}</span>
+                        <h3 className={`text-2xl md:text-4xl font-display tracking-tight transition-colors ${expandedSystem === item.id ? 't-primary text-gradient' : 't-secondary group-hover:t-primary'}`}>
                           {item.title}
                         </h3>
                       </div>
                       <div className="flex items-center gap-4">
                         <span className="t-deco text-sm opacity-40 hidden md:block">{item.for}</span>
-                        <div className={`w-10 h-10 rounded-full border border-white/5 flex items-center justify-center transition-transform duration-500 ${expandedSystem === item.id ? 'rotate-180' : ''}`}>
-                          <ChevronRight className="w-4 h-4 opacity-40 rotate-90" />
+                        <div className={`w-10 h-10 rounded-full border flex items-center justify-center transition-transform duration-500 ${expandedSystem === item.id ? 'rotate-180' : ''}`}
+                             style={{ borderColor: `${item.accent}44`, background: `${item.accent}15` }}>
+                          <ChevronRight className="w-4 h-4 rotate-90" style={{ color: item.accent }} />
                         </div>
                       </div>
                     </button>
@@ -324,7 +396,7 @@ export default function Home() {
                         </div>
                         
                         <div className="lg:col-span-3">
-                          <p className="t-deco text-[10px] uppercase tracking-widest font-bold mb-4 opacity-40">Strategic Focus</p>
+                          <p className="text-[10px] uppercase tracking-widest font-bold mb-4" style={{ color: item.accent }}>Strategic Focus</p>
                           <ul className="space-y-2">
                             {item.capabilities.map((c, idx) => (
                               <li key={idx} className="t-primary text-sm font-medium">{c}</li>
@@ -333,18 +405,19 @@ export default function Home() {
                         </div>
                         
                         <div className="lg:col-span-3">
-                          <p className="t-deco text-[10px] uppercase tracking-widest font-bold mb-4 opacity-40">Delivery Scope</p>
+                          <p className="text-[10px] uppercase tracking-widest font-bold mb-4" style={{ color: item.accent }}>Delivery Scope</p>
                           <p className="t-primary text-sm font-medium">{item.scope}</p>
                         </div>
 
                         <div className="lg:col-span-3">
-                          <p className="t-deco text-[10px] uppercase tracking-widest font-bold mb-4 opacity-40">Engineering Stack</p>
+                          <p className="text-[10px] uppercase tracking-widest font-bold mb-4" style={{ color: item.accent }}>Engineering Stack</p>
                           <p className="t-primary text-sm font-medium">{item.stack}</p>
                         </div>
 
                         <div className="lg:col-span-3 flex items-end">
                           <Link href="/contact">
-                            <Button variant="outline" className="rounded-xl border-white/10 hover:bg-white/5 t-muted text-xs group py-6 px-8">
+                            <Button variant="outline" className="rounded-xl border-white/10 hover:bg-white/5 t-muted text-xs group py-6 px-8"
+                                    style={{ borderColor: `${item.accent}44`, color: item.accent }}>
                               Internal Discussion <ArrowRight className="w-3 h-3 ml-2 group-hover:translate-x-1 transition-transform" />
                             </Button>
                           </Link>
@@ -445,6 +518,14 @@ export default function Home() {
               <div>
                 <p className="label mb-6">Expertise</p>
                 <h2 className="text-4xl md:text-6xl font-display t-primary tracking-tighter">Full-spectrum<br />capabilities.</h2>
+                <p className="t-muted text-lg font-light leading-relaxed mt-8 max-w-md">
+                  Design, engineering, and AI under one roof — your product is built as one coherent system, never stitched together from scattered vendors.
+                </p>
+                <Link href="/contact">
+                  <Button data-cursor="button" className="btn-primary text-white border-0 rounded-2xl h-12 px-8 gap-2 mt-8">
+                    Start a Project <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-16">
@@ -481,8 +562,9 @@ export default function Home() {
         </section>
 
         {/* ===== SELECTED OUTCOMES ===== */}
-        <section className="section-pad bg-background">
-          <div className="container-w">
+        <section className="section-pad bg-background relative overflow-hidden">
+          <div className="aurora" />
+          <div className="container-w relative z-10">
             <div className="mb-20">
               <p className="label mb-6">Case Previews</p>
               <h2 className="text-4xl md:text-6xl t-primary tracking-tighter font-display leading-[0.95]">
@@ -497,31 +579,40 @@ export default function Home() {
                   industry: "AI Fintech",
                   challenge: "Preventing complex multi-vector financial fraud in real-time across global markets.",
                   engineered: "Self-evolving neural network architecture with real-time graph analysis for pattern recognition.",
-                  outcome: "99.9% Fraud Detection Accuracy"
+                  outcome: "99.9% Fraud Detection Accuracy",
+                  accent: "#A78BFA"
                 },
                 {
                   industry: "Global E-commerce",
                   challenge: "Engineering transactional infrastructure to support 300K+ concurrent users during peak flash sales.",
                   engineered: "Multi-region serverless mesh with intelligent edge-routing and distributed cache synchronization.",
-                  outcome: "300K+ Concurrent Users with 0ms Downtime"
+                  outcome: "300K+ Concurrent Users with 0ms Downtime",
+                  accent: "#6C8CFF"
                 },
                 {
                   industry: "Healthcare AI",
                   challenge: "Data silos preventing real-time patient risk assessment.",
                   engineered: "Secure RAG-based AI system for clinical documentation analysis.",
-                  outcome: "40% increase in early-stage diagnosis accuracy."
+                  outcome: "40% increase in early-stage diagnosis accuracy.",
+                  accent: "#34D399"
                 }
               ].map((caseItem, i) => (
-                <SpotlightCard key={i} className="glass-card p-10 flex flex-col justify-between group h-full">
+                <SpotlightCard key={i} className="glass-card p-10 flex flex-col justify-between group h-full relative overflow-hidden"
+                               style={{ borderColor: `${caseItem.accent}22` }}>
+                  {/* Spotlight cursor glow */}
+                  <div
+                    className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: `radial-gradient(350px circle at var(--mouse-x,50%) var(--mouse-y,50%), ${caseItem.accent}22, transparent 65%)` }}
+                  />
                   <motion.article 
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
-                    className="flex flex-col justify-between h-full"
+                    className="flex flex-col justify-between h-full relative z-10"
                   >
                     <div className="space-y-8">
-                      <h3 className="t-deco text-[10px] uppercase tracking-widest font-bold opacity-30">{caseItem.industry}</h3>
+                      <h3 className="text-[10px] uppercase tracking-widest font-bold font-mono" style={{ color: caseItem.accent }}>{caseItem.industry}</h3>
                       <div className="space-y-6">
                         <div>
                           <p className="text-[10px] uppercase tracking-wider t-muted mb-2 font-bold opacity-40">Challenge</p>
@@ -536,7 +627,7 @@ export default function Home() {
                     
                     <div className="mt-12 pt-8 border-t border-white/[0.03]">
                       <p className="text-[10px] uppercase tracking-wider t-muted mb-3 font-bold opacity-40">Outcome</p>
-                      <p className="text-3xl font-display text-gradient font-extrabold tracking-tight">{caseItem.outcome}</p>
+                      <p className="text-3xl font-display font-extrabold tracking-tight" style={{ color: caseItem.accent }}>{caseItem.outcome}</p>
                     </div>
                   </motion.article>
                 </SpotlightCard>

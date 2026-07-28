@@ -2,6 +2,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AdvancedCursor } from "@/components/AdvancedCursor";
 import { PageTransition } from "@/components/PageTransition";
+import { HeroBackdrop } from "@/components/HeroBackdrop";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
@@ -30,6 +31,7 @@ export default function About() {
         <main className="flex-grow">
           {/* ===== HERO ===== */}
           <section className="pt-44 pb-24 relative overflow-hidden">
+            <HeroBackdrop image="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80" position="center" intensity={0.55} />
             <div className="blob blob-purple w-[600px] h-[600px] -top-48 -right-32 opacity-[0.05]" />
             <div className="blob blob-blue w-[400px] h-[400px] bottom-0 left-[-15%] opacity-[0.04]" />
 
@@ -190,6 +192,19 @@ export default function About() {
                 <p className="t-muted text-xl leading-relaxed font-normal">
                   The infrastructure, AI modules, and component systems we develop for our enterprise clients today are laying the foundation for our own proprietary SaaS platforms tomorrow. When you hire CubicTech, you aren't hiring freelancers executing a task — you are partnering with a serious software company building its own technological future.
                 </p>
+
+                <div className="grid sm:grid-cols-3 gap-5 mt-16 text-left">
+                  {[
+                    ["Proprietary SaaS", "Turning the infrastructure we build for clients into our own products."],
+                    ["AI Infrastructure", "Reusable, private AI modules that compound across every build."],
+                    ["Component Systems", "An internal library that makes each new project faster than the last."],
+                  ].map(([t, d]) => (
+                    <div key={t} className="glass-card p-6">
+                      <h3 className="text-base font-bold t-primary mb-2">{t}</h3>
+                      <p className="t-muted text-sm leading-relaxed">{d}</p>
+                    </div>
+                  ))}
+                </div>
               </motion.div>
             </div>
           </section>

@@ -65,6 +65,11 @@
 
   --input-bg: rgba(255, 255, 255, 0.03);
   --input-border: rgba(255, 255, 255, 0.1);
+
+  /* Ambient blob colors (were referenced but never defined) */
+  --blob-blue: #6C8CFF;
+  --blob-purple: #A78BFA;
+  --blob-pink: #E879C7;
 }
 
 /* Ambient Background Depth */
@@ -269,6 +274,62 @@ html {
 }
 
 /* ===========================================================
+   AURORA — drifting colour wash behind sections
+   =========================================================== */
+.aurora {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.aurora::before,
+.aurora::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.16;
+  will-change: transform;
+}
+
+.aurora::before {
+  width: 46vw;
+  height: 46vw;
+  left: -8%;
+  top: -12%;
+  background: radial-gradient(circle, var(--blob-blue), transparent 60%);
+  animation: aurora-drift 20s ease-in-out infinite;
+}
+
+.aurora::after {
+  width: 40vw;
+  height: 40vw;
+  right: -6%;
+  bottom: -14%;
+  background: radial-gradient(circle, var(--blob-purple), transparent 60%);
+  animation: aurora-drift 26s ease-in-out infinite reverse;
+  animation-delay: -8s;
+}
+
+@keyframes aurora-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(8%, -6%) scale(1.12); }
+  66% { transform: translate(-6%, 7%) scale(0.94); }
+}
+
+/* Animated gradient sheen for accent headings */
+.text-gradient-flow {
+  background: linear-gradient(100deg, #D6A77A, #E879C7, #6C8CFF, #D6A77A);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: flow 8s linear infinite;
+}
+
+/* ===========================================================
    BUTTONS
    =========================================================== */
 .btn-primary {
@@ -326,11 +387,11 @@ html {
    LAYOUT
    =========================================================== */
 .section-pad {
-  padding: 8rem 0;
+  padding: 5.5rem 0;
 }
 
 .section-pad-lg {
-  padding: 10rem 0;
+  padding: 7rem 0;
 }
 
 .container-w {
