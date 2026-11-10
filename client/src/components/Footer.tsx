@@ -95,20 +95,9 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Social */}
           <div className="md:col-span-2">
-            <h4 className="t-secondary text-[10px] font-bold uppercase tracking-[0.35em] mb-8 font-display opacity-60">Social</h4>
-            <ul className="space-y-5">
-              {[
-                { label: "LinkedIn", href: "#" },
-                { label: "Instagram", href: "#" },
-                { label: "Dribbble", href: "#" },
-              ].map((item) => (
-                <li key={item.label}>
-                  <a href={item.href} className="text-sm t-secondary hover:t-primary transition-all duration-500">{item.label}</a>
-                </li>
-              ))}
-            </ul>
+            <h4 className="t-secondary text-[10px] font-bold uppercase tracking-[0.35em] mb-8 font-display opacity-60">Availability</h4>
+            <p className="text-sm t-secondary leading-relaxed">Remote-first from India, working Mon–Sat, 10:00–19:00 IST.</p>
           </div>
         </div>
 

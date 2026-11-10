@@ -191,7 +191,7 @@ html {
 }
 
 .text-display-hero {
-  @apply text-[3rem] sm:text-[4.5rem] md:text-[6.5rem] lg:text-[8.5rem] font-bold leading-[0.95] tracking-tight font-display py-4;
+  @apply text-[2.9rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[6.5rem] font-bold leading-[0.95] tracking-tight font-display py-4;
 }
 
 /* ===========================================================
@@ -537,6 +537,8 @@ html {
     filter: blur(60px);
     opacity: 0.1;
   }
+
+  .text-display-hero { line-height: 1; }
 }
 
 /* ===========================================================

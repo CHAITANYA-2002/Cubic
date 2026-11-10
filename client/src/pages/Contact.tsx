@@ -20,15 +20,15 @@ const fadeUp = {
 const faqs = [
   {
     q: "How long does it take to build a website?",
-    a: "Most marketing websites are delivered in 3–4 weeks. Complex web applications typically take 6–10 weeks depending on scope. We'll give you a precise timeline after your discovery call."
+    a: "The timeline depends on the problem, integrations, and decisions needed. After an initial conversation, we will give you a clear scope, sequence, and realistic delivery plan."
   },
   {
-    q: "How much does a website cost?",
-    a: "Landing pages start around ₹25,000. Full business websites range from ₹50,000–₹1,50,000. Web applications are scoped individually. All projects are fixed-price — no surprises."
+    q: "How do you price projects?",
+    a: "Fixed price, in INR, agreed in writing before work starts. Most business websites land between ₹1.5L and ₹4L and web applications between ₹4L and ₹15L — the full rate card is on our Pricing page. Payment is 40% to start, 30% at the midpoint milestone and 30% on delivery."
   },
   {
-    q: "Do you work with international clients?",
-    a: "Absolutely. While we're based in Jaipur, we've worked with clients across India, UAE, UK, and the US. We communicate over Slack, WhatsApp, and scheduled video calls."
+    q: "How do you work with remote teams?",
+    a: "CubicTech is remote-first from India. We work through focused written updates, agreed milestones, and scheduled calls when decisions need discussion."
   },
   {
     q: "What do you need from me to get started?",
@@ -42,6 +42,7 @@ const faqs = [
 
 function FAQ({ q, a, i }: { q: string; a: string; i: number }) {
   const [open, setOpen] = useState(false);
+  const answerId = `contact-faq-${i}`;
   return (
     <motion.div
       initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} variants={fadeUp}
@@ -50,6 +51,8 @@ function FAQ({ q, a, i }: { q: string; a: string; i: number }) {
       <button
         className="w-full text-left p-6 flex items-start justify-between gap-4 group"
         onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        aria-controls={answerId}
       >
         <span className="text-sm font-medium t-secondary group-hover:t-primary transition-colors duration-300">{q}</span>
         <ChevronDown className={`w-4 h-4 t-muted shrink-0 mt-0.5 transition-transform duration-400 ${open ? "rotate-180" : ""}`} />
@@ -62,7 +65,7 @@ function FAQ({ q, a, i }: { q: string; a: string; i: number }) {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="px-6 pb-6">
+            <div id={answerId} className="px-6 pb-6">
               <div className="h-px mb-4" style={{ background: "var(--glass-border)" }} />
               <p className="t-muted text-sm leading-relaxed">{a}</p>
             </div>
@@ -101,13 +104,13 @@ export default function Contact() {
                 Let's talk about<br /><span className="text-gradient">your project.</span>
               </h1>
               <p className="text-xl t-muted max-w-xl leading-relaxed font-normal mb-12">
-                No pitch decks, no corporate speak. Just a real conversation about what you want to build and how we can help. First call is always free.
+                A focused conversation about the problem, the people using the system, and the next sensible step. You will leave with clarity, even if we are not the right fit.
               </p>
               <div className="flex flex-wrap gap-4">
                 {[
-                  "Free discovery call",
-                  "Response in 2–4 hours",
-                  "Fixed-price quotes",
+                  "No-obligation discovery call",
+                  "Remote-first from India",
+                  "Written scope before build",
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 t-secondary" />
@@ -133,8 +136,8 @@ export default function Contact() {
 
                 {[
                   { icon: Phone, title: "Phone", lines: ["+91 79769 89699", "Mon–Sat, 10am–7pm IST"] },
-                  { icon: Mail, title: "Email", lines: ["chaitanyakhurana10@gmail.com", "chaitanyakhurana10@gmail.com"] },
-                  { icon: Clock, title: "Response", lines: ["2–4 hours (Business days)", "24 hours max, always"] },
+                  { icon: Mail, title: "Email", lines: ["chaitanyakhurana10@gmail.com", "For project conversations and enquiries"] },
+                  { icon: Clock, title: "Working hours", lines: ["Mon–Sat, 10am–7pm IST", "We will reply as soon as practical"] },
                 ].map((item, i) => (
                   <motion.div
                     key={i}
@@ -182,7 +185,7 @@ export default function Contact() {
                 <div className="glass-card p-8">
                   <div className="mb-6">
                     <h2 className="text-lg font-semibold t-primary mb-1">Send a Message</h2>
-                    <p className="t-muted text-sm">We'll get back to you within 24 hours.</p>
+                    <p className="t-muted text-sm">Share the context and we will respond during working hours.</p>
                   </div>
                   <ContactForm />
                 </div>

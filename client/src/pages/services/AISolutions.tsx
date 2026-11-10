@@ -144,11 +144,11 @@ export default function AISolutions() {
   };
 
   const faqs = [
-    { q: "Is our data safe when using your AI solutions?", a: "Data privacy is our first engineering constraint. We use zero-data-retention APIs and can deploy private models on your infrastructure." },
-    { q: "Do you build custom models or use existing ones?", a: "Both. We use state-of-the-art models for 80% of cases and fine-tune custom models only when highly specific domain logic is required." },
-    { q: "How do you evaluate AI accuracy in production?", a: "We build automated evaluation pipelines using deterministic unit tests and LLM-as-a-judge frameworks to track response quality." },
-    { q: "What is required from our engineering team?", a: "We can act autonomously or integrate with your team. At minimum, we require documentation of internal APIs and database schemas." },
-    { q: "How do you handle AI hallucinations?", a: "Through multi-layered validation, citation-backed RAG, and deterministic fallback logic that ensures the system fails gracefully rather than confidently." },
+    { q: "Is our data safe when using your AI solutions?", a: "Data handling is discussed before implementation. We map what information is involved, choose appropriate providers and controls, and document the trade-offs." },
+    { q: "Do you build custom models or use existing ones?", a: "We begin with the simplest suitable option. Whether an existing model, retrieval workflow, or custom work is appropriate depends on the task, data, and expected reliability." },
+    { q: "How do you evaluate AI accuracy in production?", a: "Before release, we agree on examples, failure modes, review steps, and the practical standard the workflow must meet. Evaluation is not an afterthought." },
+    { q: "What is required from our engineering team?", a: "We agree access, ownership, technical context, and review points during discovery. The level of collaboration depends on your systems and internal capacity." },
+    { q: "How do you handle AI hallucinations?", a: "We design for reviewability: constrained tasks, useful source context where appropriate, clear fallbacks, and human approval when the cost of an error is high." },
   ];
 
   return (
@@ -457,7 +457,7 @@ export default function AISolutions() {
                   {[
                     { name: "Essential", items: ["Data Pipeline Audit", "LLM API Integration", "Custom Prompt Engineering", "Vector Search (Basic)", "Security Middleware"], color: "t-ghost" },
                     { name: "Growth", items: ["Advanced RAG Systems", "Agent Workflow Chaining", "Structured Data Extraction", "Human-in-the-loop Gates", "Usage & Cost Analytics"], color: "t-secondary" },
-                    { name: "Infrastructure", items: ["Private Model Deployment", "Custom Fine-tuning", "Autonomous Tool-use", "Private Data Training", "SOC2 Compliant AI Stack"], color: "t-primary" },
+                    { name: "Infrastructure", items: ["Private deployment options", "Custom evaluation", "Human-reviewed automation", "Data access mapping", "Documented security controls"], color: "t-primary" },
                   ].map((col, i) => (
                     <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i + 1} variants={fadeUp}>
                       <h3 className={`text-lg font-bold mb-8 ${col.color}`}>{col.name}</h3>
@@ -489,15 +489,15 @@ export default function AISolutions() {
               </motion.div>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-center">
                 {[
-                  { label: "Model Accuracy", value: 98, suffix: "%", note: "Validated via custom evaluation sets and human-in-the-loop auditing." },
-                  { label: "Request Latency", value: 450, suffix: "ms", prefix: "<", note: "Optimized inference pipelines for real-time application integration." },
-                  { label: "Data Security", value: 100, suffix: "%", note: "SOC2-compliant architecture with zero-data-retention AI protocols." },
-                  { label: "System Uptime", value: 99.9, decimals: 1, suffix: "%", note: "Hardened infrastructure designed for mission-critical AI workloads." },
+                  { label: "Evaluation", value: 0, suffix: "", note: "Success criteria and human review are defined before an AI workflow is released." },
+                  { label: "Performance", value: 0, suffix: "", prefix: "", note: "Response-time expectations are chosen for the actual user journey." },
+                  { label: "Data handling", value: 0, suffix: "", note: "Controls and provider choices are documented before implementation." },
+                  { label: "Reliability", value: 0, decimals: 0, suffix: "", note: "Operational safeguards are selected for the actual workload and risk." },
                 ].map((stat, i) => (
                   <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }}
                     custom={i} variants={fadeUp} className="flex flex-col items-center">
                     <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-display text-gradient mb-3 tracking-tight whitespace-nowrap">
-                      <CountUp end={stat.value} suffix={stat.suffix} prefix={stat.prefix || ""} decimals={stat.decimals || 0} />
+                      {stat.value === 0 ? "✓" : <CountUp end={stat.value} suffix={stat.suffix} prefix={stat.prefix || ""} decimals={stat.decimals || 0} />}
                     </div>
                     <p className="text-xs uppercase tracking-[0.2em] t-deco font-bold mb-3">{stat.label}</p>
                     <p className="text-xs t-muted leading-relaxed max-w-[200px]">{stat.note}</p>
@@ -564,19 +564,20 @@ export default function AISolutions() {
             <div className="container-w">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                 <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}>
-                  <p className="label mb-4">Real World Impact</p>
-                  <h2 className="text-4xl t-primary font-display mb-6">Case Snapshot:<br /><span className="italic text-gradient">Legal Review Engine.</span></h2>
+                  <p className="label mb-4">Example engagement</p>
+                  <h2 className="text-4xl t-primary font-display mb-6">Illustrative scenario:<br /><span className="italic text-gradient">Legal Review Engine.</span></h2>
+                  <p className="text-xs t-deco mb-6">Illustrative scenario — how we would approach this problem. Not a published client result.</p>
                   <p className="t-muted text-lg font-light leading-relaxed mb-6">
-                    A legal tech platform where analysts spent 4 hours manually extracting 30+ specific clauses from 100-page commercial contracts.
+                    Picture a legal team where analysts spend 4 hours manually extracting 30+ specific clauses from 100-page commercial contracts.
                   </p>
                   <div className="flex gap-12">
                     <div>
-                      <p className="text-2xl font-bold t-primary tracking-tight font-display">4h → 45s</p>
-                      <p className="text-[10px] uppercase tracking-widest t-deco">Extraction Time</p>
+                      <p className="text-2xl font-bold t-primary tracking-tight font-display">Hours → minutes</p>
+                      <p className="text-[10px] uppercase tracking-widest t-deco">Target extraction time</p>
                     </div>
                     <div>
-                      <p className="text-2xl font-bold t-primary tracking-tight font-display">99.8%</p>
-                      <p className="text-[10px] uppercase tracking-widest t-deco">Accuracy Rate</p>
+                      <p className="text-2xl font-bold t-primary tracking-tight font-display">Human-verified</p>
+                      <p className="text-[10px] uppercase tracking-widest t-deco">Every flagged clause</p>
                     </div>
                   </div>
                 </motion.div>
@@ -586,8 +587,8 @@ export default function AISolutions() {
                       {[
                         { l: "The Situation", t: "Analysts manually reading 100+ page commercial contracts to identify complex risk clauses." },
                         { l: "The Challenge", t: "Required zero-data-retention (PII safety) and near-perfect accuracy with no hallucinated text." },
-                        { l: "What We Engineered", t: "OCR-to-Vector pipeline running on a private, self-hosted Llama 3 70B model with JSON schema enforcement." },
-                        { l: "The Outcome", t: "Extraction reduced to 45 seconds. Staff shifted from 'reading' to 'verifying' flagged edge cases." },
+                        { l: "What We Would Build", t: "OCR-to-Vector pipeline running on a private, self-hosted Llama 3 70B model with JSON schema enforcement." },
+                        { l: "The Goal", t: "Extraction measured in minutes, not hours. Staff shift from 'reading' to 'verifying' flagged edge cases." },
                       ].map((block, i) => (
                         <div key={i}>
                           <p className="text-[10px] uppercase tracking-widest t-deco font-bold mb-2">{block.l}</p>

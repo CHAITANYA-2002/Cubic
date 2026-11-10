@@ -117,11 +117,11 @@ export default function WebDevelopment() {
   };
 
   const faqs = [
-    { q: "How long does a project typically take?", a: "Timelines depend on scope. Most marketing websites take 4–6 weeks. After your discovery call, we'll provide a precise, itemized project roadmap — not a vague range." },
-    { q: "Who owns the code at the end?", a: "You do. Fully, permanently, and without exception. Upon final payment, all source code, assets, and intellectual property transfer entirely to your company." },
-    { q: "What happens in the 30 days after launch?", a: "We provide a structured post-launch period covering bug resolution, performance tuning, and small scope adjustments at no additional cost." },
+    { q: "How long does a project typically take?", a: "Timelines depend on scope, content, and integrations. After discovery, we provide a clear delivery plan with milestones rather than a generic promise." },
+    { q: "Who owns the code at the end?", a: "Ownership, source access, and any third-party licences are agreed in writing before work begins. The exact terms are stated in the project agreement." },
+    { q: "What happens after launch?", a: "The handover and post-launch support period are scoped with the project, including documentation, bug fixes, and any agreed optimisation work." },
     { q: "Can we add features after the initial build?", a: "Yes — and we engineer for it specifically. Our modular architecture means adding new systems is additive, not disruptive." },
-    { q: "Do you offer ongoing maintenance and support?", a: "Yes. Our 'Performance Retainer' covers regular updates, security audits, and conversion testing. It's how most long-term client relationships are structured." },
+    { q: "Do you offer ongoing maintenance and support?", a: "Ongoing support can be scoped where it is useful. The cadence, monitoring, and responsibilities depend on the system and the team operating it." },
   ];
 
   return (
@@ -271,14 +271,14 @@ export default function WebDevelopment() {
               <div className="mt-32 pt-20 border-t border-border/20">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
                   {[
-                    { v: 99, s: "/100", l: "Lighthouse Score", d: "Near-perfect performance on core vitals." },
-                    { v: 250, s: "ms", l: "Server Response", d: "Optimized TTFB for global edge delivery." },
-                    { v: 99.9, s: "%", l: "Uptime SLA", d: "Hardened infrastructure with auto-failover." },
-                    { v: 0, s: "", l: "Legacy Debt", d: "Zero dependencies on outdated frameworks." },
+                    { v: "✓", s: "", l: "Performance", d: "The important user journeys are measured and improved before launch." },
+                    { v: "✓", s: "", l: "Response time", d: "Infrastructure choices follow the application’s real needs and constraints." },
+                    { v: "—", s: "", l: "Reliability plan", d: "Hosting, monitoring, and recovery needs are defined with the project scope." },
+                    { v: "✓", s: "", l: "Maintainability", d: "Technology choices are documented so the system remains understandable after launch." },
                   ].map((stat, i) => (
                     <div key={i} className="flex flex-col items-center text-center">
                       <div className="text-4xl sm:text-5xl md:text-6xl font-bold t-primary mb-3 font-display tabular-nums tracking-tight">
-                        <CountUp end={stat.v} suffix={stat.s} />
+                        {typeof stat.v === "number" ? <CountUp end={stat.v} suffix={stat.s} /> : stat.v}
                       </div>
                       <p className="text-[10px] uppercase tracking-[0.2em] t-deco font-bold mb-4 opacity-100">{stat.l}</p>
                       <div className="h-px w-8 bg-primary/20 mb-4 mx-auto" />
@@ -568,9 +568,10 @@ export default function WebDevelopment() {
           <section className="section-pad">
             <div className="container-w">
               <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="mb-20">
-                <p className="label mb-4">Evidence</p>
+                <p className="label mb-4">Example engagement</p>
                 <h2 className="text-4xl t-primary font-display">We measure success by outcomes,</h2>
                 <h2 className="text-4xl text-gradient italic font-display">not deliverables.</h2>
+                <p className="text-xs t-deco mt-6">Illustrative scenario — how we would approach this problem. Not a published client result.</p>
               </motion.div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
@@ -578,15 +579,15 @@ export default function WebDevelopment() {
                   {[
                     {
                       label: "The Situation",
-                      content: "A Jaipur-based luxury real estate firm with an established offline reputation had built a digital presence that actively undermined their brand. High-resolution video assets loaded at 8+ seconds. On mobile, the experience broke entirely."
+                      content: "Picture a luxury real estate firm with a strong offline reputation whose website actively undermines the brand. High-resolution video assets take 8+ seconds to load. On mobile, the experience breaks entirely."
                     },
                     {
                       label: "The Challenge",
-                      content: "Their audience — ultra-high-net-worth buyers — made decisions on first impression. A slow, dated website was losing qualified enquiries before a single word was read."
+                      content: "Their audience — high-net-worth buyers — decides on first impression. A slow, dated website loses qualified enquiries before a single word is read."
                     },
                     {
-                      label: "What We Changed",
-                      content: "We rebuilt the site on a headless Next.js architecture with edge-optimised media delivery, a bespoke property search engine, and a mobile-first experience designed for discerning users."
+                      label: "What We Would Change",
+                      content: "Rebuild the site on a headless Next.js architecture with edge-optimised media delivery, a bespoke property search, and a mobile-first experience designed for discerning users."
                     },
                   ].map((block, i) => (
                     <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} variants={fadeUp}
@@ -601,16 +602,16 @@ export default function WebDevelopment() {
                   className="glass-card p-12 flex flex-col justify-center ring-1 ring-primary/15 relative overflow-hidden"
                   style={{ background: "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(180,130,100,0.04) 0%, transparent 80%)" }}
                 >
-                  <p className="text-[10px] uppercase tracking-[0.25em] t-secondary mb-6 font-bold">The Outcome</p>
-                  <div className="text-6xl md:text-8xl font-bold font-display text-gradient mb-4 tracking-tight">214%</div>
-                  <h4 className="text-xl t-primary font-semibold mb-4">Increase in direct enquiries</h4>
-                  <p className="text-sm t-muted leading-relaxed mb-8">Within 60 days of launch, measured against the prior 60-day baseline.</p>
+                  <p className="text-[10px] uppercase tracking-[0.25em] t-secondary mb-6 font-bold">What We Measure</p>
+                  <div className="text-6xl md:text-8xl font-bold font-display text-gradient mb-4 tracking-tight">Enquiries</div>
+                  <h4 className="text-xl t-primary font-semibold mb-4">The number that actually matters</h4>
+                  <p className="text-sm t-muted leading-relaxed mb-8">Every build is measured against your pre-launch baseline and reported to you — not assumed.</p>
                   <div className="h-px bg-white/[0.06] mb-6" />
                   <div className="space-y-3">
                     {[
-                      "Lighthouse score improved from 41 → 96",
-                      "Mobile session duration ×3",
-                      "Bounce rate reduced by 58%",
+                      "Lighthouse performance, before and after",
+                      "Mobile session duration",
+                      "Bounce rate on key pages",
                     ].map((stat, i) => (
                       <div key={i} className="flex items-center gap-3 text-xs t-muted">
                         <CheckCircle2 className="w-3.5 h-3.5 t-secondary shrink-0" /> {stat}

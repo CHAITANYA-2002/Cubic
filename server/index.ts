@@ -4,6 +4,9 @@ import { serveStatic } from "./static";
 import { createServer } from "http";
 
 const app = express();
+
+// Behind one hosting proxy in production, so req.ip (login rate limit) is the real client IP.
+if (process.env.NODE_ENV === "production") app.set("trust proxy", 1);
 const httpServer = createServer(app);
 
 declare module "http" {
@@ -48,7 +51,9 @@ app.use((req, res, next) => {
     const duration = Date.now() - start;
     if (path.startsWith("/api")) {
       let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
-      if (capturedJsonResponse) {
+      // Never log bodies that carry session tokens, client data or invoices.
+      const sensitive = /^\/api\/(admin|os|portal|contact)/.test(path);
+      if (capturedJsonResponse && !sensitive) {
         logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
       }
 

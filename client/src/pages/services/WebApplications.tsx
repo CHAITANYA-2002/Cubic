@@ -300,10 +300,10 @@ export default function WebApplications() {
                   <h2 className="text-3xl t-secondary mb-12 font-display italic">How we build differently.</h2>
                   <div className="grid grid-cols-1 gap-4">
                     {[
-                      { icon: Database, t: "Modular Service Architecture", d: "We decouple logic to ensure individual components can be updated, scaled, or replaced without system downtime." },
-                      { icon: ShieldCheck, t: "Infrastructure-Level Security", d: "Auth and encryption are handled at the gateway and database layers. Security is a structural default." },
-                      { icon: Zap, t: "Performance-Driven Engineering", d: "Query optimisation and caching are mandatory. We engineer for sub-200ms response times at scale." },
-                      { icon: Cloud, t: "Production-Grade DevOps", d: "Automated pipelines, containerisation, and multi-region redundancy are standard for every build." },
+                      { icon: Database, t: "Modular architecture", d: "We separate responsibilities so the parts of a system can evolve without unnecessary coupling." },
+                      { icon: ShieldCheck, t: "Security by design", d: "Authentication, permissions, and data protection are considered early, then tailored to the system’s risk." },
+                      { icon: Zap, t: "Performance-minded engineering", d: "We identify important workflows and choose sensible caching, query, and delivery strategies for them." },
+                      { icon: Cloud, t: "Practical operations", d: "Deployment, backups, and monitoring are scoped according to how the system will actually be used." },
                     ].map((item, i) => (
                       <div key={i} className="flex gap-5 p-5 glass-card group hover:bg-secondary/20 transition-all duration-500">
                         <item.icon className="w-5 h-5 t-secondary shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-500" />
@@ -327,10 +327,10 @@ export default function WebApplications() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                 <div className="grid grid-cols-1 gap-4">
                   {[
-                    { icon: Database, t: "Information Architecture", d: "We design data models and API services that are decoupled from the UI, ensuring each layer scales independently." },
-                    { icon: ShieldCheck, t: "Infrastructure Security", d: "RBAC, rate limiting, and encryption are structural defaults, baked into the system from the first commit." },
-                    { icon: Zap, t: "Performance Engineering", d: "Caching layers and database optimisation ensure sub-200ms response times even under high concurrent load." },
-                    { icon: Cloud, t: "DevOps & Continuity", d: "Containerised deployments with automated CI/CD and multi-region redundancy ensure 99.9% availability." },
+                    { icon: Database, t: "Information architecture", d: "Data models and API boundaries are designed so the system remains easier to reason about as it grows." },
+                    { icon: ShieldCheck, t: "Infrastructure security", d: "Permissions, rate limits, and encryption are selected according to the data and operational risk." },
+                    { icon: Zap, t: "Performance engineering", d: "Caching and database choices are validated against the workflows that matter most to the people using the system." },
+                    { icon: Cloud, t: "DevOps & Continuity", d: "Deployment, monitoring, and recovery practices are designed around the system’s real operational needs." },
                   ].map((item, i) => (
                     <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} variants={fadeUp}
                       className="flex gap-5 p-5 glass-card group hover:bg-white/[0.02] transition-all duration-500">
@@ -489,15 +489,15 @@ export default function WebApplications() {
               </motion.div>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-center">
                 {[
-                  { label: "Uptime SLA", value: 99.9, decimals: 1, suffix: "%", note: "Guaranteed availability for mission-critical enterprise applications." },
-                  { label: "API Latency", value: 200, suffix: "ms", prefix: "<", note: "Optimised response times for core API endpoints under concurrent load." },
-                  { label: "Security Score", value: 100, suffix: "%", note: "A+ rating on industry-standard security verification and audit tools." },
-                  { label: "Stability Delta", value: 0, suffix: " Regressions", note: "Automated CI/CD and unit testing ensure zero-regression deployments." },
+                  { label: "Reliability", value: 0, suffix: "", decimals: 0, note: "Availability expectations and safeguards are defined during technical discovery." },
+                  { label: "Performance", value: 0, suffix: "", decimals: 0, note: "Response-time targets are chosen against the most important user journeys." },
+                  { label: "Security", value: 0, suffix: "", decimals: 0, note: "Appropriate controls are selected according to the data and operational risk." },
+                  { label: "Continuity", value: 0, suffix: "", decimals: 0, note: "Testing and deployment practices are shaped around the project’s needs." },
                 ].map((stat, i) => (
                   <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }}
                     custom={i} variants={fadeUp} className="flex flex-col items-center">
                     <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-display text-gradient mb-3 tracking-tight whitespace-nowrap">
-                      {stat.value === 0 ? "✓" : <CountUp end={stat.value} suffix={stat.suffix} prefix={stat.prefix || ""} decimals={stat.decimals || 0} />}
+                      {stat.value === 0 ? "✓" : <CountUp end={stat.value} suffix={stat.suffix} decimals={stat.decimals || 0} />}
                     </div>
                     <p className="text-xs uppercase tracking-[0.2em] t-deco font-bold mb-3">{stat.label}</p>
                     <p className="text-xs t-muted leading-relaxed max-w-[200px]">{stat.note}</p>
@@ -564,19 +564,20 @@ export default function WebApplications() {
             <div className="container-w">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                 <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}>
-                  <p className="label mb-4">Real World Impact</p>
-                  <h2 className="text-4xl t-primary font-display mb-6">Case Snapshot:<br /><span className="italic text-gradient">Logistics Engine.</span></h2>
+                  <p className="label mb-4">Example engagement</p>
+                  <h2 className="text-4xl t-primary font-display mb-6">Illustrative scenario:<br /><span className="italic text-gradient">Logistics Engine.</span></h2>
+                  <p className="text-xs t-deco mb-6">Illustrative scenario — how we would approach this problem. Not a published client result.</p>
                   <p className="t-muted text-lg font-light leading-relaxed mb-6">
-                    A regional logistics provider was managing 2,000+ daily operations through spreadsheets, resulting in massive data silos and manual overhead.
+                    Picture a regional logistics provider running 2,000+ daily operations through spreadsheets, with data silos and heavy manual overhead.
                   </p>
                   <div className="flex gap-12">
                     <div>
-                      <p className="text-2xl font-bold t-primary tracking-tight font-display">340%</p>
-                      <p className="text-[10px] uppercase tracking-widest t-deco">Volume Growth</p>
+                      <p className="text-2xl font-bold t-primary tracking-tight font-display">Live</p>
+                      <p className="text-[10px] uppercase tracking-widest t-deco">Field status visibility</p>
                     </div>
                     <div>
-                      <p className="text-2xl font-bold t-primary tracking-tight font-display">4m</p>
-                      <p className="text-[10px] uppercase tracking-widest t-deco">Reporting Time</p>
+                      <p className="text-2xl font-bold t-primary tracking-tight font-display">Minutes</p>
+                      <p className="text-[10px] uppercase tracking-widest t-deco">Target reporting time</p>
                     </div>
                   </div>
                 </motion.div>
@@ -585,9 +586,9 @@ export default function WebApplications() {
                     <div className="space-y-8">
                       {[
                         { l: "The Situation", t: "Delivery operations managed across fragmented spreadsheets and WhatsApp groups." },
-                        { l: "The Challenge", t: "Zero real-time visibility into field status; client updates took 48 hours to compile manually." },
-                        { l: "What We Engineered", t: "A custom operations platform with driver management, live tracking, and role-based analytics." },
-                        { l: "The Outcome", t: "Reporting reduced from 48h to 4 minutes. Handled 3.4× volume with the same staff size." },
+                        { l: "The Challenge", t: "No real-time visibility into field status; client updates take up to 48 hours to compile manually." },
+                        { l: "What We Would Build", t: "A custom operations platform with driver management, live tracking, and role-based analytics." },
+                        { l: "The Goal", t: "Client reporting in minutes instead of days, and room to grow volume without adding headcount." },
                       ].map((block, i) => (
                         <div key={i}>
                           <p className="text-[10px] uppercase tracking-widest t-deco font-bold mb-2">{block.l}</p>

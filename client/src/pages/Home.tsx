@@ -20,7 +20,7 @@ const systemsData = [
     title: "Growth Websites",
     for: "Series A+ startups & established brands.",
     capabilities: ["Conversion Strategy", "High-Fidelity UI", "Technical SEO", "Speed Optimization"],
-    scope: "8–12 weeks",
+    scope: "Scoped after discovery",
     stack: "React / Next.js, Framer Motion, TailWind",
     desc: "We don't build generic sites. We engineer growth engines that generate trust and securing high-value traffic.",
     accent: "#6C8CFF"
@@ -30,7 +30,7 @@ const systemsData = [
     title: "SaaS Platforms",
     for: "Product founders & enterprise teams.",
     capabilities: ["Multi-tenant Architecture", "Dashboard Systems", "Subscription Logic", "Scalability Engineering"],
-    scope: "12–24 weeks",
+    scope: "Scoped after discovery",
     stack: "Node.js, PostgreSQL, Cloud Infra, React",
     desc: "Full-cycle product engineering. We turn complex requirements into clean, scalable, production-grade platforms.",
     accent: "#22D3EE"
@@ -40,7 +40,7 @@ const systemsData = [
     title: "AI & Automation Systems",
     for: "Efficiency-focused companies.",
     capabilities: ["LLM Integration", "Workflow Automation", "Predictive Models", "Custom RAG Systems"],
-    scope: "6–16 weeks",
+    scope: "Scoped after discovery",
     stack: "Python, OpenAI/Anthropic, Vector DBs, LangChain",
     desc: "AI integrated as core infrastructure—not a gimmick. Automate high-friction processes with secure, private models.",
     accent: "#A78BFA"
@@ -50,7 +50,7 @@ const systemsData = [
     title: "Internal Business Tools",
     for: "Operationally complex organizations.",
     capabilities: ["Custom CRMs", "Operational Dashboards", "Inventory Systems", "Legacy Integrations"],
-    scope: "8–20 weeks",
+    scope: "Scoped after discovery",
     stack: "Modern Full-stack, Secure APIs, Cloud Sync",
     desc: "Tools designed to solve internal friction. We streamline operations by building software that fits your specific workflow.",
     accent: "#34D399"
@@ -176,6 +176,7 @@ export default function Home() {
       <div className="min-h-screen flex flex-col bg-background relative">
         <AdvancedCursor />
         <Navbar />
+        <main id="main-content">
 
         {/* ===== HERO — 3-Stage Scroll ===== */}
         <section ref={heroRef} className="relative min-h-[140vh]">
@@ -213,25 +214,18 @@ export default function Home() {
                   initial="hidden" animate="visible" custom={0} variants={materialize}
                   className="label mb-16 tracking-[0.2em] font-medium opacity-70"
                 >
-                  CUBICTECH — GLOBAL SYSTEMS STUDIO
+                  CUBICTECH — INDEPENDENT SOFTWARE STUDIO
                 </motion.p>
 
-                <div className="overflow-hidden mb-4">
-                  <motion.h1 initial="hidden" animate="visible" custom={1} variants={materialize}
-                    className="text-display-hero">
-                    <span className="t-primary">Where digital systems</span>
-                  </motion.h1>
-                </div>
-                <div className="overflow-hidden mb-12">
-                  <motion.h1 initial="hidden" animate="visible" custom={2} variants={materialize}
-                    className="text-display-hero">
-                    <span className="text-gradient italic">meet human intelligence.</span>
-                  </motion.h1>
-                </div>
+                <motion.h1 initial="hidden" animate="visible" custom={1} variants={materialize}
+                  className="text-display-hero mb-12">
+                  <span className="block t-primary">For smaller teams.</span>
+                  <span className="block text-gradient italic">With bigger work.</span>
+                </motion.h1>
 
                 <motion.p initial="hidden" animate="visible" custom={3} variants={fadeUp}
                   className="t-muted text-xl md:text-2xl max-w-2xl mx-auto mb-16 leading-relaxed font-normal">
-                  We design, engineer, and scale high-performance Machine Learning platforms, Data Analytics systems, and custom Software Engineering for ambitious companies.
+                  CubicTech builds practical web applications and AI workflows for teams ready to replace fragile manual processes with durable software.
                 </motion.p>
 
                 <motion.div initial="hidden" animate="visible" custom={4} variants={fadeUp}
@@ -239,7 +233,7 @@ export default function Home() {
                   <Link href="/contact">
                     <Button data-cursor="button" size="lg"
                       className="h-14 px-10 rounded-2xl btn-primary text-white border-0 gap-2 text-base shadow-lg shadow-primary/10 transition-all hover:scale-105 active:scale-95">
-                      Book Strategy Call <ArrowRight className="w-4 h-4" />
+                      Start a project <ArrowRight className="w-4 h-4" />
                     </Button>
                   </Link>
                   <Link href="/services">
@@ -252,7 +246,7 @@ export default function Home() {
 
                 <motion.p initial="hidden" animate="visible" custom={5} variants={fadeUp}
                   className="t-deco text-sm tracking-wide opacity-50 font-medium">
-                  Serving startups, funded teams, and growth-stage companies globally.
+                  Independent studio · Remote-first from India · Clear scope before build
                 </motion.p>
 
               </motion.div>
@@ -275,26 +269,23 @@ export default function Home() {
         <section className="py-20 border-y border-border/40 bg-background/50 backdrop-blur-sm relative overflow-hidden">
           <div className="aurora opacity-40" />
           <div className="container-w relative z-10">
-            {/* Animated Hero Stats Row */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 text-center">
               {[
-                { label: "Projects Delivered", value: 50, suffix: "+" },
-                { label: "Uptime SLA", value: 99.9, suffix: "%", decimals: 1 },
-                { label: "Response Latency", value: 200, prefix: "<", suffix: "ms" },
-                { label: "Client Retention", value: 98, suffix: "%" }
+                { value: "AI + software", label: "A focused build practice" },
+                { value: "Remote-first", label: "India (IST), worldwide delivery" },
+                { value: "Two projects", label: "Maximum active capacity" },
+                { value: "Written scope", label: "Before any build begins" }
               ].map((stat, i) => (
                 <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} variants={fadeUp} className="flex flex-col items-center">
-                  <span className="text-3xl md:text-5xl font-bold font-display text-gradient mb-2">
-                    <CountUp end={stat.value} suffix={stat.suffix} prefix={stat.prefix || ""} decimals={stat.decimals || 0} />
-                  </span>
+                  <span className="text-2xl md:text-4xl font-bold font-display text-gradient mb-2">{stat.value}</span>
                   <span className="text-xs uppercase tracking-[0.2em] t-deco font-semibold">{stat.label}</span>
                 </motion.div>
               ))}
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 items-center gap-8 lg:gap-16 opacity-70 border-t border-white/[0.05] pt-12">
-              <span className="col-span-2 md:col-span-3 lg:col-span-1 t-deco text-[10px] uppercase tracking-[0.4em] font-bold text-center lg:text-left mb-4 lg:mb-0">CubicTech Systems Built For:</span>
-              {["SaaS", "Fintech", "E-commerce", "Real Estate", "Healthcare", "Internal Systems"].map((tag, i) => (
+              <span className="col-span-2 md:col-span-3 lg:col-span-1 t-deco text-[10px] uppercase tracking-[0.4em] font-bold text-center lg:text-left mb-4 lg:mb-0">Useful for teams in:</span>
+              {["Operations", "Professional services", "Healthcare", "Logistics", "D2C", "Product teams"].map((tag, i) => (
                 <span key={i} className="t-primary text-sm font-medium tracking-wide hover:t-secondary transition-colors cursor-default text-center whitespace-nowrap">
                   {tag}
                 </span>
@@ -566,9 +557,9 @@ export default function Home() {
           <div className="aurora" />
           <div className="container-w relative z-10">
             <div className="mb-20">
-              <p className="label mb-6">Case Previews</p>
+              <p className="label mb-6">System briefs</p>
               <h2 className="text-4xl md:text-6xl t-primary tracking-tighter font-display leading-[0.95]">
-                Selected outcomes.
+                The work behind a useful system.
               </h2>
             </div>
 
@@ -576,24 +567,24 @@ export default function Home() {
               {/* Case Preview Cards with Spotlight Effect */}
               {[
                 {
-                  industry: "AI Fintech",
-                  challenge: "Preventing complex multi-vector financial fraud in real-time across global markets.",
-                  engineered: "Self-evolving neural network architecture with real-time graph analysis for pattern recognition.",
-                  outcome: "99.9% Fraud Detection Accuracy",
+                  industry: "Knowledge-work automation",
+                  challenge: "Critical information sits across documents, inboxes, and institutional memory—making routine decisions slower than they should be.",
+                  engineered: "A reviewable workflow that retrieves relevant context, keeps people in control, and makes the next action visible.",
+                  outcome: "Less manual searching. More confident decisions.",
                   accent: "#A78BFA"
                 },
                 {
-                  industry: "Global E-commerce",
-                  challenge: "Engineering transactional infrastructure to support 300K+ concurrent users during peak flash sales.",
-                  engineered: "Multi-region serverless mesh with intelligent edge-routing and distributed cache synchronization.",
-                  outcome: "300K+ Concurrent Users with 0ms Downtime",
+                  industry: "Operations software",
+                  challenge: "The work is held together by spreadsheets, WhatsApp updates, and workarounds that make it hard to see what is happening next.",
+                  engineered: "A purpose-built internal tool shaped around real roles, approvals, and exceptions—not an abstract feature list.",
+                  outcome: "A calmer, clearer daily operating rhythm.",
                   accent: "#6C8CFF"
                 },
                 {
-                  industry: "Healthcare AI",
-                  challenge: "Data silos preventing real-time patient risk assessment.",
-                  engineered: "Secure RAG-based AI system for clinical documentation analysis.",
-                  outcome: "40% increase in early-stage diagnosis accuracy.",
+                  industry: "Customer experience",
+                  challenge: "Potential customers cannot quickly understand the right service, next step, or person to speak with.",
+                  engineered: "A considered digital journey that makes the offer easier to trust, navigate, and act on.",
+                  outcome: "Fewer dead ends between interest and action.",
                   accent: "#34D399"
                 }
               ].map((caseItem, i) => (
@@ -626,7 +617,7 @@ export default function Home() {
                     </div>
                     
                     <div className="mt-12 pt-8 border-t border-white/[0.03]">
-                      <p className="text-[10px] uppercase tracking-wider t-muted mb-3 font-bold opacity-40">Outcome</p>
+                      <p className="text-[10px] uppercase tracking-wider t-muted mb-3 font-bold opacity-40">Design intent</p>
                       <p className="text-3xl font-display font-extrabold tracking-tight" style={{ color: caseItem.accent }}>{caseItem.outcome}</p>
                     </div>
                   </motion.article>
@@ -640,14 +631,14 @@ export default function Home() {
         <section className="py-32 bg-background border-y border-white/[0.03]">
           <div className="container-w">
             <div className="max-w-3xl">
-              <p className="label mb-6 text-primary">Internal Projects</p>
+              <p className="label mb-6 text-primary">Built for continuity</p>
               <h2 className="text-4xl md:text-5xl t-primary tracking-tighter font-display mb-8">
-                We’re also building internal products.
+                A build should not create a black box.
               </h2>
               <p className="t-muted text-xl leading-relaxed font-normal opacity-80">
-                Alongside client systems, we develop proprietary AI-enabled operational tools focused on performance and automation. This dual focus ensures our client engineering remains at the absolute edge of what’s possible.
+                We build with clear handover, practical documentation, and maintainable choices. The aim is a system your team can confidently operate and improve after launch.
               </p>
-              <p className="t-deco text-xs mt-6 opacity-30 font-medium italic">Currently in private development.</p>
+              <p className="t-deco text-xs mt-6 opacity-30 font-medium italic">The details matter as much as the launch.</p>
             </div>
           </div>
         </section>
@@ -682,6 +673,7 @@ export default function Home() {
           </div>
         </section>
 
+        </main>
         <Footer />
       </div>
     </PageTransition>

@@ -7,6 +7,7 @@ const links = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
   { href: "/work", label: "Work" },
+  { href: "/pricing", label: "Pricing" },
   { href: "/insights", label: "Insights" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
@@ -59,7 +60,7 @@ export function Navbar() {
         </div>
 
         <div className="lg:hidden flex items-center gap-2">
-          <button className="t-muted" onClick={() => setOpen(!open)}>
+          <button className="t-muted p-2 -mr-2" onClick={() => setOpen(!open)} aria-label={open ? "Close navigation menu" : "Open navigation menu"} aria-expanded={open} aria-controls="mobile-navigation">
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
@@ -74,7 +75,7 @@ export function Navbar() {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="lg:hidden glass overflow-hidden"
           >
-            <div className="container-w py-4 flex flex-col gap-1">
+            <div id="mobile-navigation" className="container-w py-4 flex flex-col gap-1">
               {links.map((link) => (
                 <Link key={link.href} href={link.href}>
                   <span

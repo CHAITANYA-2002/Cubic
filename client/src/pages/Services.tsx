@@ -79,7 +79,7 @@ const process = [
 const whyUs = [
   { icon: CheckCircle2, title: "Senior-level quality", desc: "Every project is led by an experienced engineer or designer — not handed off to a junior." },
   { icon: Shield, title: "Fixed-price projects", desc: "Know your budget upfront. No scope creep surprises, no hidden fees." },
-  { icon: Zap, title: "Fast turnaround", desc: "Most websites delivered in 3–4 weeks. Complex apps in 6–10 weeks, not months." },
+  { icon: Zap, title: "Clear delivery plan", desc: "Every engagement begins with a practical scope, milestones, and a timeline shaped around the work." },
   { icon: Users, title: "Direct communication", desc: "You talk to the people actually building your product. Always." },
 ];
 
@@ -239,7 +239,7 @@ export default function Services() {
               transition={{ delay: 0.4, duration: 0.6 }}
               className="flex flex-wrap items-end gap-x-12 gap-y-6 mt-14 pt-8 border-t border-white/[0.07] max-w-2xl"
             >
-              {[["20+", "Projects Delivered"], ["100%", "Client Commitment"], ["Startup", "Phase & Agility"], ["24/7", "Support Available"]].map(([val, lbl]) => (
+              {[["Focused", "Software + AI practice"], ["Written", "Scope before build"], ["Remote", "India (IST) delivery"], ["Two", "Maximum active projects"]].map(([val, lbl]) => (
                 <div key={lbl} className="flex flex-col">
                   <span className="text-3xl md:text-4xl font-bold text-gradient font-display leading-none">{val}</span>
                   <span className="text-[11px] t-muted mt-2 uppercase tracking-[0.18em]">{lbl}</span>

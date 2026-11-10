@@ -135,7 +135,7 @@ export default function Maintenance() {
   };
 
   const faqs = [
-    { q: "Do you maintain systems built by other agencies?", a: "Yes. We begin every takeover with a deep technical audit ($1,500) to map your current architecture, document technical debt, and establish our baseline before we assume liability for the platform's stability." },
+    { q: "Do you maintain systems built by other agencies?", a: "Yes. We begin every takeover with a paid Diagnostic (₹35,000, credited toward the care plan if you continue within 30 days) to map your current architecture, document technical debt, and establish our baseline before we assume liability for the platform's stability." },
     { q: "What happens if a critical vulnerability is discovered?", a: "For automated security issues, our CI/CD pipelines patch dependencies immediately. For architectural vulnerabilities, Growth and Enterprise tiers include priority hot-fixing outside of standard sprint cycles." },
     { q: "Is there a minimum commitment?", a: "Maintenance is a partnership, not a one-off fix. We require a 3-month initial commitment to establish stability, after which we move to a monthly rolling agreement." },
     { q: "How do you handle backups?", a: "We run multi-layer backups: daily filesystem snapshots and real-time/hourly database replication, stored off-site in geographically isolated S3 buckets with strict 30-day retention policies." },
@@ -554,19 +554,20 @@ export default function Maintenance() {
             <div className="container-w">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                 <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}>
-                  <p className="label mb-4">Real World Impact</p>
-                  <h2 className="text-4xl t-primary font-display mb-6">Case Snapshot:<br /><span className="italic text-gradient">Legacy ERP Recovery.</span></h2>
+                  <p className="label mb-4">Example engagement</p>
+                  <h2 className="text-4xl t-primary font-display mb-6">Illustrative scenario:<br /><span className="italic text-gradient">Legacy ERP Recovery.</span></h2>
+                  <p className="text-xs t-deco mb-6">Illustrative scenario — how we would approach this problem. Not a published client result.</p>
                   <p className="t-muted text-lg font-light leading-relaxed mb-6">
-                    A custom ERP system for a manufacturing firm that suffered 4 severity-1 outages within a single quarter under their previous agency.
+                    Picture a custom ERP for a manufacturing firm that has suffered 4 severity-1 outages in a single quarter under its previous agency.
                   </p>
                   <div className="flex gap-12">
                     <div>
-                      <p className="text-2xl font-bold t-primary tracking-tight font-display">0</p>
-                      <p className="text-[10px] uppercase tracking-widest t-deco">Emergency Outages</p>
+                      <p className="text-2xl font-bold t-primary tracking-tight font-display">Zero</p>
+                      <p className="text-[10px] uppercase tracking-widest t-deco">Target emergency outages</p>
                     </div>
                     <div>
-                      <p className="text-2xl font-bold t-primary tracking-tight font-display">99.99%</p>
-                      <p className="text-[10px] uppercase tracking-widest t-deco">12-Month Uptime</p>
+                      <p className="text-2xl font-bold t-primary tracking-tight font-display">Monitored</p>
+                      <p className="text-[10px] uppercase tracking-widest t-deco">Round-the-clock uptime checks</p>
                     </div>
                   </div>
                 </motion.div>
@@ -576,8 +577,8 @@ export default function Maintenance() {
                       {[
                         { l: "The Situation", t: "Original dev team dissolved. Codebase had zero docs, 400+ unpatched dependencies, and a critical memory leak." },
                         { l: "The Challenge", t: "Stabilising a live system without causing regression in high-ticket manufacturing logistics." },
-                        { l: "What We Engineered", t: "Containerized the app, instituted CI/CD pipelines, and deployed Datadog APM to isolate the leak." },
-                        { l: "The Outcome", t: "Memory leak resolved. System achieved perfect stability for 12 months with proactive governance." },
+                        { l: "What We Would Build", t: "Containerise the app, set up CI/CD pipelines, and add application monitoring to isolate the leak." },
+                        { l: "The Goal", t: "Root cause found and fixed, then a stable system kept that way through proactive maintenance." },
                       ].map((block, i) => (
                         <div key={i}>
                           <p className="text-[10px] uppercase tracking-widest t-deco font-bold mb-2">{block.l}</p>

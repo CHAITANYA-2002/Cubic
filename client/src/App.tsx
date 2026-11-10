@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -20,6 +20,9 @@ import DigitalMarketing from "@/pages/services/DigitalMarketing";
 import CaseStudies from "@/pages/CaseStudies";
 import Insights from "@/pages/Insights";
 import Admin from "@/pages/Admin";
+import InvoicePrint from "@/pages/os/InvoicePrint";
+import Portal from "@/pages/Portal";
+import Pricing from "@/pages/Pricing";
 import Terms from "@/pages/Terms";
 import Privacy from "@/pages/Privacy";
 import Cookies from "@/pages/Cookies";
@@ -41,7 +44,11 @@ function Router() {
         <Route path="/insights" component={Insights} />
         <Route path="/about" component={About} />
         <Route path="/contact" component={Contact} />
+        <Route path="/pricing" component={Pricing} />
         <Route path="/admin" component={Admin} />
+        <Route path="/admin/print/:id" component={InvoicePrint} />
+        <Route path="/admin/:tab" component={Admin} />
+        <Route path="/portal/:token" component={Portal} />
         <Route path="/terms" component={Terms} />
         <Route path="/privacy" component={Privacy} />
         <Route path="/cookies" component={Cookies} />
@@ -53,17 +60,22 @@ function Router() {
 
 import { AdvancedCursor } from "@/components/AdvancedCursor";
 
+// Internal tools and client portals skip the marketing chrome (custom cursor, WhatsApp CTA, cookie banner).
+const isWorkspaceRoute = (path: string) => path.startsWith("/admin") || path.startsWith("/portal");
+
 function App() {
+  const [location] = useLocation();
+  const workspace = isWorkspaceRoute(location);
   return (
     <div className="relative min-h-screen">
       <div className="site-background" />
-      <AdvancedCursor />
+      {!workspace && <AdvancedCursor />}
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
           <Router />
-          <FloatingCTA />
-          <CookieConsent />
+          {!workspace && <FloatingCTA />}
+          {!workspace && <CookieConsent />}
         </TooltipProvider>
       </QueryClientProvider>
     </div>

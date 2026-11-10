@@ -76,7 +76,7 @@ export default function DigitalMarketing() {
     },
     {
       title: "E-Commerce Scaling",
-      bestFor: "D2C brands ready to scale spend past $20k/mo.",
+      bestFor: "D2C brands with a proven product, ready to scale paid spend.",
       goal: "ROAS & Scale",
       complexity: "Medium-High",
       timeline: "Weekly Optimisation",
@@ -508,10 +508,10 @@ export default function DigitalMarketing() {
               </motion.div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 text-center">
                 {[
-                  { label: "CAC Reduction", value: 40, suffix: "%", prefix: "-", note: "Average decrease in acquisition costs through database-led targeting." },
+                  { label: "CAC Reduction", value: 40, suffix: "%", prefix: "-", note: "Target decrease in acquisition costs we plan campaigns around." },
                   { label: "Conversion Rate", value: 3.2, suffix: "x", note: "Multiplier in lead-to-opportunity conversion after system integration." },
                   { label: "Data Attribution", value: 100, suffix: "%", note: "Deterministic tracking from first touch to final close — no guessing." },
-                  { label: "ROAS Increment", value: 2.5, suffix: "x", note: "Average return on ad spend improvement within first 90 days." },
+                  { label: "ROAS Increment", value: 2.5, suffix: "x", note: "Target ROAS improvement we plan campaigns around." },
                 ].map((stat, i) => (
                   <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }}
                     custom={i} variants={fadeUp} className="flex flex-col items-center">
@@ -582,17 +582,18 @@ export default function DigitalMarketing() {
           <section className="section-pad">
             <div className="container-w">
               <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="mb-16">
-                <p className="label mb-4">Evidence</p>
+                <p className="label mb-4">Example engagement</p>
                 <h2 className="text-4xl t-primary font-display mb-6">The SaaS Scaling Sprint.</h2>
+                <p className="text-xs t-deco mb-6">Illustrative scenario — how we would approach this problem. Not a published client result.</p>
               </motion.div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1} variants={fadeUp}>
                   <div className="glass-card p-10 space-y-8">
                     {[
-                      { l: "Situation", t: "A FinTech scale-up with $40k monthly ad spend plateaued at a 1.2x ROAS and rising CAC due to poor tracking." },
-                      { l: "Challenge", t: "iOS14 privacy updates lost 40% of their conversion data, causing Meta's bidding algorithm to drift into low-intent segments." },
-                      { l: "Engineering", t: "We implemented a full server-side GTM container and connected their back-end payment system (Stripe) directly to Meta CAPI." },
-                      { l: "Outcome", t: "ROAS increased to 2.6x within 45 days. CAC dropped by 38% as the algorithm gained clean deterministic signals to find actual buyers." },
+                      { l: "Situation", t: "Picture a FinTech scale-up whose ad spend has plateaued at a 1.2x ROAS, with CAC rising because tracking is broken." },
+                      { l: "Challenge", t: "Privacy changes have cut the conversion data reaching ad platforms, so Meta's bidding drifts into low-intent segments." },
+                      { l: "Engineering", t: "Implement server-side GTM and connect the back-end payment system (e.g. Stripe) directly to Meta CAPI." },
+                      { l: "Outcome", t: "Clean, deterministic conversion signals so the algorithm finds real buyers — with ROAS and CAC tracked weekly against the starting baseline." },
                     ].map((step, i) => (
                       <div key={i} className="group cursor-default">
                         <p className="text-[10px] uppercase tracking-widest t-deco font-bold mb-2 group-hover:t-secondary transition-colors duration-300">{step.l}</p>
@@ -604,9 +605,9 @@ export default function DigitalMarketing() {
                 </motion.div>
                 <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={2} variants={fadeUp} className="relative aspect-video rounded-3xl overflow-hidden glass-card flex items-center justify-center p-12">
                    <div className="text-center">
-                      <div className="text-6xl font-bold text-gradient mb-4 font-display">+116%</div>
-                      <p className="text-base t-secondary font-medium tracking-wide">Increase in Revenue from Paid Acquisition</p>
-                      <p className="text-xs t-muted mt-4">In the first 90 days after sGTM implementation.</p>
+                      <div className="text-6xl font-bold text-gradient mb-4 font-display">Clean data</div>
+                      <p className="text-base t-secondary font-medium tracking-wide">Before any budget is scaled</p>
+                      <p className="text-xs t-muted mt-4">Attribution gets fixed first. Spend grows only when the numbers hold.</p>
                    </div>
                    <div className="absolute inset-0 bg-primary/5 opacity-20 pointer-events-none" />
                 </motion.div>

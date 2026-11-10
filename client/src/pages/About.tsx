@@ -43,17 +43,17 @@ export default function About() {
                 className="max-w-4xl"
               >
                 <h1 className="text-display-hero">
-                  We engineer products<br /><span className="text-gradient italic">that dictate the future.</span>
+                  Software and AI workflows<br /><span className="text-gradient italic">small teams can rely on.</span>
                 </h1>
                 <p className="text-xl md:text-2xl t-muted leading-relaxed font-normal mb-12 max-w-3xl">
-                  CubicTech is a digital systems company. We design, architect, and deploy enterprise-grade applications, AI workflows, and digital infrastructure for global businesses.
+                  CubicTech is an independent, remote-first software studio led by Chaitanya Khurana. We design and build practical web applications, AI workflows, and digital systems for teams that need more capability than an off-the-shelf tool can offer.
                 </p>
                 
                 <div className="flex flex-wrap gap-10 mb-12">
                   {[
-                    ["Engineered", "Not just designed"],
-                    ["20+ Projects", "Early-stage momentum"],
-                    ["Long-Term", "Strategic thinking"]
+                    ["India", "Remote-first delivery"],
+                    ["AI + Software", "Our lead capability"],
+                    ["Two projects", "Maximum active capacity"]
                   ].map(([v, l]) => (
                     <div key={l}>
                       <span className="block text-2xl font-bold t-primary">{v}</span>
@@ -79,10 +79,10 @@ export default function About() {
                 </motion.div>
                 <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1} variants={fadeUp}>
                   <p className="t-secondary text-lg leading-relaxed mb-8 font-medium">
-                    The traditional agency model is broken. It prioritizes surface-level aesthetics over backend architecture, leading to products that look good in a portfolio but fail under the stress of real-world scale and data complexity.
+                    Many teams are forced to choose between a beautiful interface, useful operations tooling, and a reliable technical foundation. We think those pieces should be designed together.
                   </p>
                   <p className="t-muted text-lg leading-relaxed font-light">
-                    We formed CubicTech to bridge the gap between premium design and rigorous computer science. We believe a digital product is a cohesive system where UX, APIs, Database schema, and AI models must be designed concurrently. We exist to build platforms that companies can actually run their operations on.
+                    CubicTech brings product thinking, considered interface design, and engineering discipline into one engagement. We start with the workflow and the people using it, then build the smallest durable system that moves the work forward.
                   </p>
                 </motion.div>
               </div>
@@ -142,7 +142,7 @@ export default function About() {
                   <div className="relative rounded-[2rem] overflow-hidden glass aspect-square border border-border/40 p-2">
                     <img
                       src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
-                      alt="CubicTech engineering team"
+                    alt="People collaborating in a studio"
                       className="w-full h-full object-cover rounded-3xl grayscale hover:grayscale-0 transition-all duration-1000 opacity-60 hover:opacity-100"
                     />
                   </div>
@@ -154,17 +154,17 @@ export default function About() {
                     Built in India.<br /><span className="text-gradient italic">Designed for global scale.</span>
                   </h2>
                   <p className="t-muted text-lg font-light leading-relaxed mb-6">
-                    We are headquartered in Jaipur, India. But our engineering protocols, compliance standards, and architectural decisions are dictated by the demands of a global tier-1 market.
+                  CubicTech is based in India and delivers remotely. The work is structured around clear written communication, sensible milestones, and decisions that can be understood by the people who have to live with the system.
                   </p>
                   <p className="t-muted text-lg font-light leading-relaxed mb-8">
-                    We combine the intense engineering talent of the Indian subcontinent with the rigorous design standards and product-thinking of Silicon Valley. The result is a highly capable systems firm that executes complex architectural builds efficiently.
+                  We believe good digital work does not need inflated claims. It needs clear thinking, honest scope, and a build that remains useful after launch.
                   </p>
                   <ul className="space-y-4">
                     {[
-                      "Global compliance standards (GDPR, SOC2 awareness)",
-                      "Asynchronous communication protocols for global clients",
-                      "Strict CI/CD and deployment standards",
-                      "Codebases written in immaculate English with full documentation",
+                      "Remote-first collaboration from India (IST)",
+                      "Written scope and milestone-based delivery",
+                      "Practical documentation for handover and continuity",
+                      "A maximum of two active projects at a time",
                     ].map((item, i) => (
                       <li key={i} className="flex items-center gap-3 text-sm t-muted">
                         <CheckCircle2 className="w-4 h-4 t-deco shrink-0 group-hover:t-secondary transition-colors" /> {item}
@@ -187,17 +187,17 @@ export default function About() {
                   Where we are headed.
                 </h2>
                 <p className="t-muted text-xl leading-relaxed font-normal mb-8">
-                  CubicTech is currently a high-end services company, engineering platforms for select clients. But our trajectory is product-led.
+                  CubicTech is building a focused services practice around software and AI workflows that make small teams more capable.
                 </p>
                 <p className="t-muted text-xl leading-relaxed font-normal">
-                  The infrastructure, AI modules, and component systems we develop for our enterprise clients today are laying the foundation for our own proprietary SaaS platforms tomorrow. When you hire CubicTech, you aren't hiring freelancers executing a task — you are partnering with a serious software company building its own technological future.
+                  We want every engagement to leave the client with a system they understand, can operate, and can improve. The goal is not to sell complexity; it is to remove it where it blocks useful work.
                 </p>
 
                 <div className="grid sm:grid-cols-3 gap-5 mt-16 text-left">
                   {[
-                    ["Proprietary SaaS", "Turning the infrastructure we build for clients into our own products."],
-                    ["AI Infrastructure", "Reusable, private AI modules that compound across every build."],
-                    ["Component Systems", "An internal library that makes each new project faster than the last."],
+                    ["Useful systems", "Software that earns its place in a team’s everyday work."],
+                    ["Responsible AI", "Automation where it genuinely reduces repetitive knowledge work."],
+                    ["Clear handover", "A build that does not leave the client dependent on mystery."],
                   ].map(([t, d]) => (
                     <div key={t} className="glass-card p-6">
                       <h3 className="text-base font-bold t-primary mb-2">{t}</h3>
@@ -220,14 +220,14 @@ export default function About() {
                   Ready to engineer<br /><span className="text-gradient italic">your system?</span>
                 </h2>
                 <p className="t-muted text-lg max-w-md mx-auto mb-10 font-light">
-                  We don't do hard sales. We start with technical discovery. Drop us a message, and we will evaluate your architectural requirements.
+                  We start with discovery. Share the workflow you want to improve, and we will help you decide whether a custom system is the right next step.
                 </p>
                 <Link href="/contact">
                   <Button data-cursor="button" size="lg" className="h-14 px-10 btn-primary text-white border-0 rounded-2xl text-base gap-2 shadow-xl shadow-primary/20">
                     Book a Strategy Call <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>
-                <p className="text-xs t-deco tracking-widest uppercase mt-6">Typically respond within 4 hours</p>
+                <p className="text-xs t-deco tracking-widest uppercase mt-6">Remote-first · India (IST)</p>
               </motion.div>
             </div>
           </section>

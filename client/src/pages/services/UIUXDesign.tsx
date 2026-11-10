@@ -565,19 +565,20 @@ export default function UIUXDesign() {
             <div className="container-w">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                 <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}>
-                  <p className="label mb-4">Real World Impact</p>
-                  <h2 className="text-4xl t-primary font-display mb-6">Case Snapshot:<br /><span className="italic text-gradient">System Consolidation.</span></h2>
+                  <p className="label mb-4">Example engagement</p>
+                  <h2 className="text-4xl t-primary font-display mb-6">Illustrative scenario:<br /><span className="italic text-gradient">System Consolidation.</span></h2>
+                  <p className="text-xs t-deco mb-6">Illustrative scenario — how we would approach this problem. Not a published client result.</p>
                   <p className="t-muted text-lg font-light leading-relaxed mb-6">
-                    A global employee management SaaS platform was suffering from high churn and low user engagement due to a fragmented interface.
+                    Picture a SaaS platform suffering high churn and low engagement because acquisitions left it with a fragmented interface.
                   </p>
                   <div className="flex gap-12">
                     <div>
-                      <p className="text-2xl font-bold t-primary tracking-tight font-display">41%</p>
-                      <p className="text-[10px] uppercase tracking-widest t-deco">Task Speed</p>
+                      <p className="text-2xl font-bold t-primary tracking-tight font-display">Faster</p>
+                      <p className="text-[10px] uppercase tracking-widest t-deco">Core task completion</p>
                     </div>
                     <div>
-                      <p className="text-2xl font-bold t-primary tracking-tight font-display">120+</p>
-                      <p className="text-[10px] uppercase tracking-widest t-deco">Components</p>
+                      <p className="text-2xl font-bold t-primary tracking-tight font-display">One</p>
+                      <p className="text-[10px] uppercase tracking-widest t-deco">Unified design system</p>
                     </div>
                   </div>
                 </motion.div>
@@ -586,9 +587,9 @@ export default function UIUXDesign() {
                     <div className="space-y-8">
                       {[
                         { l: "The Situation", t: "A fragmented UI with 3 different design systems merged into one product through acquisitions." },
-                        { l: "The Challenge", t: "Users spent 4× more time on basic tasks than industry benchmarks due to inconsistent navigation." },
-                        { l: "What We Engineered", t: "A unified Design System with semantic tokens, consolidated navigation, and role-based dashboard variants." },
-                        { l: "The Outcome", t: "41% reduction in task completion time. Enterprise procurement approved within 2 weeks of redesign." },
+                        { l: "The Challenge", t: "Users spend far longer on basic tasks than they should because navigation is inconsistent." },
+                        { l: "What We Would Build", t: "A unified Design System with semantic tokens, consolidated navigation, and role-based dashboard variants." },
+                        { l: "The Goal", t: "Measurably faster core tasks and one design system the team can extend — validated with usability tests before and after." },
                       ].map((block, i) => (
                         <div key={i}>
                           <p className="text-[10px] uppercase tracking-widest t-deco font-bold mb-2">{block.l}</p>

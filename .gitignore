@@ -7,3 +7,13 @@ vite.config.ts.*
 .env
 .env.local
 .env*.local
+
+# Firm CRM — contains real prospect and client personal data. Never push.
+firm/pipeline.csv
+firm/targets.csv
+
+# Cubic OS data — clients, invoices, leads. Never push.
+data/
+
+# Contact-form leads — real personal data. Never push.
+submissions.csv

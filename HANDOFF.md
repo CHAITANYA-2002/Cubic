@@ -74,10 +74,11 @@ Admin UI at `/admin` — search, status filter, CSV export. Password default `cu
 
 Three possible destinations depending on configuration:
 
-1. **In-memory (default local)** — leads live in `server/storage.ts` `InMemoryStorage`.
-   **Lost on every server restart.** Fine for local testing only.
-2. **Postgres** — set `DATABASE_URL` and storage automatically switches to `DatabaseStorage`.
-   Persistent; visible in `/admin`.
+1. **Local file (default)** — leads and all Cubic OS data live in `data/cubic-os.json`
+   (gitignored; override path with `CUBIC_DATA_FILE`). Survives restarts. Back it up from
+   `/admin/settings` → Download backup.
+2. **Postgres** — set `DATABASE_URL`: leads go to `consultation_requests` (Drizzle) and the
+   Cubic OS document to one row in `cubic_os_documents` (table auto-created).
 3. **Web3Forms (static hosting)** — set `VITE_WEB3FORMS_KEY` and the client posts submissions
    straight to Web3Forms, which **emails each one to the address the key is registered to**.
    No server needed. Implemented in `client/src/hooks/use-contact.ts`; falls back to the
@@ -96,7 +97,7 @@ See `.env.example`. `.env*` is gitignored.
 | `VITE_WEB3FORMS_KEY` | Static deploy — emails each submission (free key at web3forms.com) |
 | `DATABASE_URL` | Persistent Postgres storage |
 | `ADMIN_PASSWORD` | Admin login (**must be set on any public server**) |
-| `ADMIN_TOKEN` | Session token returned after admin login |
+| `CUBIC_DATA_FILE` | Optional path for the local Cubic OS data file |
 
 ---
 
@@ -163,3 +164,29 @@ no console errors · no horizontal overflow at 375 px on any page.
 6. Owner asked for an admin panel that edits socials/email/phone/address site-wide. **Not built**
    — those values are hardcoded across ~8 files. Requires persistent storage plus a settings
    API, so it depends on the §6 hosting decision.
+
+---
+
+## 10. Cubic OS — the firm's internal system (`/admin`)
+
+Login at `/admin` (password = `ADMIN_PASSWORD`; dev default only when `NODE_ENV` is not
+production — in production login is disabled until it is set). Sessions are random tokens,
+12 h expiry, 8 failed logins per IP per 15 min → 429.
+
+| Tab | Does |
+|---|---|
+| Dashboard | Pipeline value (raw + weighted), won this month, active projects vs capacity 2, receivable / overdue / collected, follow-ups due, upcoming milestones, setup warnings |
+| Inbox | Website enquiries. Email / WhatsApp shortcuts, status, **Qualify → deal** |
+| Pipeline | Kanban Lead → Qualified → Discovery → Proposal → Negotiation → Won/Lost. **Mark won** creates the client + project |
+| Clients | Billed / paid per client, private **portal link** (copy, preview, reset) |
+| Projects | Milestones (date, amount, status), progress updates (client-visible or internal), one-click milestone invoice |
+| Invoices & quotes | Numbered `CT-YYYY-NNN` / `CT-Q-YYYY-NNN`, GST none / IGST / CGST+SGST, Draft → Sent → Paid, quote → invoice, print / save as PDF |
+| Settings | Legal name, GSTIN, PAN, address, UPI + bank details, prefix, payment terms, JSON backup |
+
+Client portal: `/portal/<token>` — milestones, client-visible updates, non-draft quotes and
+invoices with payment details. No login; the 48-char token is the secret, reset it from Clients.
+
+Code: `shared/os.ts` (types, zod, invoice maths), `server/os/` (store, routes, dashboard),
+`server/auth.ts`, `client/src/pages/os/`, `client/src/pages/Portal.tsx`,
+`client/src/components/InvoiceDocument.tsx`. Public `/pricing` mirrors
+`firm/playbooks/pricing.md` Part 2 — change both together.
