@@ -9,6 +9,8 @@ import { Link } from "wouter";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
+import { ProjectCard } from "@/components/work/ProjectCard";
+import { projects } from "@/data/work";
 
 // Lazy-load 3D to avoid breaking if three.js not installed yet
 const HeroObject = lazy(() => import("@/components/HeroObject").then(m => ({ default: m.HeroObject })));
@@ -56,6 +58,8 @@ const systemsData = [
     accent: "#34D399"
   }
 ];
+
+const featuredWork = projects.filter((project) => ["superfox-roam", "aria-frontdesk", "flowops-sdr"].includes(project.slug));
 
 function CountUp({ end, suffix = "", prefix = "", decimals = 0 }: { end: number; suffix?: string; prefix?: string; decimals?: number }) {
   const [count, setCount] = useState(0);
@@ -552,77 +556,22 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===== SELECTED OUTCOMES ===== */}
+        {/* ===== SELECTED WORK ===== */}
         <section className="section-pad bg-background relative overflow-hidden">
-          <div className="aurora" />
           <div className="container-w relative z-10">
-            <div className="mb-20">
-              <p className="label mb-6">System briefs</p>
-              <h2 className="text-4xl md:text-6xl t-primary tracking-tighter font-display leading-[0.95]">
-                The work behind a useful system.
-              </h2>
+            <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+              <div>
+                <p className="label mb-6">Selected work</p>
+                <h2 className="text-4xl md:text-6xl t-primary tracking-tighter font-display leading-[0.95]">
+                  Live builds. <span className="text-gradient italic">Open any of them.</span>
+                </h2>
+              </div>
+              <Link href="/work" className="inline-flex items-center gap-1.5 text-sm font-semibold t-primary hover:underline">
+                See all work <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {/* Case Preview Cards with Spotlight Effect */}
-              {[
-                {
-                  industry: "Knowledge-work automation",
-                  challenge: "Critical information sits across documents, inboxes, and institutional memory—making routine decisions slower than they should be.",
-                  engineered: "A reviewable workflow that retrieves relevant context, keeps people in control, and makes the next action visible.",
-                  outcome: "Less manual searching. More confident decisions.",
-                  accent: "#A78BFA"
-                },
-                {
-                  industry: "Operations software",
-                  challenge: "The work is held together by spreadsheets, WhatsApp updates, and workarounds that make it hard to see what is happening next.",
-                  engineered: "A purpose-built internal tool shaped around real roles, approvals, and exceptions—not an abstract feature list.",
-                  outcome: "A calmer, clearer daily operating rhythm.",
-                  accent: "#6C8CFF"
-                },
-                {
-                  industry: "Customer experience",
-                  challenge: "Potential customers cannot quickly understand the right service, next step, or person to speak with.",
-                  engineered: "A considered digital journey that makes the offer easier to trust, navigate, and act on.",
-                  outcome: "Fewer dead ends between interest and action.",
-                  accent: "#34D399"
-                }
-              ].map((caseItem, i) => (
-                <SpotlightCard key={i} className="glass-card p-10 flex flex-col justify-between group h-full relative overflow-hidden"
-                               style={{ borderColor: `${caseItem.accent}22` }}>
-                  {/* Spotlight cursor glow */}
-                  <div
-                    className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ background: `radial-gradient(350px circle at var(--mouse-x,50%) var(--mouse-y,50%), ${caseItem.accent}22, transparent 65%)` }}
-                  />
-                  <motion.article 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
-                    className="flex flex-col justify-between h-full relative z-10"
-                  >
-                    <div className="space-y-8">
-                      <h3 className="text-[10px] uppercase tracking-widest font-bold font-mono" style={{ color: caseItem.accent }}>{caseItem.industry}</h3>
-                      <div className="space-y-6">
-                        <div>
-                          <p className="text-[10px] uppercase tracking-wider t-muted mb-2 font-bold opacity-40">Challenge</p>
-                          <p className="t-secondary text-sm leading-relaxed">{caseItem.challenge}</p>
-                        </div>
-                        <div>
-                          <p className="text-[10px] uppercase tracking-wider t-muted mb-2 font-bold opacity-40">What We Engineered</p>
-                          <p className="t-primary text-sm font-medium leading-relaxed">{caseItem.engineered}</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="mt-12 pt-8 border-t border-white/[0.03]">
-                      <p className="text-[10px] uppercase tracking-wider t-muted mb-3 font-bold opacity-40">Design intent</p>
-                      <p className="text-3xl font-display font-extrabold tracking-tight" style={{ color: caseItem.accent }}>{caseItem.outcome}</p>
-                    </div>
-                  </motion.article>
-                </SpotlightCard>
-              ))}
+            <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+              {featuredWork.map((project) => <ProjectCard key={project.slug} project={project} />)}
             </div>
           </div>
         </section>
@@ -662,10 +611,10 @@ export default function Home() {
                     Book Strategy Call <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>
-                <Link href="/services">
+                <Link href="/work">
                   <Button data-cursor="button" variant="outline" size="lg"
                     className="h-16 px-12 text-lg rounded-2xl btn-ghost t-muted border-white/10 hover:bg-white/5 transition-all">
-                    Request Capability Deck
+                    See Our Work
                   </Button>
                 </Link>
               </div>

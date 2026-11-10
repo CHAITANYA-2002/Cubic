@@ -1,15 +1,118 @@
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { AdvancedCursor } from "@/components/AdvancedCursor";
-import { PageTransition } from "@/components/PageTransition";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { useState } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
+import { ArrowRight, CheckCircle2, MousePointerClick } from "lucide-react";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+import { PageTransition } from "@/components/PageTransition";
+import { PageMeta } from "@/components/PageMeta";
+import { BrowserFrame, KindBadge, LiveLink } from "@/components/work/ProjectCard";
+import { Testimonials } from "@/components/work/Testimonials";
+import { projects, SERVICE_LINES, type Project, type ServiceLine } from "@/data/work";
 
-const studies = [
-  { name:"Operations command centre", type:"Illustrative systems brief", image:"https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=85", challenge:"When daily reporting lives across spreadsheets and disconnected tools, teams lose visibility exactly when decisions need to be made.", result:"A clearer operating picture, designed around the work that matters.", work:["Workflow mapping", "Role-based dashboards", "Data integration", "Design system"] },
-  { name:"Service booking experience", type:"Illustrative systems brief", image:"https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1400&q=85", challenge:"A confusing route from enquiry to booking creates avoidable drop-off and leaves staff doing manual coordination.", result:"A practical journey from first question to confirmed appointment.", work:["Journey mapping", "Decision support", "Booking workflow", "Accessible interface"] },
-  { name:"Inventory intelligence layer", type:"Illustrative systems brief", image:"https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1400&q=85", challenge:"Teams need an early, shared view of stock risk before missed demand becomes a costly fire drill.", result:"A calmer, more deliberate way to run daily operations.", work:["Operations audit", "Forecasting workflow", "Internal tooling", "Performance reporting"] },
-];
-const rise={hidden:{opacity:0,y:28},visible:(i:number)=>({opacity:1,y:0,transition:{delay:i*.1,duration:.7,ease:[.16,1,.3,1]}})};
-export default function CaseStudies(){return <PageTransition><div className="min-h-screen flex flex-col bg-background relative"><AdvancedCursor/><Navbar/><main className="flex-grow"><section className="pt-44 pb-24 relative overflow-hidden"><div className="blob blob-purple w-[620px] h-[620px] -top-56 right-[-15%] opacity-[.06]"/><div className="container-w relative z-10"><motion.p initial="hidden" animate="visible" variants={rise} custom={0} className="label mb-6">How we approach the work</motion.p><motion.h1 initial="hidden" animate="visible" variants={rise} custom={1} className="text-display-hero max-w-4xl">Useful systems.<br/><span className="text-gradient italic">Designed with intent.</span></motion.h1><motion.p initial="hidden" animate="visible" variants={rise} custom={2} className="t-secondary text-lg leading-relaxed max-w-2xl mt-7">These illustrative system briefs show the kinds of operational problems we are equipped to solve. Real client stories will be published only with their permission.</motion.p></div></section><div className="divider"/><section className="section-pad"><div className="container-w space-y-20">{studies.map((study,index)=><motion.article key={study.name} initial="hidden" whileInView="visible" viewport={{once:true,amount:.15}} variants={rise} custom={index} className={`grid lg:grid-cols-2 gap-10 lg:gap-16 items-center ${index%2?"lg:[&>div:first-child]:order-2":""}`}><div className="img-overlay rounded-[1.5rem] aspect-[16/11]"><img src={study.image} alt={`${study.name} illustration`} loading="lazy" className="w-full h-full object-cover"/></div><div><p className="label mb-5">{study.type}</p><h2 className="text-4xl md:text-5xl t-primary">{study.name}</h2><p className="t-secondary text-lg leading-relaxed mt-5">{study.challenge}</p><div className="mt-7 grid grid-cols-2 gap-y-3">{study.work.map(item=><p key={item} className="flex gap-2 text-sm t-muted"><CheckCircle2 className="w-4 h-4 t-deco shrink-0"/>{item}</p>)}</div><p className="text-xl text-gradient font-display mt-8">{study.result}</p><Link href="/contact"><span className="mt-7 inline-flex gap-2 items-center text-sm font-semibold t-primary hover:text-gradient">Explore your system <ArrowRight className="w-4 h-4"/></span></Link></div></motion.article>)}</div></section><section className="py-28"><div className="divider mb-20"/><div className="container-w text-center"><p className="label mb-5">Your next build</p><h2 className="text-4xl md:text-6xl t-primary">An ambitious problem<br/><span className="text-gradient italic">deserves a proper build.</span></h2><Link href="/contact"><span className="btn-primary inline-flex mt-9 rounded-2xl px-7 py-4 text-white font-semibold">Start the conversation</span></Link></div></section></main><Footer/></div></PageTransition>}
+const rise = { hidden: { opacity: 0, y: 24 }, visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] } }) };
+
+function ProjectFeature({ project, index }: { project: Project; index: number }) {
+  return (
+    <motion.article
+      id={project.slug}
+      initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={rise} custom={0}
+      className="group grid scroll-mt-32 items-start gap-10 lg:grid-cols-[1.25fr_1fr] lg:gap-14"
+    >
+      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.name} live`} className={index % 2 ? "lg:order-2" : ""}>
+        <BrowserFrame project={project} eager={index === 0} />
+      </a>
+      <div>
+        <div className="flex flex-wrap items-center gap-2">
+          <KindBadge kind={project.kind} />
+          <span className="text-xs t-muted">{project.sector}</span>
+        </div>
+        <h2 className="mt-4 font-display text-3xl t-primary md:text-4xl">{project.name}</h2>
+        <p className="mt-4 text-lg leading-relaxed t-secondary">{project.summary}</p>
+        <p className="mt-4 text-sm leading-relaxed t-muted"><span className="font-semibold t-secondary">The problem.</span> {project.problem}</p>
+
+        <ul className="mt-6 space-y-2">
+          {project.built.map((item) => (
+            <li key={item} className="flex gap-3 text-sm t-secondary"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 t-deco" />{item}</li>
+          ))}
+        </ul>
+
+        <p className="mt-6 text-xs t-muted">{project.stack.join(" · ")}</p>
+
+        <div className="mt-6 rounded-xl border border-white/10 bg-white/[0.02] p-4">
+          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.15em] t-deco"><MousePointerClick className="h-3.5 w-3.5" /> Try this</p>
+          <p className="mt-1.5 text-sm t-secondary">{project.tryThis}</p>
+        </div>
+
+        <LiveLink project={project} className="mt-6 text-base" />
+      </div>
+    </motion.article>
+  );
+}
+
+export default function CaseStudies() {
+  const [filter, setFilter] = useState<ServiceLine | "all">("all");
+  const shown = filter === "all" ? projects : projects.filter((project) => project.lines.includes(filter));
+
+  return (
+    <PageTransition>
+      <PageMeta title="Work" description="Live builds by CubicTech — websites, web applications, AI agents and marketing automation you can open and use." />
+      <div className="relative flex min-h-screen flex-col bg-background">
+        <Navbar />
+        <main className="flex-grow">
+          <section className="relative overflow-hidden pb-14 pt-44">
+            <div className="container-w relative z-10">
+              <motion.p initial="hidden" animate="visible" variants={rise} custom={0} className="label mb-6">Work</motion.p>
+              <motion.h1 initial="hidden" animate="visible" variants={rise} custom={1} className="max-w-4xl font-display text-5xl t-primary md:text-7xl">
+                Don't take our word for it. <span className="italic text-gradient">Open it.</span>
+              </motion.h1>
+              <motion.p initial="hidden" animate="visible" variants={rise} custom={2} className="mt-7 max-w-2xl text-lg leading-relaxed t-muted">
+                Every project below is live. Click through it the way your customers would. Client builds are in production; product demos run on sample data so you can try every feature safely.
+              </motion.p>
+            </div>
+          </section>
+
+          <div className="sticky top-[68px] z-30 border-y border-white/[0.06] bg-background/85 backdrop-blur-md">
+            <div className="container-w flex gap-2 overflow-x-auto py-3" role="tablist" aria-label="Filter by service">
+              {[{ id: "all" as const, label: `All work (${projects.length})` }, ...SERVICE_LINES].map((line) => (
+                <button
+                  key={line.id}
+                  role="tab"
+                  aria-selected={filter === line.id}
+                  onClick={() => setFilter(line.id)}
+                  className={`shrink-0 rounded-full border px-4 py-1.5 text-sm transition-colors ${filter === line.id ? "border-transparent bg-[var(--accent-primary)] text-white" : "border-white/10 t-muted hover:t-primary"}`}
+                >
+                  {line.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <section className="section-pad">
+            <div className="container-w space-y-28">
+              {shown.map((project, index) => <ProjectFeature key={project.slug} project={project} index={index} />)}
+            </div>
+          </section>
+
+          <Testimonials />
+
+          <section className="pb-28">
+            <div className="container-w">
+              <div className="glass-card flex flex-col items-start justify-between gap-8 p-10 md:flex-row md:items-center md:p-14">
+                <div className="max-w-xl">
+                  <p className="label mb-4">Your project</p>
+                  <h2 className="font-display text-3xl t-primary md:text-4xl">Want something like this for your business?</h2>
+                  <p className="mt-3 t-muted">A 30-minute call. We'll show you the closest build live and tell you honestly what yours would take.</p>
+                </div>
+                <Link href="/contact" className="btn-primary inline-flex shrink-0 items-center gap-2 rounded-2xl px-7 py-4 font-semibold text-white">
+                  Book a discovery call <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+          </section>
+        </main>
+        <Footer />
+      </div>
+    </PageTransition>
+  );
+}

@@ -13,7 +13,7 @@ firm/pipeline.csv
 firm/targets.csv
 
 # Cubic OS data — clients, invoices, leads. Never push.
-data/
+/data/
 
 # Contact-form leads — real personal data. Never push.
 submissions.csv

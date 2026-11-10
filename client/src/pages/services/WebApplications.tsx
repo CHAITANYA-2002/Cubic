@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { RelatedWork } from "@/components/work/RelatedWork";
 import { AdvancedCursor } from "@/components/AdvancedCursor";
 import { PageTransition } from "@/components/PageTransition";
 import { HeroBackdrop } from "@/components/HeroBackdrop";
@@ -654,6 +655,7 @@ export default function WebApplications() {
             </div>
           </section>
 
+          <RelatedWork line="apps" />
         </main>
         <Footer />
       </div>
