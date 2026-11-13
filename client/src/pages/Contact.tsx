@@ -21,11 +21,11 @@ export default function Contact() {
       <PageHero eyebrow={c.eyebrow} title={c.title} subtitle={c.subtitle} />
       <section className="section-pad">
         <div className="container-w grid gap-12 lg:grid-cols-[1.5fr_1fr]">
-          <div className="card p-6 md:p-9">
+          <div className="card order-2 p-6 md:p-9 lg:order-1">
             <h2 className="mb-6 text-xl font-bold t-primary">{c.formTitle}</h2>
             <ContactForm />
           </div>
-          <aside className="space-y-8">
+          <aside className="order-1 space-y-8 lg:order-2">
             <div>
               <h2 className="text-lg font-bold t-primary">{c.directTitle}</h2>
               <ul className="mt-4 space-y-3">
@@ -37,7 +37,7 @@ export default function Contact() {
                     <div className="min-w-0">
                       <p className="text-xs t-muted">{label}</p>
                       {href ? (
-                        <a href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="break-all font-medium t-primary hover:underline" dir="ltr">{value}</a>
+                        <a href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="inline-flex min-h-11 items-center break-all font-medium t-primary hover:underline" dir="ltr">{value}</a>
                       ) : (
                         <p className="font-medium t-primary">{value}</p>
                       )}
