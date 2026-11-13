@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import type { OfferId } from "@shared/site";
+import { CurrencySelect } from "@/components/site/Preferences";
 import { Layout } from "@/components/site/Layout";
 import { CheckList, CtaBand, OfferPrice, PageHero, SectionHeader } from "@/components/site/blocks";
 import { useI18n } from "@/i18n";
@@ -38,6 +39,10 @@ export default function Pricing() {
 
       <section className="section-pad">
         <div className="container-w">
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+            <p className="text-sm t-secondary">{t.common.prefs.currencyNote}</p>
+            <CurrencySelect id="pricing-currency" visibleLabel />
+          </div>
           <div className="overflow-hidden rounded-xl border border-[var(--line)]">
             <table className="w-full text-start">
               <caption className="sr-only">{p.title}</caption>

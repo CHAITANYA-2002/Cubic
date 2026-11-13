@@ -7,7 +7,6 @@ import { useSite } from "@/lib/site";
 /** Language and currency pickers. Native <select>s: accessible, keyboard friendly, no JS menu. */
 export function Preferences({ compact = false }: { compact?: boolean }) {
   const { t, locale } = useI18n();
-  const { currency, setCurrency } = useSite();
   const [location] = useLocation();
 
   const switchLocale = (next: Locale) => {
@@ -16,7 +15,7 @@ export function Preferences({ compact = false }: { compact?: boolean }) {
   };
 
   const selectClass =
-    "h-9 rounded-md border border-[var(--line)] bg-[var(--surface)] px-2 text-sm t-secondary hover:border-[var(--line-strong)] focus:border-[var(--brand)] focus:outline-none";
+    "min-h-11 rounded-xl border border-[var(--line)] bg-[var(--surface)] px-2 text-sm t-secondary hover:border-[var(--line-strong)] focus:border-[var(--brand)] focus:outline-none";
 
   return (
     <div className={`flex items-center gap-2 ${compact ? "" : "text-sm"}`}>
@@ -32,16 +31,21 @@ export function Preferences({ compact = false }: { compact?: boolean }) {
           <option key={code} value={code} lang={code}>{LOCALE_META[code].native}</option>
         ))}
       </select>
-      <label className="sr-only" htmlFor={`cur-${compact ? "m" : "d"}`}>{t.common.prefs.currency}</label>
-      <select
-        id={`cur-${compact ? "m" : "d"}`}
-        className={selectClass}
-        value={currency}
-        onChange={(event) => setCurrency(event.target.value as Currency)}
-      >
-        {CURRENCIES.map((code) => (
-          <option key={code} value={code}>{code}</option>
-        ))}
+      <CurrencySelect id={`cur-${compact ? "m" : "d"}`} />
+    </div>
+  );
+}
+
+/** Shared currency control for navigation and the public rate card. */
+export function CurrencySelect({ id, visibleLabel = false }: { id: string; visibleLabel?: boolean }) {
+  const { t } = useI18n();
+  const { currency, setCurrency } = useSite();
+  return (
+    <div className="flex items-center gap-3">
+      <label className={visibleLabel ? "text-sm font-medium t-secondary" : "sr-only"} htmlFor={id}>{t.common.prefs.currency}</label>
+      <select id={id} className="min-h-11 rounded-xl border border-[var(--line-strong)] bg-[var(--surface)] px-3 text-sm t-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--brand)]"
+        value={currency} onChange={(event) => setCurrency(event.target.value as Currency)}>
+        {CURRENCIES.map((code) => <option key={code} value={code}>{code}</option>)}
       </select>
     </div>
   );
