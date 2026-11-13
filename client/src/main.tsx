@@ -2,6 +2,7 @@ import { createRoot, hydrateRoot } from "react-dom/client";
 import App from "./App";
 import { loadDict, LOCALE_META, localeFromPath } from "./i18n";
 import "./index.css";
+import "./styles/visuals.css";
 
 const locale = localeFromPath(window.location.pathname);
 document.documentElement.lang = locale;
