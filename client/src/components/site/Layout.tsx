@@ -1,3 +1,4 @@
+import { useReveal } from "@/components/visuals/useReveal";
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "wouter";
 import { MessageCircle } from "lucide-react";
@@ -60,6 +61,7 @@ function WhatsAppButton() {
 
 /** Chrome shared by every public page: skip link, header, footer, WhatsApp, cookie notice. */
 export function Layout({ children }: { children: ReactNode }) {
+  const revealRef = useReveal();
   const { t } = useI18n();
   const [showBanner, setShowBanner] = useState(false);
   useEffect(() => setShowBanner(readConsent() === null), []);
@@ -71,7 +73,7 @@ export function Layout({ children }: { children: ReactNode }) {
       </a>
       <PageMeta />
       <Navbar />
-      <main id="main" tabIndex={-1} className="flex-grow">{children}</main>
+      <main ref={revealRef} id="main" tabIndex={-1} className="flex-grow">{children}</main>
       <Footer />
       {showBanner ? <CookieBanner onClose={() => setShowBanner(false)} /> : <WhatsAppButton />}
     </div>

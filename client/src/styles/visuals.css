@@ -76,3 +76,22 @@
 :dir(rtl) .tech-track { animation-direction:reverse; }
 @media(max-width:639px) { .float-three { display:none; } .device-composition { padding-inline:16px; } .floating-ui { padding:8px 10px; font-size:10px; } }
 @media(prefers-reduced-motion:reduce) { .tech-track { animation:none; flex-wrap:wrap; width:auto; justify-content:center; } .tech-track li[aria-hidden="true"] { display:none; } .device-laptop { transform:none; } }
+
+.public-site .card-accent { border-radius:16px; }
+.public-site main { margin-top:-64px; }
+.public-site main > section:first-child > .container-w,
+.public-site main > article > header > .container-w { padding-top:calc(var(--section-space) + 64px); }
+.site-navbar { background:transparent; border-color:transparent; transition:background .25s,border-color .25s; }
+.site-navbar.is-scrolled { background:var(--header-bg); border-color:var(--line); backdrop-filter:blur(20px); }
+.site-navbar nav a { position:relative; }
+.site-navbar nav a[aria-current="page"]::after { content:""; position:absolute; inset-inline:12px; bottom:4px; height:1px; background:var(--brand); }
+.visual-footer { position:relative; isolation:isolate; overflow:hidden; }
+.visual-footer::before { content:""; position:absolute; top:0; inset-inline:0; height:1px; background:linear-gradient(90deg,transparent,var(--brand),transparent); }
+.footer-watermark { position:absolute; bottom:40px; inset-inline:0; text-align:center; font-family:var(--font-display); font-size:clamp(80px,20vw,280px); line-height:1; color:var(--t-primary); opacity:.035; pointer-events:none; }
+@media(prefers-reduced-motion:no-preference) {
+ .is-revealed { animation:visual-arrive .65s var(--ease-out) both; animation-delay:var(--reveal-delay,0ms); }
+ .process-steps.is-revealed > li::after { animation:timeline-grow 1s ease both; transform-origin:0 50%; }
+ :dir(rtl) .process-steps.is-revealed > li::after { transform-origin:100% 50%; }
+}
+@keyframes visual-arrive { from { opacity:.85; transform:translateY(16px); } to { opacity:1; transform:none; } }
+@keyframes timeline-grow { from { transform:scaleX(0); } to { transform:scaleX(1); } }

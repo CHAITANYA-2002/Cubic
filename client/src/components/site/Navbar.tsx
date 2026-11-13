@@ -19,6 +19,12 @@ export function Navbar() {
   const { t } = useI18n();
   const [location] = useLocation();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > 24);
+    update(); window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
 
   useEffect(() => setOpen(false), [location]);
 
@@ -34,7 +40,7 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[var(--header-bg)] backdrop-blur-xl">
+    <header className={`site-navbar sticky top-0 z-50 border-b ${scrolled || open ? "is-scrolled" : ""}`}>
       <div className="container-w flex h-16 items-center justify-between gap-4">
         <Link href="/" className="inline-flex min-h-11 items-center" aria-label={`${t.common.brand} — ${t.common.accessibility.home}`}>
           <Logo />

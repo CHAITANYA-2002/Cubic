@@ -4,7 +4,7 @@
 - [x] 3. Build illustrations, devices and sample UI components.
 - [x] 4. Rebuild the home page.
 - [x] 5. Add page and service banners.
-- [ ] 6. Add motion, navigation, footer and brand assets.
+- [x] 6. Add motion, navigation, footer and brand assets.
 - [ ] 7. Verify all translations.
 - [ ] 8. Complete responsive and performance QA.
 - [ ] 9. Deploy, verify production and push.

@@ -24,8 +24,9 @@ export function Footer() {
   const socials = (Object.keys(SOCIAL_ICONS) as Array<keyof typeof SOCIAL_ICONS>).filter((key) => site.socials[key]);
 
   return (
-    <footer className="border-t border-[var(--line)] bg-[var(--bg-subtle)]">
-      <div className="container-w grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+    <footer className="visual-footer border-t border-[var(--line)] bg-[var(--bg-subtle)]">
+      <div className="footer-watermark" aria-hidden="true">{t.common.brand}</div>
+      <div className="container-w relative grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
           <Logo />
           <p className="mt-4 max-w-sm text-sm leading-relaxed t-secondary">{t.common.footer.blurb}</p>
