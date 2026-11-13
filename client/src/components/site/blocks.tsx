@@ -44,7 +44,8 @@ export function SectionHeader({ eyebrow, title, subtitle, align = "start", actio
 
 export function PageHero({ eyebrow, title, subtitle, children }: { eyebrow: string; title: string; subtitle?: string; children?: ReactNode }) {
   return (
-    <section className="tech-grid border-b border-[var(--line)]">
+    <section className="banner-hero border-b border-[var(--line)]">
+      <Banner />
       <div className="container-w section-pad">
         <p className="label mb-5">{eyebrow}</p>
         <h1 className="display-1 max-w-4xl"><Headline text={title} /></h1>

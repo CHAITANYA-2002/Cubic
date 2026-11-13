@@ -3,7 +3,7 @@
 - [x] 2. Download, process and credit banner images.
 - [x] 3. Build illustrations, devices and sample UI components.
 - [x] 4. Rebuild the home page.
-- [ ] 5. Add page and service banners.
+- [x] 5. Add page and service banners.
 - [ ] 6. Add motion, navigation, footer and brand assets.
 - [ ] 7. Verify all translations.
 - [ ] 8. Complete responsive and performance QA.

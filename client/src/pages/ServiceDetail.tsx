@@ -1,3 +1,5 @@
+import { Banner } from "@/components/visuals/Banner";
+import { ServiceIllustration } from "@/components/visuals/ServiceIllustration";
 import { Link, useParams } from "wouter";
 import { ChevronRight } from "lucide-react";
 import { Layout } from "@/components/site/Layout";
@@ -18,7 +20,8 @@ export default function ServiceDetail() {
 
   return (
     <Layout>
-      <section className="tech-grid border-b border-[var(--line)]">
+      <section className="banner-hero border-b border-[var(--line)]">
+        <Banner />
         <div className="container-w section-pad grid gap-10 lg:grid-cols-[1.5fr_1fr]">
           <div>
             <nav aria-label={t.common.accessibility.breadcrumb} className="mb-6 flex items-center gap-1.5 text-sm t-secondary">
@@ -35,6 +38,7 @@ export default function ServiceDetail() {
             </div>
           </div>
           <aside className="card-accent h-fit p-6 md:p-7">
+            <ServiceIllustration service={slug} />
             <p className="text-sm font-medium t-secondary">{t.services.detail.priceTitle}</p>
             <OfferPrice offer={SERVICE_OFFER[slug]} className="mt-1 block text-2xl font-bold t-primary" />
             <p className="mt-1 text-xs t-secondary">{t.common.price.fixed} · {t.common.price.vatNote}</p>

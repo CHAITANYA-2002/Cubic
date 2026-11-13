@@ -1,3 +1,4 @@
+import { ServiceIllustration } from "@/components/visuals/ServiceIllustration";
 import { Link } from "wouter";
 import { Layout } from "@/components/site/Layout";
 import { CheckList, CtaBand, OfferPrice, PageHero, TrustStrip } from "@/components/site/blocks";
@@ -26,7 +27,8 @@ function ServiceRow({ slug, index }: { slug: ServiceSlug; index: number }) {
         </Link>
       </div>
       <div>
-        <p className="text-sm font-semibold t-primary">{t.services.index.forWho}</p>
+        <ServiceIllustration service={slug} />
+        <p className="mt-6 text-sm font-semibold t-primary">{t.services.index.forWho}</p>
         <p className="mt-2 leading-relaxed t-secondary">{item.forWho[0]}</p>
         <p className="mt-6 text-sm font-semibold t-primary">{t.services.index.includes}</p>
         <CheckList className="mt-3" items={item.deliverables.slice(0, 4).map((d) => d.title)} />
