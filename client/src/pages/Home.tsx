@@ -22,7 +22,7 @@ function Hero() {
   const lead = projects[0];
   return (
     <section className="tech-grid overflow-hidden border-b border-[var(--line)]">
-      <div className="container-w relative grid items-center gap-12 py-16 md:py-28 lg:grid-cols-[1.1fr_1fr]">
+      <div className="container-w relative grid items-center gap-12 py-16 md:py-28 lg:min-h-[88vh] lg:grid-cols-[1.1fr_1fr]">
         <div className="reveal">
           <p className="label mb-5">{t.home.hero.eyebrow}</p>
           <h1 className="display-1"><Headline text={t.home.hero.title} /></h1>
@@ -38,13 +38,26 @@ function Hero() {
             {STACK.map((tech) => <li key={tech} className="chip">{tech}</li>)}
           </ul>
         </div>
-        <div className="reveal hidden md:block" style={{ animationDelay: "120ms" }}>
+        <div className="reveal hidden lg:block" style={{ animationDelay: "120ms" }}>
           <a href={lead.liveUrl} target="_blank" rel="noopener noreferrer" className="group block" aria-label={`${lead.name} — ${t.common.cta.openLive}`}>
             <BrowserFrame project={lead} eager />
           </a>
         </div>
       </div>
     </section>
+  );
+}
+
+function ProofBar() {
+  const { t } = useI18n();
+  return (
+    <div className="border-b border-[var(--line)] bg-[var(--bg-subtle)]">
+      <ul className="container-w grid py-5 sm:grid-cols-2 lg:grid-cols-4">
+        {t.home.proofBar.map((fact) => (
+          <li key={fact} className="border-[var(--line)] px-5 py-3 text-center font-mono text-xs t-secondary sm:odd:border-e lg:border-e lg:last:border-0">{fact}</li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
@@ -126,7 +139,7 @@ function Process() {
     <section className="section-pad section-subtle">
       <div className="container-w">
         <SectionHeader eyebrow={t.home.process.eyebrow} title={t.home.process.title} />
-        <ol className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <ol className="process-steps grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {t.home.process.steps.map((step, index) => (
             <li key={step.title} className="card p-6">
               <span className="step-dot">{index + 1}</span>
@@ -186,6 +199,7 @@ export default function Home() {
   return (
     <Layout>
       <Hero />
+      <ProofBar />
       <ServicesGrid />
       <SelectedWork />
       <WhyUs />

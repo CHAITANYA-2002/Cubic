@@ -11,6 +11,7 @@ export const home: Dict["home"] = {
     secondary: "Voir les projets en ligne",
     note: "Appel gratuit · Réponse sous un jour ouvré · NDA sur demande",
   },
+  proofBar: ["6 réalisations en ligne à découvrir", "Prix fixe convenu par écrit", "5 langues · 4 devises", "Réponse sous 1 jour ouvré"],
   proofStrip: {
     title: "Ce que comprend chaque mission",
   },

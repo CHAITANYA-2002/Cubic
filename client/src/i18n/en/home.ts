@@ -9,6 +9,7 @@ export const home = {
     secondary: "See live work",
     note: "Free call · Reply within one working day · NDA on request",
   },
+  proofBar: ["6 live builds to open", "Fixed price in writing", "5 languages � 4 currencies", "Reply within 1 working day"],
   proofStrip: {
     title: "What every engagement includes",
   },

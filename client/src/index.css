@@ -368,3 +368,13 @@ h1, h2 { text-wrap: balance; overflow-wrap: anywhere; }
 p, li { overflow-wrap: break-word; }
 :lang(ar) h1, :lang(ar) h2, :lang(hi) h1, :lang(hi) h2 { letter-spacing: 0; }
 main [id] { scroll-margin-top: 9rem; }
+
+@media (min-width: 1024px) {
+  .process-steps > li { position: relative; }
+  .process-steps > li:not(:last-child)::after {
+    content: ""; position: absolute; height: 1px;
+    inset-inline-start: 3.5rem; inset-inline-end: -2.5rem;
+    top: 2.5rem; background: var(--line-strong); pointer-events: none;
+  }
+  .process-steps .step-dot { position: relative; z-index: 1; background: var(--surface); }
+}
