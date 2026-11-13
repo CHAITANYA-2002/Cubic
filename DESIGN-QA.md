@@ -65,6 +65,20 @@ Follow-up performance samples:
 
 ## Live deployment
 
-Pending step 8.
+Deployment succeeded via `npm run deploy` to Cloudflare Pages project `cubictech`. Deployed application revision: `a4ed1cc`; deployment: https://15640560.cubictech.pages.dev.
+
+| Production route | HTTP | New design and current CSS |
+| --- | ---: | --- |
+| `/` | 200 | Confirmed |
+| `/ar` | 200 | Confirmed |
+| `/pricing` | 200 | Confirmed |
+| `/work` | 200 | Confirmed |
+| `/contact` | 200 | Confirmed |
+
+Current stylesheet: `/assets/index-BVhk-kO9.css`. Font CSS and both screenshot sizes also returned 200.
+
+Production browser checks passed in English and Arabic: keyboard focus, skip link, sticky anchors, mobile/desktop contact order, currency updates, and no application console or hydration errors.
+
+The application commit is pushed to `origin/feat/cubic-os`. Final TypeScript and 80-page build checks also passed after deployment.
 
 No unresolved acceptance failures in the requested local checks.
