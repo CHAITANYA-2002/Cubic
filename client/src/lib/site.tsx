@@ -93,12 +93,18 @@ export const useSite = () => useContext(SiteContext);
 
 const SYMBOL_LOCALE: Record<Currency, string> = { INR: "en-IN", USD: "en-US", EUR: "de-DE", AED: "en-AE" };
 
+// Four fixed currencies: reuse their formatters across cards and currency updates.
+const moneyFormatters = new Map<Currency, Intl.NumberFormat>();
+
 export function formatMoney(value: number, currency: Currency): string {
-  return new Intl.NumberFormat(SYMBOL_LOCALE[currency], {
-    style: "currency",
-    currency,
-    maximumFractionDigits: 0,
-  }).format(value);
+  let formatter = moneyFormatters.get(currency);
+  if (!formatter) {
+    formatter = new Intl.NumberFormat(SYMBOL_LOCALE[currency], {
+      style: "currency", currency, maximumFractionDigits: 0,
+    });
+    moneyFormatters.set(currency, formatter);
+  }
+  return formatter.format(value);
 }
 
 /** Formatted range for an offer in the visitor's currency, e.g. "₹1,50,000 – ₹4,00,000". */

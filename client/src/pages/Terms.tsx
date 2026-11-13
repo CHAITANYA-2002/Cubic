@@ -1,1 +1,6 @@
-import { Legal, type LegalSection } from "./Legal"; const sections: LegalSection[]=[["Use of our services","By using this site or engaging CubicTech, you agree to use our services lawfully and provide accurate information."],["Project agreements","Scope, deliverables, fees, timing, and ownership are defined in the written agreement for each project."],["Intellectual property","Our pre-existing methods and materials remain ours. Deliverable ownership transfers only as specified in the applicable agreement."],["Limitation of liability","To the extent permitted by law, CubicTech is not liable for indirect or consequential losses arising from use of this site or services."],["Contact","Questions about these terms can be sent to chaitanyakhurana10@gmail.com."]]; export default function Terms(){return <Legal updated="July 23, 2026" title="Terms of Service" description="The clear, practical terms that govern use of our website and professional services." sections={sections}/>}
+import { Legal } from "./Legal";
+import { terms } from "@/i18n/en/terms";
+
+export default function Terms() {
+  return <Legal {...terms} />;
+}

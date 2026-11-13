@@ -19,10 +19,10 @@ export default function ServiceDetail() {
   return (
     <Layout>
       <section className="tech-grid border-b border-[var(--line)]">
-        <div className="container-w grid gap-10 py-14 md:py-20 lg:grid-cols-[1.5fr_1fr]">
+        <div className="container-w section-pad grid gap-10 lg:grid-cols-[1.5fr_1fr]">
           <div>
-            <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-sm t-muted">
-              <Link href="/services" className="hover:t-primary">{t.common.nav.services}</Link>
+            <nav aria-label={t.common.accessibility.breadcrumb} className="mb-6 flex items-center gap-1.5 text-sm t-secondary">
+              <Link href="/services" className="inline-flex min-h-11 items-center hover:t-primary">{t.common.nav.services}</Link>
               <ChevronRight className="h-3.5 w-3.5 rtl:rotate-180" aria-hidden="true" />
               <span aria-current="page" className="t-secondary">{t.common.serviceNames[slug]}</span>
             </nav>
@@ -35,10 +35,10 @@ export default function ServiceDetail() {
             </div>
           </div>
           <aside className="card-accent h-fit p-6 md:p-7">
-            <p className="text-sm font-medium t-muted">{t.services.detail.priceTitle}</p>
+            <p className="text-sm font-medium t-secondary">{t.services.detail.priceTitle}</p>
             <OfferPrice offer={SERVICE_OFFER[slug]} className="mt-1 block text-2xl font-bold t-primary" />
-            <p className="mt-1 text-xs t-muted">{t.common.price.fixed} · {t.common.price.vatNote}</p>
-            <p className="mt-5 text-sm font-medium t-muted">{t.services.detail.timelineTitle}</p>
+            <p className="mt-1 text-xs t-secondary">{t.common.price.fixed} · {t.common.price.vatNote}</p>
+            <p className="mt-5 text-sm font-medium t-secondary">{t.services.detail.timelineTitle}</p>
             <p className="mt-1 font-semibold t-primary">{item.timeline}</p>
             <div className="my-5 h-px bg-[var(--line)]" />
             <CheckList items={[t.common.trust.fixedPrice, t.common.trust.milestones, t.common.trust.ownCode, t.common.trust.warranty]} className="text-sm" />
@@ -57,11 +57,11 @@ export default function ServiceDetail() {
       <section id="overview" className="section-pad">
         <div className="container-w grid gap-12 lg:grid-cols-2">
           <div>
-            <h2 className="display-2">{t.services.detail.whoTitle}</h2>
+            <h2 className="display-2"><Headline text={t.services.detail.whoTitle} /></h2>
             <CheckList items={item.forWho} className="mt-6" />
           </div>
           <div>
-            <h2 className="display-2">{t.services.detail.outcomesTitle}</h2>
+            <h2 className="display-2"><Headline text={t.services.detail.outcomesTitle} /></h2>
             <CheckList items={item.outcomes} className="mt-6" />
           </div>
         </div>
@@ -74,7 +74,7 @@ export default function ServiceDetail() {
             {item.deliverables.map((deliverable) => (
               <div key={deliverable.title} className="card p-6">
                 <h3 className="font-bold t-primary">{deliverable.title}</h3>
-                <p className="mt-2 text-[0.95rem] leading-relaxed t-muted">{deliverable.text}</p>
+                <p className="mt-2 text-[0.95rem] leading-relaxed t-secondary">{deliverable.text}</p>
               </div>
             ))}
           </div>
@@ -87,9 +87,9 @@ export default function ServiceDetail() {
           <ol className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {t.home.process.steps.map((step, index) => (
               <li key={step.title} className="rule-top pt-5">
-                <p className="font-mono text-xs t-deco">0{index + 1}</p>
+                <p className="font-mono text-xs t-secondary">0{index + 1}</p>
                 <h3 className="mt-2 font-bold t-primary">{step.title}</h3>
-                <p className="mt-2 text-[0.95rem] leading-relaxed t-muted">{step.text}</p>
+                <p className="mt-2 text-[0.95rem] leading-relaxed t-secondary">{step.text}</p>
               </li>
             ))}
           </ol>
@@ -106,14 +106,14 @@ export default function ServiceDetail() {
       <section id="faq" className="section-pad">
         <div className="container-w grid gap-10 lg:grid-cols-[1fr_1.6fr]">
           <div>
-            <h2 className="display-2">{t.services.detail.faqTitle}</h2>
+            <h2 className="display-2"><Headline text={t.services.detail.faqTitle} /></h2>
             <Link href="/faq" className="btn btn-outline mt-6">{t.common.cta.readFaq}</Link>
           </div>
           <FaqList items={item.faqs} />
         </div>
       </section>
 
-      <CtaBand title={t.services.detail.ctaTitle} text={t.services.detail.ctaText} />
+      <CtaBand accent={false} title={t.services.detail.ctaTitle} text={t.services.detail.ctaText} />
     </Layout>
   );
 }

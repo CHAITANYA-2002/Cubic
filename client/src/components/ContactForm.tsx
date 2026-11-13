@@ -104,7 +104,7 @@ export function ContactForm() {
       </div>
       {mutation.isError && <p role="alert" className="text-sm text-[hsl(var(--destructive))]">{f.error}</p>}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-xs t-muted">{f.privacy}</p>
+        <p className="text-xs t-secondary">{f.privacy}</p>
         <button type="submit" className="btn btn-primary btn-lg" disabled={mutation.isPending}>
           {mutation.isPending ? f.sending : f.submit}
         </button>

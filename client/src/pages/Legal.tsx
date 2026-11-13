@@ -1,3 +1,4 @@
+import { Headline } from "@/components/site/blocks";
 import { Layout } from "@/components/site/Layout";
 import { useI18n } from "@/i18n";
 
@@ -8,10 +9,10 @@ export function Legal({ title, description, updated, sections }: { title: string
   const { t, locale } = useI18n();
   return (
     <Layout>
-      <article className="container-w max-w-3xl py-16 md:py-24" lang="en" dir="ltr">
-        <p className="label mb-4">CubicTech · Legal</p>
-        <h1 className="display-1">{title}</h1>
-        <p className="mt-4 text-sm t-muted">Last updated: {updated}</p>
+      <article className="container-w section-pad max-w-3xl" lang="en" dir="ltr">
+        <p className="label mb-4" lang={locale} dir="auto">{t.common.accessibility.legal}</p>
+        <h1 className="display-1"><Headline text={title} /></h1>
+        <p className="mt-4 text-sm t-secondary">{t.common.accessibility.updated} {updated}</p>
         {locale !== "en" && <p className="mt-4 rounded-md bg-[var(--bg-subtle)] p-3 text-sm t-secondary" lang={locale} dir="auto">{t.common.legalNote}</p>}
         <p className="lead mt-8">{description}</p>
         <div className="mt-12 space-y-10">

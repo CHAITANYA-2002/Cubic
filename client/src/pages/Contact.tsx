@@ -31,11 +31,11 @@ export default function Contact() {
               <ul className="mt-4 space-y-3">
                 {direct.map(({ icon: Icon, label, value, href, external }) => (
                   <li key={label} className="flex items-start gap-3">
-                    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--brand-soft)] t-brand">
+                    <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[var(--brand-soft)] t-brand">
                       <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
                     </span>
                     <div className="min-w-0">
-                      <p className="text-xs t-muted">{label}</p>
+                      <p className="text-xs t-secondary">{label}</p>
                       {href ? (
                         <a href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="inline-flex min-h-11 items-center break-all font-medium t-primary hover:underline" dir="ltr">{value}</a>
                       ) : (
@@ -46,7 +46,7 @@ export default function Contact() {
                 ))}
               </ul>
             </div>
-            <div className="rounded-xl bg-[var(--bg-subtle)] p-6">
+            <div className="rounded-2xl bg-[var(--bg-subtle)] p-6 md:p-7">
               <h2 className="font-bold t-primary">{c.nextTitle}</h2>
               <ol className="mt-4 space-y-3">
                 {c.next.map((step, index) => (
@@ -56,7 +56,7 @@ export default function Contact() {
                   </li>
                 ))}
               </ol>
-              <p className="mt-5 border-t border-[var(--line)] pt-4 text-sm t-muted">{c.ndaNote}</p>
+              <p className="mt-5 border-t border-[var(--line)] pt-4 text-sm t-secondary">{c.ndaNote}</p>
             </div>
           </aside>
         </div>

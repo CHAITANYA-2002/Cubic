@@ -10,8 +10,8 @@ function splitAccent(text: string): [string, string] {
   const sentence = text.match(/^(.+?[.!?।؟])\s+(.+)$/);
   if (sentence) return [`${sentence[1]} `, sentence[2]];
   const words = text.split(" ");
-  if (words.length < 5) return [text, ""];
-  const tail = Math.max(2, Math.round(words.length / 3));
+  if (words.length < 2) return ["", text];
+  const tail = Math.min(words.length - 1, Math.max(2, Math.round(words.length / 3)));
   return [`${words.slice(0, -tail).join(" ")} `, words.slice(-tail).join(" ")];
 }
 
@@ -44,7 +44,7 @@ export function SectionHeader({ eyebrow, title, subtitle, align = "start", actio
 export function PageHero({ eyebrow, title, subtitle, children }: { eyebrow: string; title: string; subtitle?: string; children?: ReactNode }) {
   return (
     <section className="tech-grid border-b border-[var(--line)]">
-      <div className="container-w py-16 md:py-28">
+      <div className="container-w section-pad">
         <p className="label mb-5">{eyebrow}</p>
         <h1 className="display-1 max-w-4xl"><Headline text={title} /></h1>
         {subtitle && <p className="lead mt-6 max-w-2xl">{subtitle}</p>}
@@ -70,12 +70,12 @@ export function CheckList({ items, className = "" }: { items: string[]; classNam
 /** Native <details>: works without JavaScript, keyboard accessible, and indexable. */
 export function FaqList({ items }: { items: Array<{ q: string; a: string }> }) {
   return (
-    <div className="divide-y divide-[var(--line)] rounded-xl border border-[var(--line)] bg-[var(--surface)]">
+    <div className="divide-y divide-[var(--line)] rounded-2xl border border-[var(--line)] bg-[var(--surface)]">
       {items.map((item) => (
-        <details key={item.q} className="group px-5 md:px-6">
+        <details key={item.q} className="group px-6 md:px-7">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-start font-semibold t-primary [&::-webkit-details-marker]:hidden">
             <span>{item.q}</span>
-            <ChevronDown className="h-5 w-5 shrink-0 t-muted transition-transform group-open:rotate-180" aria-hidden="true" />
+            <ChevronDown className="h-5 w-5 shrink-0 t-secondary transition-transform group-open:rotate-180" aria-hidden="true" />
           </summary>
           <p className="pb-5 leading-relaxed t-secondary">{item.a}</p>
         </details>
@@ -90,7 +90,7 @@ export function OfferPrice({ offer, prefix = false, className = "" }: { offer: O
   return (
     <span className={className} dir="ltr">
       {prefix ? `${t.common.price.from} ${price.from}` : price.label}
-      {price.monthly && <span className="text-[0.85em] font-normal t-muted"> {t.common.price.perMonth}</span>}
+      {price.monthly && <span className="text-[0.85em] font-normal t-secondary"> {t.common.price.perMonth}</span>}
     </span>
   );
 }
@@ -109,7 +109,7 @@ export function TrustStrip() {
     <ul className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
       {items.map(({ icon: Icon, text }) => (
         <li key={text} className="flex items-center gap-3 text-[0.95rem] t-secondary">
-          <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[var(--brand-soft)] t-brand">
+          <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[var(--brand-soft)] t-brand">
             <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
           </span>
           {text}
@@ -119,13 +119,13 @@ export function TrustStrip() {
   );
 }
 
-export function CtaBand({ title, text }: { title?: string; text?: string }) {
+export function CtaBand({ title, text, accent = true }: { title?: string; text?: string; accent?: boolean }) {
   const { t } = useI18n();
   const { site } = useSite();
   return (
     <section className="section-pad">
       <div className="container-w">
-        <div className="card-accent px-6 py-12 md:px-14 md:py-16">
+        <div className={`${accent ? "card-accent" : "card"} px-6 py-12 md:px-14 md:py-16`}>
           <div className="grid items-center gap-8 lg:grid-cols-[1.5fr_1fr]">
             <div>
               <h2 className="display-2"><Headline text={title ?? t.home.final.title} /></h2>

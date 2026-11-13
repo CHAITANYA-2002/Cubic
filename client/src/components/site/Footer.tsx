@@ -16,7 +16,7 @@ function Column({ title, children }: { title: string; children: React.ReactNode 
   );
 }
 
-const linkClass = "inline-block py-1 t-muted hover:t-primary transition-colors";
+const linkClass = "inline-flex min-h-11 items-center py-1 t-secondary hover:t-primary transition-colors";
 
 export function Footer() {
   const { t } = useI18n();
@@ -28,14 +28,14 @@ export function Footer() {
       <div className="container-w grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
           <Logo />
-          <p className="mt-4 max-w-sm text-sm leading-relaxed t-muted">{t.common.footer.blurb}</p>
+          <p className="mt-4 max-w-sm text-sm leading-relaxed t-secondary">{t.common.footer.blurb}</p>
           {socials.length > 0 && (
             <div className="mt-5 flex gap-2">
               {socials.map((key) => {
                 const Icon = SOCIAL_ICONS[key];
                 return (
                   <a key={key} href={site.socials[key]} target="_blank" rel="noopener noreferrer" aria-label={key}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-[var(--line)] t-muted hover:t-primary">
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[var(--line)] t-secondary hover:t-primary">
                     <Icon className="h-4 w-4" />
                   </a>
                 );
@@ -74,14 +74,14 @@ export function Footer() {
               <MessageCircle className="h-4 w-4 shrink-0" />{t.common.cta.whatsapp}
             </a>
           </li>
-          <li className="t-muted">{site.hours}</li>
-          <li className="t-muted">{t.common.footer.responseTime}</li>
+          <li className="t-secondary">{site.hours}</li>
+          <li className="t-secondary">{t.common.footer.responseTime}</li>
         </Column>
       </div>
 
       <div className="border-t border-[var(--line)]">
-        <div className="container-w flex flex-col gap-3 py-6 text-xs t-muted sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} CubicTech. {t.common.footer.rights}</p>
+        <div className="container-w flex flex-col gap-3 py-6 text-xs t-secondary sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} {t.common.brand}. {t.common.footer.rights}</p>
           <div className="flex gap-5">
             <Link href="/terms" className={linkClass}>{t.common.footer.terms}</Link>
             <Link href="/privacy" className={linkClass}>{t.common.footer.privacy}</Link>

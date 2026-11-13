@@ -1,6 +1,7 @@
 import type { Dict } from "..";
 
 export const common: Dict["common"] = {
+  accessibility: {"legal": "CubicTech · कानूनी", "updated": "अंतिम अपडेट:", "technology": "तकनीक", "screenshot": "स्क्रीनशॉट", "main": "मुख्य नेविगेशन", "mobile": "मोबाइल नेविगेशन", "breadcrumb": "पृष्ठ पथ", "cookies": "कुकी सूचना", "home": "होम"},
   brand: "CubicTech",
   tagline: "उन बिज़नेस के लिए software, AI और growth systems, जिनका काम अब spreadsheets से नहीं चलता।",
   skipToContent: "सीधे content पर जाएँ",

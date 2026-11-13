@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Layout } from "@/components/site/Layout";
 import { CtaBand, FaqList, Headline, OfferPrice, SectionHeader, TrustStrip } from "@/components/site/blocks";
 import { BrowserFrame, ProjectCard } from "@/components/work/ProjectCard";
@@ -14,15 +14,12 @@ const FEATURED = ["superfox-roam", "aria-frontdesk", "flowops-sdr"]
 
 const PRICE_TEASER = ["website", "webapp", "ai", "marketing"] as const;
 
-// Technologies used across the live builds on /work.
-const STACK = ["React", "TypeScript", "Node.js", "PostgreSQL", "Next.js", "LLM agents", "Cloudflare"];
-
 function Hero() {
   const { t } = useI18n();
   const lead = projects[0];
   return (
     <section className="tech-grid overflow-hidden border-b border-[var(--line)]">
-      <div className="container-w relative grid items-center gap-12 py-16 md:py-28 lg:min-h-[88vh] lg:grid-cols-[1.1fr_1fr]">
+      <div className="container-w section-pad relative grid items-center gap-12 lg:min-h-[88vh] lg:grid-cols-[1.1fr_1fr]">
         <div className="reveal">
           <p className="label mb-5">{t.home.hero.eyebrow}</p>
           <h1 className="display-1"><Headline text={t.home.hero.title} /></h1>
@@ -33,14 +30,15 @@ function Hero() {
             </Link>
             <Link href="/work" className="btn btn-outline btn-lg">{t.home.hero.secondary}</Link>
           </div>
-          <p className="mt-5 text-sm t-muted">{t.home.hero.note}</p>
-          <ul className="mt-8 flex flex-wrap gap-2" aria-label="Technology">
-            {STACK.map((tech) => <li key={tech} className="chip">{tech}</li>)}
+          <p className="mt-5 text-sm t-secondary">{t.home.hero.note}</p>
+          <ul className="mt-8 flex flex-wrap gap-2" aria-label={t.common.accessibility.technology}>
+            {t.home.stack.map((tech) => <li key={tech} className="chip">{tech}</li>)}
           </ul>
         </div>
         <div className="reveal hidden lg:block" style={{ animationDelay: "120ms" }}>
           <a href={lead.liveUrl} target="_blank" rel="noopener noreferrer" className="group block" aria-label={`${lead.name} — ${t.common.cta.openLive}`}>
-            <BrowserFrame project={lead} eager />
+            <BrowserFrame project={lead} />
+            <span className="chip mt-4">{t.home.hero.liveCaption}<ArrowUpRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /></span>
           </a>
         </div>
       </div>
@@ -76,10 +74,10 @@ function ServicesGrid() {
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <h3 className="mt-5 text-lg font-bold t-primary">{t.common.serviceNames[slug]}</h3>
-                <p className="mt-2 flex-grow text-[0.95rem] leading-relaxed t-muted">{t.services.items[slug].short}</p>
+                <p className="mt-2 flex-grow text-[0.95rem] leading-relaxed t-secondary">{t.services.items[slug].short}</p>
                 <div className="mt-5 flex items-center justify-between border-t border-[var(--line)] pt-4 text-sm">
                   <OfferPrice offer={SERVICE_OFFER[slug]} prefix className="font-semibold t-primary" />
-                  <ArrowRight className="h-4 w-4 t-muted transition-transform group-hover:translate-x-0.5 rtl:rotate-180" aria-hidden="true" />
+                  <ArrowRight className="h-4 w-4 t-secondary transition-transform group-hover:translate-x-0.5 rtl:rotate-180" aria-hidden="true" />
                 </div>
               </Link>
             );
@@ -101,7 +99,7 @@ function SelectedWork() {
           subtitle={t.home.work.subtitle}
           action={<Link href="/work" className="btn btn-outline">{t.common.cta.allWork}</Link>}
         />
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {FEATURED.map((project) => <ProjectCard key={project.slug} project={project} />)}
         </div>
       </div>
@@ -118,9 +116,9 @@ function WhyUs() {
         <div className="grid gap-x-10 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
           {t.home.why.items.map((item, index) => (
             <div key={item.title} className="rule-top pt-5">
-              <p className="font-mono text-xs t-deco">0{index + 1}</p>
+              <p className="font-mono text-xs t-secondary">0{index + 1}</p>
               <h3 className="mt-2 text-lg font-bold t-primary">{item.title}</h3>
-              <p className="mt-2 leading-relaxed t-muted">{item.text}</p>
+              <p className="mt-2 leading-relaxed t-secondary">{item.text}</p>
             </div>
           ))}
         </div>
@@ -144,7 +142,7 @@ function Process() {
             <li key={step.title} className="card p-6">
               <span className="step-dot">{index + 1}</span>
               <h3 className="mt-4 font-bold t-primary">{step.title}</h3>
-              <p className="mt-2 text-[0.95rem] leading-relaxed t-muted">{step.text}</p>
+              <p className="mt-2 text-[0.95rem] leading-relaxed t-secondary">{step.text}</p>
             </li>
           ))}
         </ol>
@@ -164,15 +162,15 @@ function PricingTeaser() {
           subtitle={t.home.pricing.subtitle}
           action={<Link href="/pricing" className="btn btn-outline">{t.home.pricing.cta}</Link>}
         />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {PRICE_TEASER.map((offer) => (
             <div key={offer} className="card p-6">
-              <p className="text-sm font-medium t-muted">{t.common.offerNames[offer]}</p>
+              <p className="text-sm font-medium t-secondary">{t.common.offerNames[offer]}</p>
               <OfferPrice offer={offer} prefix className="mt-2 block text-xl font-bold t-primary" />
             </div>
           ))}
         </div>
-        <p className="mt-4 text-sm t-muted">{t.common.price.estimateNote}</p>
+        <p className="mt-4 text-sm t-secondary">{t.common.price.estimateNote}</p>
       </div>
     </section>
   );

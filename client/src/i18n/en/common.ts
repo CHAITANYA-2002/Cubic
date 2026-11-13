@@ -1,4 +1,5 @@
 export const common = {
+  accessibility: {"legal": "CubicTech · Legal", "updated": "Last updated:", "technology": "Technology", "screenshot": "Screenshot", "main": "Main navigation", "mobile": "Mobile navigation", "breadcrumb": "Breadcrumb", "cookies": "Cookie notice", "home": "Home"},
   brand: "CubicTech",
   tagline: "Software, AI and growth systems for businesses that have outgrown spreadsheets.",
   skipToContent: "Skip to content",

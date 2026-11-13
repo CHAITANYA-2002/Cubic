@@ -24,7 +24,7 @@ export default function About() {
                 <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-[var(--brand-line)] bg-[var(--brand-soft)] font-mono text-lg font-semibold t-brand" aria-hidden="true">CK</span>
                 <div>
                   <p className="font-bold t-primary">{a.founderName}</p>
-                  <p className="text-sm t-muted">{a.founderRole}</p>
+                  <p className="text-sm t-secondary">{a.founderRole}</p>
                 </div>
               </div>
               <p className="mt-4 text-[0.95rem] leading-relaxed t-secondary">{a.founderText}</p>
@@ -34,7 +34,7 @@ export default function About() {
               <dl className="mt-4 divide-y divide-[var(--line)]">
                 {a.facts.map((fact) => (
                   <div key={fact.label} className="flex justify-between gap-4 py-3 text-sm">
-                    <dt className="t-muted">{fact.label}</dt>
+                    <dt className="t-secondary">{fact.label}</dt>
                     <dd className="text-end font-medium t-primary">{fact.value}</dd>
                   </div>
                 ))}
@@ -51,7 +51,7 @@ export default function About() {
             {a.principles.map((principle) => (
               <div key={principle.title} className="card p-6">
                 <h3 className="font-bold t-primary">{principle.title}</h3>
-                <p className="mt-2 text-[0.95rem] leading-relaxed t-muted">{principle.text}</p>
+                <p className="mt-2 text-[0.95rem] leading-relaxed t-secondary">{principle.text}</p>
               </div>
             ))}
           </div>

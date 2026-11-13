@@ -17,7 +17,7 @@ export default function Faq() {
             <ul className="sticky top-24 space-y-1 text-sm">
               {f.categories.map((category) => (
                 <li key={category.id}>
-                  <a href={`#${category.id}`} className="block rounded-md px-3 py-2 t-muted hover:bg-[var(--bg-subtle)] hover:t-primary">{category.title}</a>
+                  <a href={`#${category.id}`} className="flex min-h-11 items-center rounded-xl px-3 py-2 t-secondary hover:bg-[var(--bg-subtle)] hover:t-primary">{category.title}</a>
                 </li>
               ))}
             </ul>
@@ -29,7 +29,7 @@ export default function Faq() {
                 <FaqList items={category.items} />
               </section>
             ))}
-            <div className="rounded-2xl bg-[var(--bg-subtle)] p-7 md:p-9">
+            <div className="rounded-2xl bg-[var(--bg-subtle)] p-6 md:p-7">
               <h2 className="text-xl font-bold t-primary">{f.stillTitle}</h2>
               <p className="mt-2 t-secondary">{f.stillText}</p>
               <div className="mt-5 flex flex-col gap-3 sm:flex-row">

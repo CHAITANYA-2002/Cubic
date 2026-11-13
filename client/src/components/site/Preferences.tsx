@@ -15,11 +15,11 @@ export function Preferences({ compact = false }: { compact?: boolean }) {
   };
 
   const selectClass =
-    "min-h-11 rounded-xl border border-[var(--line)] bg-[var(--surface)] px-2 text-sm t-secondary hover:border-[var(--line-strong)] focus:border-[var(--brand)] focus:outline-none";
+    "min-h-11 rounded-xl border border-[var(--line)] bg-[var(--surface)] px-2 text-sm t-secondary hover:border-[var(--line-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--brand)]";
 
   return (
     <div className={`flex items-center gap-2 ${compact ? "" : "text-sm"}`}>
-      <Globe className="h-4 w-4 t-muted" aria-hidden="true" />
+      <Globe className="h-4 w-4 t-secondary" aria-hidden="true" />
       <label className="sr-only" htmlFor={`lang-${compact ? "m" : "d"}`}>{t.common.prefs.language}</label>
       <select
         id={`lang-${compact ? "m" : "d"}`}

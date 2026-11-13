@@ -36,18 +36,18 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[var(--header-bg)] backdrop-blur-xl">
       <div className="container-w flex h-16 items-center justify-between gap-4">
-        <Link href="/" aria-label={`${t.common.brand} — home`}>
+        <Link href="/" className="inline-flex min-h-11 items-center" aria-label={`${t.common.brand} — ${t.common.accessibility.home}`}>
           <Logo />
         </Link>
 
-        <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
+        <nav aria-label={t.common.accessibility.main} className="hidden items-center gap-1 lg:flex">
           {LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               aria-current={isActive(location, link.href) ? "page" : undefined}
-              className={`rounded-md px-3 py-2 text-[0.94rem] font-medium transition-colors ${
-                isActive(location, link.href) ? "t-primary" : "t-muted hover:t-primary"
+              className={`inline-flex min-h-11 items-center rounded-xl px-3 py-2 text-[0.94rem] font-medium transition-colors ${
+                isActive(location, link.href) ? "t-primary" : "t-secondary hover:t-primary"
               }`}
             >
               {t.common.nav[link.key]}
@@ -57,12 +57,12 @@ export function Navbar() {
 
         <div className="hidden items-center gap-4 lg:flex">
           <Preferences />
-          <Link href="/contact" className="btn btn-primary">{t.common.cta.bookCall}</Link>
+          <Link href="/contact" className="btn btn-outline">{t.common.cta.bookCall}</Link>
         </div>
 
         <button
           type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-[var(--line)] lg:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[var(--line)] lg:hidden"
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? t.common.nav.close : t.common.nav.menu}
@@ -74,7 +74,7 @@ export function Navbar() {
 
       {open && (
         <div id="mobile-menu" className="border-t border-[var(--line)] bg-[var(--bg-primary)] lg:hidden">
-          <nav aria-label="Mobile" className="container-w flex flex-col py-3">
+          <nav aria-label={t.common.accessibility.mobile} className="container-w flex flex-col py-3">
             {[...LINKS, { href: "/contact", key: "contact" as const }].map((link) => (
               <Link
                 key={link.href}

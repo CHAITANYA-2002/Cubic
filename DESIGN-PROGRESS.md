@@ -6,11 +6,5 @@
 - [x] 4. Add pricing currency switcher. Extracted shared accessible currency select and placed it above rates; typecheck and 80-page build passed.
 - [x] 5. Reorder mobile contact details. Direct contacts precede form below desktop breakpoint; desktop columns preserved and contact targets enlarged. Typecheck and 80-page build passed.
 - [x] 6. Convert work images and add responsive sources. All six screenshots have 1280px and 640px WebP sources, responsive sizes and explicit dimensions. Originals retained as source assets. Typecheck and 80-page build passed.
-- [ ] 7. Complete English and Arabic responsive QA.
+- [x] 7. Complete English and Arabic responsive QA. 132 no-JS cases and 128 accessibility cases passed; keyboard, anchors, contact order, currency and hydration passed. Lighthouse final/recheck performance 90–100, accessibility 100, SEO 100. Typecheck and 80-page build passed; details and ambiguity decisions in DESIGN-QA.md.
 - [ ] 8. Deploy, verify live pages, and push.
-
-
-
-
-
-

@@ -1,9 +1,11 @@
 import type { Dict } from "..";
 
 export const home: Dict["home"] = {
+  stack: ["React", "TypeScript", "Node.js", "PostgreSQL", "Next.js", "Agents LLM", "Cloudflare"],
   metaTitle: "CubicTech — Sites web, applications web et IA | Studio en Inde",
   metaDescription: "CubicTech crée sites, applications sur mesure, agents IA et systèmes marketing. Prix fixes en INR, USD, EUR ou AED. Projets à tester en ligne avant tout appel.",
   hero: {
+    liveCaption: "En ligne — découvrir",
     eyebrow: "Studio logiciel indépendant · Inde · clients dans le monde entier",
     title: "Des logiciels et une IA qui travaillent vraiment pour votre entreprise.",
     subtitle: "Nous concevons et développons sites web, applications web, agents IA et systèmes marketing — prix fixe, périmètre écrit, et des réalisations en ligne que vous pouvez ouvrir avant même de nous parler.",

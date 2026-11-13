@@ -1,5 +1,4 @@
 import { Link } from "wouter";
-import { ArrowRight } from "lucide-react";
 import { Layout } from "@/components/site/Layout";
 import { CheckList, CtaBand, OfferPrice, PageHero, TrustStrip } from "@/components/site/blocks";
 import { SERVICE_ICON, SERVICE_OFFER, SERVICE_SLUGS, type ServiceSlug } from "@/data/services";
@@ -11,19 +10,19 @@ function ServiceRow({ slug, index }: { slug: ServiceSlug; index: number }) {
   const Icon = SERVICE_ICON[slug];
   return (
     <article className="grid gap-8 border-t border-[var(--line)] py-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-      <div>
+      <div className={index % 2 ? "lg:order-2" : ""}>
         <div className="flex items-center gap-3">
           <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[var(--brand-soft)] t-brand">
             <Icon className="h-5 w-5" aria-hidden="true" />
           </span>
-          <span className="font-mono text-xs t-deco">0{index + 1}</span>
+          <span className="font-mono text-xs t-secondary">0{index + 1}</span>
         </div>
         <h2 className="mt-5 text-2xl font-bold t-primary md:text-3xl">{t.common.serviceNames[slug]}</h2>
-        <p className="mt-3 t-muted">{item.short}</p>
+        <p className="mt-3 t-secondary">{item.short}</p>
         <OfferPrice offer={SERVICE_OFFER[slug]} prefix className="mt-6 block text-xl font-bold t-primary" />
-        <p className="mt-1 text-sm t-muted">{t.services.detail.timelineTitle}: {item.timeline}</p>
+        <p className="mt-1 text-sm t-secondary">{t.services.detail.timelineTitle}: {item.timeline}</p>
         <Link href={`/services/${slug}`} className="btn btn-outline mt-6">
-          {t.services.index.details} <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
+          {t.services.index.details}
         </Link>
       </div>
       <div>
@@ -46,10 +45,10 @@ export default function Services() {
           <Link href="/pricing" className="btn btn-outline btn-lg">{t.common.cta.seePricing}</Link>
         </div>
       </PageHero>
-      <section className="py-14">
+      <section className="section-pad">
         <div className="container-w"><TrustStrip /></div>
       </section>
-      <section className="pb-10">
+      <section className="section-pad section-subtle">
         <div className="container-w">
           {SERVICE_SLUGS.map((slug, index) => <ServiceRow key={slug} slug={slug} index={index} />)}
         </div>

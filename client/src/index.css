@@ -1,101 +1,23 @@
+@import "./styles/tokens.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 /* ===========================================================
    CubicTech design system — dark, editorial, technical.
    Near-black surfaces, warm gold accent, serif display, mono labels.
    The workspace (/admin, /portal) shares the same palette.
    =========================================================== */
 
-:root {
-  --font-display: "Cormorant Garamond", "Noto Sans Devanagari", "IBM Plex Sans Arabic", Georgia, serif;
-  --font-body: "Inter", "Noto Sans Devanagari", "IBM Plex Sans Arabic", system-ui, sans-serif;
-  --font-sans: var(--font-body);
-  --font-serif: var(--font-display);
-  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --section-space: 4.5rem;
-  --card-radius: 1rem;
-  --card-padding: 1.5rem;
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-
-  /* Brand */
-  --brand: #d6a77a;
-  --brand-hover: #e6bb91;
-  --brand-soft: rgba(214, 167, 122, 0.1);
-  --brand-line: rgba(214, 167, 122, 0.28);
-  --on-brand: #0a0a0b;
-  --success: #5fd3a0;
-  --success-soft: rgba(95, 211, 160, 0.1);
-
-  /* Surfaces */
-  --bg-primary: #0a0a0b;
-  --bg-subtle: #0e0e11;
-  --bg-ink: #121216;
-  --surface: #131317;
-  --surface-2: #19191e;
-  --header-bg: rgba(10, 10, 11, 0.78);
-  --line: rgba(255, 255, 255, 0.08);
-  --line-strong: rgba(255, 255, 255, 0.16);
-
-  /* Text (body tiers pass WCAG AA on --bg-primary) */
-  --t-primary: #f4f4f5;
-  --t-secondary: #c4c4cb;
-  --t-muted: #9a9aa3;
-  --t-deco: #74747d;
-  --t-ghost: #3a3a42;
-  --label-color: var(--brand);
-  --accent-primary: var(--brand);
-  --ink: #f4f4f5;
-
-  /* Workspace legacy names */
-  --glass-card-bg: var(--surface);
-  --glass-border: var(--line);
-  --input-bg: rgba(255, 255, 255, 0.03);
-  --input-border: rgba(255, 255, 255, 0.14);
-
-  /* shadcn (HSL triplets) */
-  --background: 240 5% 4%;
-  --foreground: 240 5% 96%;
-  --card: 240 9% 8%;
-  --card-foreground: 240 5% 96%;
-  --card-border: 240 5% 14%;
-  --popover: 240 9% 8%;
-  --popover-foreground: 240 5% 96%;
-  --popover-border: 240 5% 14%;
-  --primary: 29 53% 66%;
-  --primary-foreground: 240 5% 4%;
-  --secondary: 240 6% 12%;
-  --secondary-foreground: 240 5% 96%;
-  --muted: 240 6% 12%;
-  --muted-foreground: 240 4% 62%;
-  --accent: 240 6% 12%;
-  --accent-foreground: 240 5% 96%;
-  --destructive: 0 72% 58%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 240 5% 14%;
-  --input: 240 5% 18%;
-  --ring: 29 53% 66%;
-  --radius: 0.75rem;
-  --chart-1: 29 53% 66%;
-  --chart-2: 155 57% 60%;
-  --chart-3: 220 80% 68%;
-  --chart-4: 262 70% 72%;
-  --chart-5: 0 72% 62%;
-}
-
 @layer base {
   * {
     @apply border-border;
     box-sizing: border-box;
   }
-
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     color-scheme: dark;
   }
-
   body {
     @apply antialiased;
     background: var(--bg-primary);
@@ -103,39 +25,30 @@
     font-family: var(--font-body);
     line-height: 1.7;
   }
-
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-body);
     font-weight: 600;
     letter-spacing: -0.015em;
     line-height: 1.2;
   }
-
   :lang(hi) body, :lang(ar) body { line-height: 1.75; }
-
   ::selection { background: rgba(214, 167, 122, 0.3); color: #fff; }
-
   ::-webkit-scrollbar { width: 10px; }
   ::-webkit-scrollbar-track { background: var(--bg-primary); }
   ::-webkit-scrollbar-thumb { background: #2a2a31; border-radius: 10px; border: 2px solid var(--bg-primary); }
-
   :focus-visible {
     outline: 2px solid var(--brand);
     outline-offset: 2px;
     border-radius: 4px;
   }
 }
-
-/* ===========================================================
-   Text
-   =========================================================== */
+/* Text */
 .t-primary { color: var(--t-primary); }
 .t-secondary { color: var(--t-secondary); }
 .t-muted { color: var(--t-muted); }
 .t-deco { color: var(--t-deco); }
 .t-ghost { color: var(--t-ghost); }
 .t-brand { color: var(--brand); }
-
 /* Technical eyebrow: mono, gold, with a short rule */
 .label {
   display: inline-flex;
@@ -156,7 +69,6 @@
   opacity: 0.6;
 }
 :lang(ar) .label, :lang(hi) .label { letter-spacing: 0; font-family: var(--font-body); }
-
 /* Editorial serif display — the studio's signature */
 .display-1, .display-2 {
   font-family: var(--font-display);
@@ -174,7 +86,6 @@
 }
 :lang(hi) .display-1, :lang(ar) .display-1 { font-size: clamp(2.1rem, 4.6vw, 3.6rem); }
 :lang(hi) .display-2, :lang(ar) .display-2 { font-size: clamp(1.7rem, 3vw, 2.4rem); }
-
 .accent-text {
   font-style: italic;
   background: linear-gradient(120deg, #ecd0b0 0%, #d6a77a 45%, #b9875a 100%);
@@ -183,17 +94,13 @@
   -webkit-text-fill-color: transparent;
 }
 :lang(hi) .accent-text, :lang(ar) .accent-text { font-style: normal; }
-
 .lead {
   font-size: clamp(1.05rem, 1.4vw, 1.2rem);
   line-height: 1.7;
   color: var(--t-secondary);
   max-width: 65ch;
 }
-
-/* ===========================================================
-   Layout
-   =========================================================== */
+/* Layout */
 .container-w {
   width: 100%;
   max-width: 1200px;
@@ -201,7 +108,6 @@
   padding-inline: 1.25rem;
 }
 @media (min-width: 768px) { .container-w { padding-inline: 2rem; } }
-
 .section-pad { padding-block: var(--section-space); }
 @media (min-width: 768px) { :root { --section-space: 6.5rem; --card-padding: 1.75rem; } }
 .section-subtle {
@@ -234,9 +140,7 @@
   background: radial-gradient(50% 45% at 78% 8%, rgba(214, 167, 122, 0.16), transparent 70%);
 }
 
-/* ===========================================================
-   Surfaces
-   =========================================================== */
+/* Surfaces */
 .card {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0) 60%), var(--surface);
   border: 1px solid var(--line);
@@ -290,9 +194,7 @@
   border-radius: 1rem;
 }
 
-/* ===========================================================
-   Buttons
-   =========================================================== */
+/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -323,9 +225,7 @@
 .btn-ghost:hover, .btn-outline:hover { border-color: var(--brand-line); background: var(--brand-soft); }
 .btn-lg { min-height: 3.1rem; padding: 0.8rem 1.5rem; font-size: 1rem; }
 
-/* ===========================================================
-   Forms
-   =========================================================== */
+/* Forms */
 .glow-input, .field {
   width: 100%;
   background: var(--input-bg);
@@ -344,21 +244,18 @@
 .glow-input::placeholder, .field::placeholder { color: var(--t-muted); }
 select.field option, select.glow-input option { background: var(--surface); color: var(--t-primary); }
 
-/* ===========================================================
-   Motion — content is always visible without JS (prerendered pages)
-   =========================================================== */
+/* Motion — content is always visible without JS (prerendered pages) */
 @media (prefers-reduced-motion: no-preference) {
   .reveal { animation: reveal 0.7s var(--ease-out) both; }
 }
 @keyframes reveal {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: none; }
+  from { transform: translateY(14px); }
+  to { transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
-
 @media print {
   body { background: #fff; color: #000; }
 }
@@ -368,13 +265,31 @@ h1, h2 { text-wrap: balance; overflow-wrap: anywhere; }
 p, li { overflow-wrap: break-word; }
 :lang(ar) h1, :lang(ar) h2, :lang(hi) h1, :lang(hi) h2 { letter-spacing: 0; }
 main [id] { scroll-margin-top: 9rem; }
-
 @media (min-width: 1024px) {
   .process-steps > li { position: relative; }
   .process-steps > li:not(:last-child)::after {
     content: ""; position: absolute; height: 1px;
-    inset-inline-start: 3.5rem; inset-inline-end: -2.5rem;
-    top: 2.5rem; background: var(--line-strong); pointer-events: none;
+    inset-inline-start: calc(var(--card-padding) + 2rem);
+    inset-inline-end: calc(-1 * (var(--card-padding) + 1.25rem));
+    top: calc(var(--card-padding) + 1rem); background: var(--line-strong); pointer-events: none;
   }
   .process-steps .step-dot { position: relative; z-index: 1; background: var(--surface); }
+}
+
+/* Public surfaces use one spacing scale, independent of the workspace. */
+.public-site .card { padding: var(--card-padding); }
+.public-site .card-accent { padding: var(--card-padding); }
+.public-site .btn { white-space: normal; text-align: center; }
+.public-site .field, .public-site .glow-input { min-height: 2.75rem; }
+@media (max-width: 639px) { .public-site main .btn { width: 100%; } }
+:lang(ar) { --font-body: "IBM Plex Sans Arabic", system-ui, sans-serif; --font-display: var(--font-body); --font-mono: var(--font-body); }
+:lang(hi) { --font-body: "Noto Sans Devanagari", system-ui, sans-serif; --font-display: var(--font-body); --font-mono: var(--font-body); }
+
+/* Let the browser defer off-screen sections while keeping their HTML accessible. */
+@supports (content-visibility: auto) {
+  .public-site main > section ~ section,
+  .public-site .project-feature {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 60rem;
+  }
 }

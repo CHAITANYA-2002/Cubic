@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import type { OfferId } from "@shared/site";
 import { CurrencySelect } from "@/components/site/Preferences";
 import { Layout } from "@/components/site/Layout";
-import { CheckList, CtaBand, OfferPrice, PageHero, SectionHeader } from "@/components/site/blocks";
+import { CheckList, CtaBand, Headline, OfferPrice, PageHero, SectionHeader } from "@/components/site/blocks";
 import { useI18n } from "@/i18n";
 import { useSite } from "@/lib/site";
 
@@ -16,21 +16,21 @@ export default function Pricing() {
   return (
     <Layout>
       <PageHero eyebrow={p.eyebrow} title={p.title} subtitle={p.subtitle}>
-        <p className="text-sm t-muted">{t.common.prefs.currencyNote} <strong className="t-primary">{currency}</strong> · {t.common.price.vatNote}</p>
+        <p className="text-sm t-secondary">{t.common.prefs.currencyNote} <strong className="t-primary">{currency}</strong> · {t.common.price.vatNote}</p>
       </PageHero>
 
-      <section className="section-pad pb-0">
+      <section className="section-pad">
         <div className="container-w">
           <div className="grid gap-8 card-accent p-7 md:grid-cols-[1.4fr_1fr] md:p-10">
             <div>
               <p className="label mb-3">{p.diagnostic.eyebrow}</p>
-              <h2 className="display-2">{p.diagnostic.title}</h2>
+              <h2 className="display-2"><Headline text={p.diagnostic.title} /></h2>
               <p className="mt-4 leading-relaxed t-secondary">{p.diagnostic.text}</p>
               <CheckList items={p.diagnostic.points} className="mt-6" />
             </div>
-            <div className="flex flex-col justify-center rounded-xl border border-[var(--line)] bg-[var(--bg-primary)] p-6">
+            <div className="flex flex-col justify-center rounded-2xl border border-[var(--line)] bg-[var(--bg-primary)] p-6">
               <OfferPrice offer="diagnostic" className="text-3xl font-bold t-primary" />
-              <p className="mt-1 text-sm t-muted">{t.common.price.fixed}</p>
+              <p className="mt-1 text-sm t-secondary">{t.common.price.fixed}</p>
               <Link href="/contact" className="btn btn-primary btn-lg mt-6">{p.diagnostic.cta}</Link>
             </div>
           </div>
@@ -43,7 +43,7 @@ export default function Pricing() {
             <p className="text-sm t-secondary">{t.common.prefs.currencyNote}</p>
             <CurrencySelect id="pricing-currency" visibleLabel />
           </div>
-          <div className="overflow-hidden rounded-xl border border-[var(--line)]">
+          <div className="overflow-hidden rounded-2xl border border-[var(--line)]">
             <table className="w-full text-start">
               <caption className="sr-only">{p.title}</caption>
               <thead className="hidden bg-[var(--bg-subtle)] text-sm md:table-header-group">
@@ -58,16 +58,16 @@ export default function Pricing() {
                   <tr key={offer} className="flex flex-col gap-1 px-5 py-5 md:table-row md:p-0">
                     <th scope="row" className="text-start font-normal md:px-6 md:py-5">
                       <span className="block font-semibold t-primary">{t.common.offerNames[offer]}</span>
-                      <span className="mt-1 block text-sm t-muted">{p.offers[offer].detail}</span>
+                      <span className="mt-1 block text-sm t-secondary">{p.offers[offer].detail}</span>
                     </th>
                     <td className="md:px-6 md:py-5"><OfferPrice offer={offer} className="font-semibold t-primary" /></td>
-                    <td className="text-sm t-muted md:px-6 md:py-5">{p.offers[offer].timeline}</td>
+                    <td className="text-sm t-secondary md:px-6 md:py-5">{p.offers[offer].timeline}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="mt-4 text-sm t-muted">{t.common.price.estimateNote}</p>
+          <p className="mt-4 text-sm t-secondary">{t.common.price.estimateNote}</p>
         </div>
       </section>
 
@@ -79,7 +79,7 @@ export default function Pricing() {
               {p.terms.map((term) => (
                 <div key={term.title} className="card p-6">
                   <h3 className="font-bold t-primary">{term.title}</h3>
-                  <p className="mt-2 text-[0.95rem] leading-relaxed t-muted">{term.text}</p>
+                  <p className="mt-2 text-[0.95rem] leading-relaxed t-secondary">{term.text}</p>
                 </div>
               ))}
             </div>
@@ -93,7 +93,7 @@ export default function Pricing() {
         </div>
       </section>
 
-      <CtaBand />
+      <CtaBand accent={false} />
     </Layout>
   );
 }

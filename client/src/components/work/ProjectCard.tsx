@@ -6,28 +6,32 @@ const hostOf = (url: string) => new URL(url).host;
 
 /** Screenshot inside a minimal browser chrome, so it reads as a real, running site. */
 export function BrowserFrame({ project, eager = false }: { project: Project; eager?: boolean }) {
+  const { t } = useI18n();
   return (
-    <div className="overflow-hidden rounded-xl border border-[var(--line-strong)] bg-[var(--surface)] shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)]" dir="ltr">
+    <div className="overflow-hidden rounded-2xl border border-[var(--line-strong)] bg-[var(--surface)] shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)]" dir="ltr">
       <div className="flex items-center gap-3 border-b border-[var(--line)] bg-[var(--bg-subtle)] px-3.5 py-2">
         <span className="flex gap-1.5" aria-hidden="true">
           <i className="h-2.5 w-2.5 rounded-full bg-white/15" />
           <i className="h-2.5 w-2.5 rounded-full bg-white/15" />
           <i className="h-2.5 w-2.5 rounded-full bg-white/15" />
         </span>
-        <span className="truncate rounded bg-white/[0.05] px-2.5 py-0.5 font-mono text-[11px] t-muted">{hostOf(project.liveUrl)}</span>
+        <span className="truncate rounded bg-white/[0.05] px-2.5 py-0.5 font-mono text-[11px] t-secondary">{hostOf(project.liveUrl)}</span>
       </div>
       <div className="aspect-[16/10] overflow-hidden bg-[var(--bg-subtle)]">
+        <picture className="block h-full w-full">
+          <source media="(max-width: 767px)" srcSet={project.image.replace(".webp", "-640.webp")} />
         <img
           src={project.image}
           srcSet={`${project.image.replace(".webp", "-640.webp")} 640w, ${project.image} 1280w`}
-          sizes="(min-width: 1280px) 560px, (min-width: 1024px) 45vw, (min-width: 768px) 44vw, 100vw"
-          alt={`${project.name} — screenshot`}
+          sizes="(min-width: 1280px) 560px, (min-width: 1024px) 45vw, (min-width: 768px) calc(100vw - 4rem), calc(100vw - 2.5rem)"
+          alt={`${project.name} — ${t.common.accessibility.screenshot}`}
           width={1280}
-          height={800}
+          height={project.slug === "superfox-roam" ? 693 : 800}
           loading={eager ? "eager" : "lazy"}
           decoding="async"
-          className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+          className="h-full w-full object-cover object-top"
         />
+        </picture>
       </div>
     </div>
   );
@@ -35,7 +39,7 @@ export function BrowserFrame({ project, eager = false }: { project: Project; eag
 
 export function KindBadge({ kind }: { kind: Project["kind"] }) {
   const { t } = useI18n();
-  const tone = kind === "client" ? "bg-[var(--success-soft)] text-[var(--success)]" : "bg-[var(--bg-subtle)] t-muted";
+  const tone = kind === "client" ? "bg-[var(--success-soft)] text-[var(--success)]" : "bg-[var(--bg-subtle)] t-secondary";
   return <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${tone}`}>{t.common.kinds[kind]}</span>;
 }
 
@@ -43,8 +47,8 @@ export function LiveLink({ project, className = "" }: { project: Project; classN
   const { t } = useI18n();
   return (
     <a href={project.liveUrl} target="_blank" rel="noopener noreferrer"
-      className={`inline-flex items-center gap-1.5 text-sm font-semibold t-brand hover:underline ${className}`}>
-      {t.common.cta.openLive} <ArrowUpRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
+      className={`inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold t-brand hover:underline ${className}`}>
+      {t.common.cta.openLive} <ArrowUpRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
       <span className="sr-only">— {project.name}</span>
     </a>
   );
@@ -61,10 +65,10 @@ export function ProjectCard({ project }: { project: Project }) {
       </a>
       <div className="mt-5 flex flex-wrap items-center gap-2">
         <KindBadge kind={project.kind} />
-        <span className="text-xs t-muted">{copy.sector}</span>
+        <span className="text-xs t-secondary">{copy.sector}</span>
       </div>
       <h3 className="mt-3 text-xl font-bold t-primary">{project.name}</h3>
-      <p className="mt-2 text-sm leading-relaxed t-muted">{copy.summary}</p>
+      <p className="mt-2 text-sm leading-relaxed t-secondary">{copy.summary}</p>
       <LiveLink project={project} className="mt-4" />
     </article>
   );

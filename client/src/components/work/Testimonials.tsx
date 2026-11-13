@@ -14,7 +14,7 @@ export function Testimonials() {
           {site.testimonials.map((item) => (
             <figure key={`${item.name}-${item.company}`} className="card p-8">
               <blockquote className="text-xl leading-snug t-primary">“{item.quote}”</blockquote>
-              <figcaption className="mt-6 text-sm t-muted">
+              <figcaption className="mt-6 text-sm t-secondary">
                 <span className="font-semibold t-secondary">{item.name}</span>
                 {item.role || item.company ? ` · ${[item.role, item.company].filter(Boolean).join(", ")}` : ""}
               </figcaption>

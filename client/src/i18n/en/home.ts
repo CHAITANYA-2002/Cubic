@@ -1,7 +1,9 @@
 export const home = {
+  stack: ["React", "TypeScript", "Node.js", "PostgreSQL", "Next.js", "LLM agents", "Cloudflare"],
   metaTitle: "CubicTech — Websites, Web Apps & AI Automation Studio in India",
   metaDescription: "CubicTech designs and builds websites, custom web applications, AI agents and marketing systems. Fixed prices in INR, USD, EUR or AED. See live work before you talk to us.",
   hero: {
+    liveCaption: "Live — open it",
     eyebrow: "Independent software studio · India · working worldwide",
     title: "Software and AI that does real work for your business.",
     subtitle: "We design and build websites, web applications, AI agents and marketing systems — fixed price, written scope, and live work you can open before you ever talk to us.",
@@ -9,7 +11,7 @@ export const home = {
     secondary: "See live work",
     note: "Free call · Reply within one working day · NDA on request",
   },
-  proofBar: ["6 live builds to open", "Fixed price in writing", "5 languages � 4 currencies", "Reply within 1 working day"],
+  proofBar: ["6 live builds to open", "Fixed price in writing", "5 languages · 4 currencies", "Reply within 1 working day"],
   proofStrip: {
     title: "What every engagement includes",
   },
