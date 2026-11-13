@@ -14,6 +14,7 @@ export const services: Dict["services"] = {
     details: "Details zur Leistung",
   },
   detail: {
+    navigation: ["Überblick", "Leistungen", "Ablauf", "Projekte", "FAQ"],
     whoTitle: "Passt das zu Ihnen?",
     outcomesTitle: "Was sich für Ihr Unternehmen ändert",
     deliverablesTitle: "Was enthalten ist",

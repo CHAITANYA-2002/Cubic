@@ -12,6 +12,7 @@ export const services = {
     details: "Service details",
   },
   detail: {
+    navigation: ["Overview", "Included", "Process", "Work", "FAQ"],
     whoTitle: "Is this for you?",
     outcomesTitle: "What changes for your business",
     deliverablesTitle: "What's included",

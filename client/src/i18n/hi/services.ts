@@ -14,6 +14,7 @@ export const services: Dict["services"] = {
     details: "सेवा का विवरण",
   },
   detail: {
+    navigation: ["अवलोकन", "क्या शामिल है", "प्रक्रिया", "काम", "सामान्य प्रश्न"],
     whoTitle: "क्या यह आपके लिए है?",
     outcomesTitle: "आपके बिज़नेस में क्या बदलेगा",
     deliverablesTitle: "क्या-क्या शामिल है",

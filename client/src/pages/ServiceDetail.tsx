@@ -46,7 +46,15 @@ export default function ServiceDetail() {
         </div>
       </section>
 
-      <section className="section-pad">
+      <nav aria-label={t.common.nav.services} className="sticky top-16 z-40 hidden border-b border-[var(--line)] bg-[var(--header-bg)] backdrop-blur-xl lg:block">
+        <div className="container-w flex gap-6">
+          {["overview", "included", "process", "work", "faq"].map((id, index) => (
+            <a key={id} href={`#${id}`} className="inline-flex min-h-12 items-center px-2 text-sm t-secondary hover:t-primary">{t.services.detail.navigation[index]}</a>
+          ))}
+        </div>
+      </nav>
+
+      <section id="overview" className="section-pad">
         <div className="container-w grid gap-12 lg:grid-cols-2">
           <div>
             <h2 className="display-2">{t.services.detail.whoTitle}</h2>
@@ -59,7 +67,7 @@ export default function ServiceDetail() {
         </div>
       </section>
 
-      <section className="section-pad section-subtle">
+      <section id="included" className="section-pad section-subtle">
         <div className="container-w">
           <SectionHeader title={t.services.detail.deliverablesTitle} />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -73,7 +81,7 @@ export default function ServiceDetail() {
         </div>
       </section>
 
-      <section className="section-pad">
+      <section id="process" className="section-pad">
         <div className="container-w">
           <SectionHeader title={t.services.detail.processTitle} />
           <ol className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
@@ -88,9 +96,14 @@ export default function ServiceDetail() {
         </div>
       </section>
 
-      {line && <RelatedWork line={line} />}
+      <div id="work">{line ? <RelatedWork line={line} /> : (
+        <section className="section-pad section-subtle"><div className="container-w">
+          <SectionHeader title={t.services.detail.relatedTitle} />
+          <Link href="/work" className="btn btn-outline">{t.common.cta.allWork}</Link>
+        </div></section>
+      )}</div>
 
-      <section className="section-pad">
+      <section id="faq" className="section-pad">
         <div className="container-w grid gap-10 lg:grid-cols-[1fr_1.6fr]">
           <div>
             <h2 className="display-2">{t.services.detail.faqTitle}</h2>
