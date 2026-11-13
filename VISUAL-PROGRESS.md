@@ -7,7 +7,7 @@
 - [x] 6. Add motion, navigation, footer and brand assets. Shared visible-by-default observer, reduced-motion support, scroll navbar, gold active rule, decorative footer SVG, cube icons and new OG.
 - [x] 7. Verify all translations. All 13 visual keys and list entries are translated in en, hi, ar, de and fr; every step typechecked and prerendered 80 pages.
 - [x] 8. Complete responsive and performance QA.
-- [ ] 9. Deploy, verify production and push.
+- [x] 9. Deploy, verify production and push. Deployed 2026-11-14; 14 production routes and assets return 200, no console errors on live pages.
 
 Decisions: UI illustrations are labelled as samples; photography is decorative, not a representation of CubicTech premises or staff. Existing DESIGN-PLAN.md remains applicable except its imagery and motion restrictions.
 
