@@ -7,12 +7,11 @@ export function useReveal() {
     if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
     const observer = new IntersectionObserver(entries => {
       for (const entry of entries) if (entry.isIntersecting) {
-        entry.target.classList.add("is-revealed"); observer.unobserve(entry.target);
+        entry.target.classList.add("visual-ready"); observer.unobserve(entry.target);
       }
     }, { threshold: .08 });
-    root.querySelectorAll<HTMLElement>(".card, .visual-project, .process-steps").forEach((el,i) => {
-      el.style.setProperty("--reveal-delay", `${i % 3 * 70}ms`); observer.observe(el);
-    });
+    // Observe section boxes, not deep children: preserve off-screen layout containment.
+    root.querySelectorAll<HTMLElement>(":scope > section, :scope > #work").forEach(el => observer.observe(el));
     let frame = 0;
     const moveGlow = () => {
       if (frame) return;

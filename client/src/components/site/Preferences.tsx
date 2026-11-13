@@ -23,6 +23,7 @@ export function Preferences({ compact = false }: { compact?: boolean }) {
       <label className="sr-only" htmlFor={`lang-${compact ? "m" : "d"}`}>{t.common.prefs.language}</label>
       <select
         id={`lang-${compact ? "m" : "d"}`}
+        style={{ fontFamily: "system-ui, sans-serif" }}
         className={selectClass}
         value={locale}
         onChange={(event) => switchLocale(event.target.value as Locale)}

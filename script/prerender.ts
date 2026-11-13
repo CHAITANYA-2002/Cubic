@@ -49,18 +49,28 @@ async function main() {
 
   const entry = (await import(pathToFileURL(path.join(serverDir, "entry-server.js")).href)) as ServerEntry;
   const template = await fs.readFile(path.join(outDir, "index.html"), "utf8");
+  // Public pages ship their small compressed stylesheet with their HTML: no
+  // render-blocking CSS round trip. Workspace shells retain normal CSS links.
+  let publicTemplate = template;
+  for (const match of template.matchAll(/<link\b[^>]*rel="stylesheet"[^>]*>/g)) {
+    const href = match[0].match(/href="([^"]+)"/)?.[1];
+    if (!href?.startsWith("/") || !href.endsWith(".css")) continue;
+    const css = await fs.readFile(path.join(outDir, href.slice(1)), "utf8");
+    publicTemplate = publicTemplate.replace(match[0], `<style data-stylesheet="${href}">${css}</style>`);
+  }
+
 
   let count = 0;
   for (const locale of entry.LOCALES) {
     for (const pagePath of entry.PUBLIC_PATHS) {
       const page = await entry.render(pagePath, locale);
-      await writeFile(fileFor(pagePath, locale), fillTemplate(template, page));
+      await writeFile(fileFor(pagePath, locale), fillTemplate(publicTemplate, page));
       count += 1;
     }
   }
 
   // 404 page (Cloudflare serves 404.html for unknown paths, with a 404 status).
-  await writeFile("404.html", fillTemplate(template, await entry.render("/__not-found__", "en")));
+  await writeFile("404.html", fillTemplate(publicTemplate, await entry.render("/__not-found__", "en")));
 
   // Admin and client portal: client-rendered, never indexed.
   const appShell = template

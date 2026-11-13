@@ -22,7 +22,7 @@ function Hero() {
   const { t } = useI18n();
 
   return (
-    <section className="tech-grid overflow-hidden border-b border-[var(--line)]">
+    <section className="home-hero tech-grid overflow-hidden border-b border-[var(--line)]">
       <div className="container-w section-pad relative grid items-center gap-12 lg:min-h-[88vh] lg:grid-cols-[1.1fr_1fr]">
         <div className="reveal">
           <p className="label mb-5">{t.home.hero.eyebrow}</p>

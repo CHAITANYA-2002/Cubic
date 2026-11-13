@@ -25,7 +25,7 @@ export function Footer() {
 
   return (
     <footer className="visual-footer border-t border-[var(--line)] bg-[var(--bg-subtle)]">
-      <div className="footer-watermark" aria-hidden="true">{t.common.brand}</div>
+      <svg className="footer-watermark" viewBox="0 0 1200 240" aria-hidden="true" focusable="false"><text x="600" y="210" textAnchor="middle" fontSize="220" fill="currentColor">{t.common.brand}</text></svg>
       <div className="container-w relative grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
           <Logo />
