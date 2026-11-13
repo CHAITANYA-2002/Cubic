@@ -40,7 +40,7 @@ export const projects: Project[] = [
     kind: "client",
     lines: ["websites", "apps", "ai", "marketing"],
     stack: ["React", "TypeScript", "Node API", "PostgreSQL", "Vercel"],
-    image: "/images/work/superfox-roam.jpg",
+    image: "/images/work/superfox-roam.webp",
     liveUrl: "https://on-trip-holidays.vercel.app",
   },
   {
@@ -49,7 +49,7 @@ export const projects: Project[] = [
     kind: "demo",
     lines: ["ai", "marketing"],
     stack: ["Next.js", "TypeScript", "Agent engine"],
-    image: "/images/work/aria-frontdesk.jpg",
+    image: "/images/work/aria-frontdesk.webp",
     liveUrl: "https://chaitanya-2002.github.io/client-work/aria/demo/",
   },
   {
@@ -58,7 +58,7 @@ export const projects: Project[] = [
     kind: "demo",
     lines: ["ai", "marketing"],
     stack: ["TypeScript", "LLM prompts", "Rules engine"],
-    image: "/images/work/flowops-sdr.jpg",
+    image: "/images/work/flowops-sdr.webp",
     liveUrl: "https://chaitanya-2002.github.io/client-work/sdr-email-agent-demo/sdr-client-demo.html",
   },
   {
@@ -67,7 +67,7 @@ export const projects: Project[] = [
     kind: "demo",
     lines: ["ai", "marketing"],
     stack: ["HTML", "JavaScript", "Data validation"],
-    image: "/images/work/northwind-lifecycle.jpg",
+    image: "/images/work/northwind-lifecycle.webp",
     liveUrl: "https://chaitanya-2002.github.io/client-work/finance-email-agent-demo/client-demo.html",
   },
   {
@@ -76,7 +76,7 @@ export const projects: Project[] = [
     kind: "demo",
     lines: ["apps"],
     stack: ["React", "Vite", "Tailwind"],
-    image: "/images/work/helix-analytics.jpg",
+    image: "/images/work/helix-analytics.webp",
     liveUrl: "https://chaitanya-2002.github.io/client-work/helix/",
   },
   {
@@ -85,7 +85,7 @@ export const projects: Project[] = [
     kind: "concept",
     lines: ["websites"],
     stack: ["React", "TypeScript", "Netlify"],
-    image: "/images/work/mani-doro.jpg",
+    image: "/images/work/mani-doro.webp",
     liveUrl: "https://mdoro.netlify.app",
   },
 ];

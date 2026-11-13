@@ -19,6 +19,8 @@ export function BrowserFrame({ project, eager = false }: { project: Project; eag
       <div className="aspect-[16/10] overflow-hidden bg-[var(--bg-subtle)]">
         <img
           src={project.image}
+          srcSet={`${project.image.replace(".webp", "-640.webp")} 640w, ${project.image} 1280w`}
+          sizes="(min-width: 1280px) 560px, (min-width: 1024px) 45vw, (min-width: 768px) 44vw, 100vw"
           alt={`${project.name} — screenshot`}
           width={1280}
           height={800}
