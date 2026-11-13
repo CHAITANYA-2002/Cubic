@@ -11,7 +11,8 @@
     "preview": "npm run build && wrangler pages dev",
     "db:migrate:local": "wrangler d1 migrations apply cubictech --local",
     "db:migrate:remote": "wrangler d1 migrations apply cubictech --remote",
-    "deploy": "npm run build && wrangler pages deploy"
+    "deploy": "npm run build && wrangler pages deploy --project-name cubictech --branch main --commit-dirty=true",
+    "admin:password": "wrangler pages secret put ADMIN_PASSWORD --project-name cubictech && npm run deploy"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

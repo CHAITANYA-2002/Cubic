@@ -105,18 +105,19 @@ Contact email throughout the site: **chaitanyakhurana10@gmail.com** (editable in
 
 ## 6. Deployment — Cloudflare Pages + D1 (free tier)
 
-```bash
-npx wrangler login
-npx wrangler d1 create cubictech            # paste database_id into wrangler.toml
-npm run db:migrate:remote
-npx wrangler pages project create cubictech --production-branch main
-npx wrangler pages secret put ADMIN_PASSWORD --project-name cubictech
-npx wrangler pages secret put SESSION_SECRET --project-name cubictech
-npm run deploy
-```
+**Live:** https://cubictech.pages.dev (project `cubictech`, D1 `cubictech`, region APAC).
+Already done: database created and migrated, Pages project created, `SESSION_SECRET` set.
 
-Or connect the GitHub repo in the Cloudflare dashboard (build `npm run build`, output
-`dist/public`) and bind D1 as `DB` under Settings → Functions.
+| Task | Command |
+|---|---|
+| Set or change the admin password (prompts, then redeploys) | `npm run admin:password` |
+| Deploy the current code | `npm run deploy` |
+| Apply new DB migrations | `npm run db:migrate:remote` |
+
+`npm run build` prerenders every page in all five languages; set `VITE_SITE_URL` before building
+once a custom domain is attached so canonical, hreflang, sitemap and OG URLs use it.
+Optional build-time `VITE_WEB3FORMS_KEY` emails each enquiry; without it leads are still saved
+in D1 and shown in `/admin`.
 
 ---
 
