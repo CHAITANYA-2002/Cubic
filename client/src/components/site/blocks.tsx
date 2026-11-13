@@ -1,3 +1,4 @@
+import { Banner } from "@/components/visuals/Banner";
 import type { ReactNode } from "react";
 import { Link } from "wouter";
 import { ArrowRight, CheckCircle2, ChevronDown, FileText, KeyRound, LayoutDashboard, Receipt, ShieldCheck, UserRound } from "lucide-react";
@@ -123,7 +124,8 @@ export function CtaBand({ title, text, accent = true }: { title?: string; text?:
   const { t } = useI18n();
   const { site } = useSite();
   return (
-    <section className="section-pad">
+    <section className="section-pad banner-cta">
+      <Banner name="earth" hero={false} />
       <div className="container-w">
         <div className={`${accent ? "card-accent" : "card"} px-6 py-12 md:px-14 md:py-16`}>
           <div className="grid items-center gap-8 lg:grid-cols-[1.5fr_1fr]">
