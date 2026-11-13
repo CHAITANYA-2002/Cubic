@@ -14,6 +14,9 @@
   --font-sans: var(--font-body);
   --font-serif: var(--font-display);
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --section-space: 4.5rem;
+  --card-radius: 1rem;
+  --card-padding: 1.5rem;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Brand */
@@ -98,7 +101,7 @@
     background: var(--bg-primary);
     color: var(--t-primary);
     font-family: var(--font-body);
-    overflow-x: hidden;
+    line-height: 1.7;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -185,6 +188,7 @@
   font-size: clamp(1.05rem, 1.4vw, 1.2rem);
   line-height: 1.7;
   color: var(--t-secondary);
+  max-width: 65ch;
 }
 
 /* ===========================================================
@@ -198,8 +202,8 @@
 }
 @media (min-width: 768px) { .container-w { padding-inline: 2rem; } }
 
-.section-pad { padding-block: 4.5rem; }
-@media (min-width: 768px) { .section-pad { padding-block: 6.5rem; } }
+.section-pad { padding-block: var(--section-space); }
+@media (min-width: 768px) { :root { --section-space: 6.5rem; --card-padding: 1.75rem; } }
 .section-subtle {
   background: var(--bg-subtle);
   border-block: 1px solid var(--line);
@@ -236,7 +240,7 @@
 .card {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0) 60%), var(--surface);
   border: 1px solid var(--line);
-  border-radius: 1rem;
+  border-radius: var(--card-radius);
 }
 .card-hover {
   transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
@@ -337,7 +341,7 @@
   border-color: var(--brand);
   box-shadow: 0 0 0 3px rgba(214, 167, 122, 0.18);
 }
-.glow-input::placeholder, .field::placeholder { color: var(--t-deco); }
+.glow-input::placeholder, .field::placeholder { color: var(--t-muted); }
 select.field option, select.glow-input option { background: var(--surface); color: var(--t-primary); }
 
 /* ===========================================================
@@ -358,3 +362,9 @@ select.field option, select.glow-input option { background: var(--surface); colo
 @media print {
   body { background: #fff; color: #000; }
 }
+
+/* Preserve readable wrapping and anchor clearance across all five scripts. */
+h1, h2 { text-wrap: balance; overflow-wrap: anywhere; }
+p, li { overflow-wrap: break-word; }
+:lang(ar) h1, :lang(ar) h2, :lang(hi) h1, :lang(hi) h2 { letter-spacing: 0; }
+main [id] { scroll-margin-top: 9rem; }
