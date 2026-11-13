@@ -34,7 +34,7 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+    <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[var(--header-bg)] backdrop-blur-xl">
       <div className="container-w flex h-16 items-center justify-between gap-4">
         <Link href="/" aria-label={`${t.common.brand} — home`}>
           <Logo />
@@ -73,7 +73,7 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div id="mobile-menu" className="border-t border-[var(--line)] bg-white lg:hidden">
+        <div id="mobile-menu" className="border-t border-[var(--line)] bg-[var(--bg-primary)] lg:hidden">
           <nav aria-label="Mobile" className="container-w flex flex-col py-3">
             {[...LINKS, { href: "/contact", key: "contact" as const }].map((link) => (
               <Link

@@ -1,7 +1,7 @@
 import { Link, useParams } from "wouter";
 import { ChevronRight } from "lucide-react";
 import { Layout } from "@/components/site/Layout";
-import { CheckList, CtaBand, FaqList, OfferPrice, SectionHeader } from "@/components/site/blocks";
+import { CheckList, CtaBand, FaqList, Headline, OfferPrice, SectionHeader } from "@/components/site/blocks";
 import { RelatedWork } from "@/components/work/RelatedWork";
 import { SERVICE_ICON, SERVICE_LINE, SERVICE_OFFER, isServiceSlug } from "@/data/services";
 import { useI18n } from "@/i18n";
@@ -18,7 +18,7 @@ export default function ServiceDetail() {
 
   return (
     <Layout>
-      <section className="border-b border-[var(--line)] bg-[var(--bg-subtle)]">
+      <section className="tech-grid border-b border-[var(--line)]">
         <div className="container-w grid gap-10 py-14 md:py-20 lg:grid-cols-[1.5fr_1fr]">
           <div>
             <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-sm t-muted">
@@ -27,14 +27,14 @@ export default function ServiceDetail() {
               <span aria-current="page" className="t-secondary">{t.common.serviceNames[slug]}</span>
             </nav>
             <p className="label mb-4 inline-flex items-center gap-2"><Icon className="h-4 w-4" aria-hidden="true" />{t.common.serviceNames[slug]}</p>
-            <h1 className="display-1">{item.title}</h1>
+            <h1 className="display-1"><Headline text={item.title} /></h1>
             <p className="lead mt-6 max-w-2xl">{item.intro}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link href="/contact" className="btn btn-primary btn-lg">{t.common.cta.getQuote}</Link>
               {line && <Link href="/work" className="btn btn-outline btn-lg">{t.common.cta.seeWork}</Link>}
             </div>
           </div>
-          <aside className="card h-fit p-6 md:p-7">
+          <aside className="card-accent h-fit p-6 md:p-7">
             <p className="text-sm font-medium t-muted">{t.services.detail.priceTitle}</p>
             <OfferPrice offer={SERVICE_OFFER[slug]} className="mt-1 block text-2xl font-bold t-primary" />
             <p className="mt-1 text-xs t-muted">{t.common.price.fixed} · {t.common.price.vatNote}</p>
@@ -78,7 +78,7 @@ export default function ServiceDetail() {
           <SectionHeader title={t.services.detail.processTitle} />
           <ol className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {t.home.process.steps.map((step, index) => (
-              <li key={step.title} className="border-t-2 border-[var(--ink)] pt-5">
+              <li key={step.title} className="rule-top pt-5">
                 <p className="font-mono text-xs t-deco">0{index + 1}</p>
                 <h3 className="mt-2 font-bold t-primary">{step.title}</h3>
                 <p className="mt-2 text-[0.95rem] leading-relaxed t-muted">{step.text}</p>

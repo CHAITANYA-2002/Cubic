@@ -20,14 +20,14 @@ export default function Pricing() {
 
       <section className="section-pad pb-0">
         <div className="container-w">
-          <div className="grid gap-8 rounded-2xl border-2 border-[var(--brand)] bg-[var(--brand-soft)] p-7 md:grid-cols-[1.4fr_1fr] md:p-10">
+          <div className="grid gap-8 card-accent p-7 md:grid-cols-[1.4fr_1fr] md:p-10">
             <div>
               <p className="label mb-3">{p.diagnostic.eyebrow}</p>
               <h2 className="display-2">{p.diagnostic.title}</h2>
               <p className="mt-4 leading-relaxed t-secondary">{p.diagnostic.text}</p>
               <CheckList items={p.diagnostic.points} className="mt-6" />
             </div>
-            <div className="flex flex-col justify-center rounded-xl bg-white p-6">
+            <div className="flex flex-col justify-center rounded-xl border border-[var(--line)] bg-[var(--bg-primary)] p-6">
               <OfferPrice offer="diagnostic" className="text-3xl font-bold t-primary" />
               <p className="mt-1 text-sm t-muted">{t.common.price.fixed}</p>
               <Link href="/contact" className="btn btn-primary btn-lg mt-6">{p.diagnostic.cta}</Link>

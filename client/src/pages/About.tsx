@@ -1,5 +1,5 @@
 import { Layout } from "@/components/site/Layout";
-import { CtaBand, PageHero, SectionHeader, TrustStrip } from "@/components/site/blocks";
+import { CtaBand, Headline, PageHero, SectionHeader, TrustStrip } from "@/components/site/blocks";
 import { useI18n } from "@/i18n";
 
 export default function About() {
@@ -12,7 +12,7 @@ export default function About() {
       <section className="section-pad">
         <div className="container-w grid gap-12 lg:grid-cols-[1.4fr_1fr]">
           <div>
-            <h2 className="display-2">{a.storyTitle}</h2>
+            <h2 className="display-2"><Headline text={a.storyTitle} /></h2>
             <div className="mt-6 space-y-5 text-lg leading-relaxed t-secondary">
               {a.story.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
@@ -21,7 +21,7 @@ export default function About() {
             <div className="card p-6">
               <p className="label">{a.founderTitle}</p>
               <div className="mt-4 flex items-center gap-4">
-                <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[var(--ink)] text-lg font-bold text-white" aria-hidden="true">CK</span>
+                <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-[var(--brand-line)] bg-[var(--brand-soft)] font-mono text-lg font-semibold t-brand" aria-hidden="true">CK</span>
                 <div>
                   <p className="font-bold t-primary">{a.founderName}</p>
                   <p className="text-sm t-muted">{a.founderRole}</p>

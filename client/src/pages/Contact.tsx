@@ -51,7 +51,7 @@ export default function Contact() {
               <ol className="mt-4 space-y-3">
                 {c.next.map((step, index) => (
                   <li key={step} className="flex gap-3 text-[0.95rem] t-secondary">
-                    <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--ink)] text-xs font-bold text-white">{index + 1}</span>
+                    <span className="step-dot !h-6 !w-6 !text-xs">{index + 1}</span>
                     {step}
                   </li>
                 ))}

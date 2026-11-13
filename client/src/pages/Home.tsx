@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
 import { Layout } from "@/components/site/Layout";
-import { CtaBand, FaqList, OfferPrice, SectionHeader, TrustStrip } from "@/components/site/blocks";
+import { CtaBand, FaqList, Headline, OfferPrice, SectionHeader, TrustStrip } from "@/components/site/blocks";
 import { BrowserFrame, ProjectCard } from "@/components/work/ProjectCard";
 import { Testimonials } from "@/components/work/Testimonials";
 import { SERVICE_ICON, SERVICE_OFFER, SERVICE_SLUGS } from "@/data/services";
@@ -14,16 +14,18 @@ const FEATURED = ["superfox-roam", "aria-frontdesk", "flowops-sdr"]
 
 const PRICE_TEASER = ["website", "webapp", "ai", "marketing"] as const;
 
+// Technologies used across the live builds on /work.
+const STACK = ["React", "TypeScript", "Node.js", "PostgreSQL", "Next.js", "LLM agents", "Cloudflare"];
+
 function Hero() {
   const { t } = useI18n();
   const lead = projects[0];
   return (
-    <section className="relative overflow-hidden border-b border-[var(--line)]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_80%_0%,#eaf0ff_0%,transparent_70%)]" aria-hidden="true" />
-      <div className="container-w relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.1fr_1fr]">
+    <section className="tech-grid overflow-hidden border-b border-[var(--line)]">
+      <div className="container-w relative grid items-center gap-12 py-16 md:py-28 lg:grid-cols-[1.1fr_1fr]">
         <div className="reveal">
           <p className="label mb-5">{t.home.hero.eyebrow}</p>
-          <h1 className="display-1">{t.home.hero.title}</h1>
+          <h1 className="display-1"><Headline text={t.home.hero.title} /></h1>
           <p className="lead mt-6 max-w-xl">{t.home.hero.subtitle}</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="/contact" className="btn btn-primary btn-lg">
@@ -32,6 +34,9 @@ function Hero() {
             <Link href="/work" className="btn btn-outline btn-lg">{t.home.hero.secondary}</Link>
           </div>
           <p className="mt-5 text-sm t-muted">{t.home.hero.note}</p>
+          <ul className="mt-8 flex flex-wrap gap-2" aria-label="Technology">
+            {STACK.map((tech) => <li key={tech} className="chip">{tech}</li>)}
+          </ul>
         </div>
         <div className="reveal hidden md:block" style={{ animationDelay: "120ms" }}>
           <a href={lead.liveUrl} target="_blank" rel="noopener noreferrer" className="group block" aria-label={`${lead.name} — ${t.common.cta.openLive}`}>
@@ -99,7 +104,7 @@ function WhyUs() {
         <SectionHeader eyebrow={t.home.why.eyebrow} title={t.home.why.title} />
         <div className="grid gap-x-10 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
           {t.home.why.items.map((item, index) => (
-            <div key={item.title} className="border-t-2 border-[var(--ink)] pt-5">
+            <div key={item.title} className="rule-top pt-5">
               <p className="font-mono text-xs t-deco">0{index + 1}</p>
               <h3 className="mt-2 text-lg font-bold t-primary">{item.title}</h3>
               <p className="mt-2 leading-relaxed t-muted">{item.text}</p>
@@ -124,7 +129,7 @@ function Process() {
         <ol className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {t.home.process.steps.map((step, index) => (
             <li key={step.title} className="card p-6">
-              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[var(--ink)] text-sm font-bold text-white">{index + 1}</span>
+              <span className="step-dot">{index + 1}</span>
               <h3 className="mt-4 font-bold t-primary">{step.title}</h3>
               <p className="mt-2 text-[0.95rem] leading-relaxed t-muted">{step.text}</p>
             </li>
@@ -168,7 +173,7 @@ function FaqTeaser() {
       <div className="container-w grid gap-10 lg:grid-cols-[1fr_1.6fr]">
         <div>
           <p className="label mb-3">{t.home.faq.eyebrow}</p>
-          <h2 className="display-2">{t.home.faq.title}</h2>
+          <h2 className="display-2"><Headline text={t.home.faq.title} /></h2>
           <Link href="/faq" className="btn btn-outline mt-6">{t.home.faq.cta}</Link>
         </div>
         <FaqList items={items} />

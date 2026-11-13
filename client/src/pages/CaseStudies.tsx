@@ -47,7 +47,7 @@ export default function CaseStudies() {
   return (
     <Layout>
       <PageHero eyebrow={t.work.eyebrow} title={t.work.title} subtitle={t.work.subtitle} />
-      <div className="sticky top-16 z-30 border-b border-[var(--line)] bg-white/95 backdrop-blur">
+      <div className="sticky top-16 z-30 border-b border-[var(--line)] bg-[var(--header-bg)] backdrop-blur-xl">
         <div className="container-w flex gap-2 overflow-x-auto py-3" role="group" aria-label={t.work.filterLabel}>
           {tabs.map((tab) => (
             <button
@@ -56,7 +56,7 @@ export default function CaseStudies() {
               aria-pressed={filter === tab.id}
               onClick={() => setFilter(tab.id)}
               className={`shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
-                filter === tab.id ? "border-[var(--ink)] bg-[var(--ink)] text-white" : "border-[var(--line)] t-muted hover:t-primary"
+                filter === tab.id ? "border-[var(--brand)] bg-[var(--brand)] text-[var(--on-brand)]" : "border-[var(--line)] t-muted hover:t-primary"
               }`}
             >
               {tab.label}

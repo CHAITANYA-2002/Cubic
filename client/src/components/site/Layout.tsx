@@ -28,7 +28,7 @@ function CookieBanner({ onClose }: { onClose: () => void }) {
     onClose();
   };
   return (
-    <div role="region" aria-label="Cookie notice" className="fixed inset-x-3 bottom-3 z-[60] mx-auto max-w-xl rounded-xl border border-[var(--line)] bg-white p-4 shadow-[0_16px_40px_-12px_rgba(11,18,32,0.25)] sm:inset-x-auto sm:left-4">
+    <div role="region" aria-label="Cookie notice" className="fixed inset-x-3 bottom-3 z-[60] mx-auto max-w-xl rounded-xl border border-[var(--line-strong)] bg-[var(--surface-2)] p-4 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.7)] sm:inset-x-auto sm:left-4">
       <p className="text-sm t-secondary">
         {t.common.cookie.text}{" "}
         <Link href="/cookies" className="underline underline-offset-2 t-primary">{t.common.cookie.policy}</Link>
@@ -65,8 +65,8 @@ export function Layout({ children }: { children: ReactNode }) {
   useEffect(() => setShowBanner(readConsent() === null), []);
 
   return (
-    <div className="flex min-h-screen flex-col bg-white">
-      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:start-3 focus:top-3 focus:z-[70] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:shadow">
+    <div className="flex min-h-screen flex-col bg-[var(--bg-primary)]">
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:start-3 focus:top-3 focus:z-[70] focus:rounded-md focus:bg-[var(--surface-2)] focus:px-4 focus:py-2 focus:shadow">
         {t.common.skipToContent}
       </a>
       <PageMeta />

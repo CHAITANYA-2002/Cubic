@@ -5,6 +5,26 @@ import type { OfferId } from "@shared/site";
 import { useI18n } from "@/i18n";
 import { useOfferPrice, useSite } from "@/lib/site";
 
+/** Splits a headline so its second sentence (or closing phrase) can carry the gold italic accent. */
+function splitAccent(text: string): [string, string] {
+  const sentence = text.match(/^(.+?[.!?।؟])\s+(.+)$/);
+  if (sentence) return [`${sentence[1]} `, sentence[2]];
+  const words = text.split(" ");
+  if (words.length < 5) return [text, ""];
+  const tail = Math.max(2, Math.round(words.length / 3));
+  return [`${words.slice(0, -tail).join(" ")} `, words.slice(-tail).join(" ")];
+}
+
+export function Headline({ text }: { text: string }) {
+  const [lead, accent] = splitAccent(text);
+  return (
+    <>
+      {lead}
+      {accent && <span className="accent-text">{accent}</span>}
+    </>
+  );
+}
+
 export function SectionHeader({ eyebrow, title, subtitle, align = "start", action }: {
   eyebrow?: string; title: string; subtitle?: string; align?: "start" | "center"; action?: ReactNode;
 }) {
@@ -13,7 +33,7 @@ export function SectionHeader({ eyebrow, title, subtitle, align = "start", actio
     <div className={`mb-10 flex flex-col gap-4 md:mb-14 ${centered ? "items-center text-center" : "md:flex-row md:items-end md:justify-between"}`}>
       <div className={centered ? "max-w-2xl" : "max-w-3xl"}>
         {eyebrow && <p className="label mb-3">{eyebrow}</p>}
-        <h2 className="display-2">{title}</h2>
+        <h2 className="display-2"><Headline text={title} /></h2>
         {subtitle && <p className="lead mt-4">{subtitle}</p>}
       </div>
       {action}
@@ -23,10 +43,10 @@ export function SectionHeader({ eyebrow, title, subtitle, align = "start", actio
 
 export function PageHero({ eyebrow, title, subtitle, children }: { eyebrow: string; title: string; subtitle?: string; children?: ReactNode }) {
   return (
-    <section className="border-b border-[var(--line)] bg-[var(--bg-subtle)]">
-      <div className="container-w py-16 md:py-24">
-        <p className="label mb-4">{eyebrow}</p>
-        <h1 className="display-1 max-w-4xl">{title}</h1>
+    <section className="tech-grid border-b border-[var(--line)]">
+      <div className="container-w py-16 md:py-28">
+        <p className="label mb-5">{eyebrow}</p>
+        <h1 className="display-1 max-w-4xl"><Headline text={title} /></h1>
         {subtitle && <p className="lead mt-6 max-w-2xl">{subtitle}</p>}
         {children && <div className="mt-8">{children}</div>}
       </div>
@@ -50,7 +70,7 @@ export function CheckList({ items, className = "" }: { items: string[]; classNam
 /** Native <details>: works without JavaScript, keyboard accessible, and indexable. */
 export function FaqList({ items }: { items: Array<{ q: string; a: string }> }) {
   return (
-    <div className="divide-y divide-[var(--line)] rounded-xl border border-[var(--line)] bg-white">
+    <div className="divide-y divide-[var(--line)] rounded-xl border border-[var(--line)] bg-[var(--surface)]">
       {items.map((item) => (
         <details key={item.q} className="group px-5 md:px-6">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-start font-semibold t-primary [&::-webkit-details-marker]:hidden">
@@ -105,18 +125,18 @@ export function CtaBand({ title, text }: { title?: string; text?: string }) {
   return (
     <section className="section-pad">
       <div className="container-w">
-        <div className="rounded-2xl bg-[var(--bg-ink)] px-6 py-12 text-white md:px-14 md:py-16">
+        <div className="card-accent px-6 py-12 md:px-14 md:py-16">
           <div className="grid items-center gap-8 lg:grid-cols-[1.5fr_1fr]">
             <div>
-              <h2 className="text-3xl font-bold leading-tight md:text-4xl">{title ?? t.home.final.title}</h2>
-              <p className="mt-4 max-w-2xl text-lg leading-relaxed text-slate-300">{text ?? t.home.final.text}</p>
+              <h2 className="display-2"><Headline text={title ?? t.home.final.title} /></h2>
+              <p className="mt-4 max-w-2xl text-lg leading-relaxed t-secondary">{text ?? t.home.final.text}</p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col lg:items-stretch">
               <Link href="/contact" className="btn btn-primary btn-lg">
                 {t.home.final.primary} <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
               </Link>
               <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener noreferrer"
-                className="btn btn-lg border border-white/25 text-white hover:border-white/60">
+                className="btn btn-outline btn-lg">
                 {t.home.final.secondary}
               </a>
             </div>

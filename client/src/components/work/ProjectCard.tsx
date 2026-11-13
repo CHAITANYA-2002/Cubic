@@ -7,14 +7,14 @@ const hostOf = (url: string) => new URL(url).host;
 /** Screenshot inside a minimal browser chrome, so it reads as a real, running site. */
 export function BrowserFrame({ project, eager = false }: { project: Project; eager?: boolean }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-[var(--line)] bg-white shadow-[0_20px_50px_-30px_rgba(11,18,32,0.35)]" dir="ltr">
+    <div className="overflow-hidden rounded-xl border border-[var(--line-strong)] bg-[var(--surface)] shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)]" dir="ltr">
       <div className="flex items-center gap-3 border-b border-[var(--line)] bg-[var(--bg-subtle)] px-3.5 py-2">
         <span className="flex gap-1.5" aria-hidden="true">
-          <i className="h-2.5 w-2.5 rounded-full bg-[#e5e7eb]" />
-          <i className="h-2.5 w-2.5 rounded-full bg-[#e5e7eb]" />
-          <i className="h-2.5 w-2.5 rounded-full bg-[#e5e7eb]" />
+          <i className="h-2.5 w-2.5 rounded-full bg-white/15" />
+          <i className="h-2.5 w-2.5 rounded-full bg-white/15" />
+          <i className="h-2.5 w-2.5 rounded-full bg-white/15" />
         </span>
-        <span className="truncate rounded bg-white px-2.5 py-0.5 font-mono text-[11px] t-muted">{hostOf(project.liveUrl)}</span>
+        <span className="truncate rounded bg-white/[0.05] px-2.5 py-0.5 font-mono text-[11px] t-muted">{hostOf(project.liveUrl)}</span>
       </div>
       <div className="aspect-[16/10] overflow-hidden bg-[var(--bg-subtle)]">
         <img
