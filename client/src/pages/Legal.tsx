@@ -1,2 +1,28 @@
-import { Navbar } from "@/components/Navbar"; import { Footer } from "@/components/Footer"; import { PageMeta } from "@/components/PageMeta";
-export function Legal({title,description,sections}:{title:string;description:string;sections:[string,string][]}){return <><PageMeta title={title} description={description}/><Navbar/><main className="min-h-screen pt-36 pb-24"><div className="container-w max-w-3xl"><p className="label mb-5">CubicTech Legal</p><h1 className="text-5xl md:text-6xl t-primary mb-6">{title}</h1><p className="t-muted text-sm mb-12">Last updated: July 23, 2026</p><p className="t-secondary text-lg leading-relaxed mb-14">{description}</p><div className="space-y-12">{sections.map(([heading,body])=><section key={heading}><h2 className="text-2xl t-primary mb-4">{heading}</h2><p className="t-muted leading-relaxed">{body}</p></section>)}</div></div></main><Footer/></>}
+import { Layout } from "@/components/site/Layout";
+import { useI18n } from "@/i18n";
+
+export type LegalSection = [heading: string, body: string];
+
+/** Legal pages are maintained in English (the governing version) in every locale. */
+export function Legal({ title, description, updated, sections }: { title: string; description: string; updated: string; sections: LegalSection[] }) {
+  const { t, locale } = useI18n();
+  return (
+    <Layout>
+      <article className="container-w max-w-3xl py-16 md:py-24" lang="en" dir="ltr">
+        <p className="label mb-4">CubicTech · Legal</p>
+        <h1 className="display-1">{title}</h1>
+        <p className="mt-4 text-sm t-muted">Last updated: {updated}</p>
+        {locale !== "en" && <p className="mt-4 rounded-md bg-[var(--bg-subtle)] p-3 text-sm t-secondary" lang={locale} dir="auto">{t.common.legalNote}</p>}
+        <p className="lead mt-8">{description}</p>
+        <div className="mt-12 space-y-10">
+          {sections.map(([heading, body]) => (
+            <section key={heading}>
+              <h2 className="text-xl font-bold t-primary">{heading}</h2>
+              <p className="mt-3 leading-relaxed t-secondary">{body}</p>
+            </section>
+          ))}
+        </div>
+      </article>
+    </Layout>
+  );
+}

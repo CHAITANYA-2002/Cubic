@@ -1,0 +1,5 @@
+# Local secrets for `npm run dev` (read by wrangler's platform proxy). Copy to .dev.vars — never commit it.
+# Admin login is disabled until both are set. SESSION_SECRET must be at least 32 characters, e.g.
+#   node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+ADMIN_PASSWORD=change-me
+SESSION_SECRET=replace-with-64-random-hex-characters

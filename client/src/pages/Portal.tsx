@@ -5,7 +5,7 @@ import { CheckCircle2, Circle, Loader2 } from "lucide-react";
 import type { PortalView } from "@shared/os";
 import { PageMeta } from "@/components/PageMeta";
 import { InvoiceDocument } from "@/components/InvoiceDocument";
-import { formatDate, formatInr } from "@/lib/os-api";
+import { formatDate, formatInr, useNoIndex } from "@/lib/os-api";
 
 const milestoneIcon = { Done: CheckCircle2, "In progress": Loader2, Pending: Circle } as const;
 
@@ -16,6 +16,7 @@ async function fetchPortal(token: string): Promise<PortalView> {
 }
 
 export default function Portal() {
+  useNoIndex();
   const { token = "" } = useParams<{ token: string }>();
   const { data, isLoading, error } = useQuery({ queryKey: ["portal", token], queryFn: () => fetchPortal(token), retry: false });
   const [openInvoice, setOpenInvoice] = useState<number | null>(null);

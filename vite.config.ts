@@ -1,40 +1,46 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import devServer from "@hono/vite-dev-server";
+import cloudflareAdapter from "@hono/vite-dev-server/cloudflare";
 import path from "path";
-import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
-export default defineConfig({
+const root = import.meta.dirname;
+
+export default defineConfig(({ command }) => ({
   plugins: [
     react(),
-    runtimeErrorOverlay(),
-    ...(process.env.NODE_ENV !== "production" &&
-    process.env.REPL_ID !== undefined
+    // Dev only: /api/* is served by the same Hono app that runs on Cloudflare Pages Functions,
+    // with D1 and secrets (.dev.vars) from wrangler's local platform proxy.
+    ...(command === "serve"
       ? [
-          await import("@replit/vite-plugin-cartographer").then((m) =>
-            m.cartographer(),
-          ),
-          await import("@replit/vite-plugin-dev-banner").then((m) =>
-            m.devBanner(),
-          ),
+          devServer({
+            entry: path.resolve(root, "server", "app.ts"),
+            adapter: cloudflareAdapter({ proxy: { configPath: path.resolve(root, "wrangler.toml") } }),
+            exclude: [/^(?!\/api(\/|\?|$)).*/],
+            injectClientScript: false,
+          }),
         ]
       : []),
   ],
   resolve: {
     alias: {
-      "@": path.resolve(import.meta.dirname, "client", "src"),
-      "@shared": path.resolve(import.meta.dirname, "shared"),
-      "@assets": path.resolve(import.meta.dirname, "attached_assets"),
+      "@": path.resolve(root, "client", "src"),
+      "@shared": path.resolve(root, "shared"),
+      "@assets": path.resolve(root, "attached_assets"),
     },
   },
-  root: path.resolve(import.meta.dirname, "client"),
+  root: path.resolve(root, "client"),
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    outDir: path.resolve(root, "dist/public"),
     emptyOutDir: true,
   },
   server: {
+    port: 5000,
+    strictPort: true,
+    host: "0.0.0.0",
     fs: {
       strict: true,
       deny: ["**/.*"],
     },
   },
-});
+}));

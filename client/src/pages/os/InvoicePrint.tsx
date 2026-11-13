@@ -2,13 +2,15 @@ import { Link, useParams } from "wouter";
 import { invoiceLabel } from "@shared/os";
 import { InvoiceDocument } from "@/components/InvoiceDocument";
 import { PageMeta } from "@/components/PageMeta";
-import { getToken, useOsState } from "@/lib/os-api";
+import { useAdminSession, useNoIndex, useOsState } from "@/lib/os-api";
 
 export default function InvoicePrint() {
   const { id } = useParams<{ id: string }>();
+  useNoIndex();
+  const signedIn = useAdminSession();
   const { data, isLoading, error } = useOsState();
 
-  if (!getToken()) return <p className="p-10 t-muted">Sign in at <Link href="/admin" className="underline">/admin</Link> first.</p>;
+  if (signedIn === false) return <p className="p-10 t-muted">Sign in at <Link href="/admin" className="underline">/admin</Link> first.</p>;
   if (isLoading) return <p className="p-10 t-muted">Loading…</p>;
   if (error || !data) return <p className="p-10 text-red-400">{error instanceof Error ? error.message : "Could not load"}</p>;
 

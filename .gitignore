@@ -17,3 +17,7 @@ firm/targets.csv
 
 # Contact-form leads — real personal data. Never push.
 submissions.csv
+
+# Cloudflare: local secrets and local D1/miniflare state. Never push.
+.dev.vars
+.wrangler/

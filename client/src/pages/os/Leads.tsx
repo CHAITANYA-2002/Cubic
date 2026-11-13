@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { LEAD_STATUSES, type Deal, type Lead } from "@shared/os";
-import { formatDate, osFetch, useLeads, useOsMutation } from "@/lib/os-api";
+import { formatDate, osFetch, saveBlob, toCsv, useLeads, useOsMutation } from "@/lib/os-api";
 import { Badge, Empty, FormError, inputClass, Panel, primaryButton, ghostButton } from "./ui";
 
 const statusTone = { New: "warn", Contacted: "info", Closed: "default" } as const;
@@ -17,6 +17,7 @@ function exportCsv(rows: Lead[]) {
 }
 
 const whatsappLink = (phone: string) => `https://wa.me/${phone.replace(/\D/g, "")}`;
+const hasPhone = (phone: string) => phone.replace(/\D/g, "").length >= 7;
 
 export default function LeadsView() {
   const { data: leads = [], isLoading } = useLeads();
@@ -74,13 +75,13 @@ export default function LeadsView() {
                     {lead.budget && <Badge>{lead.budget}</Badge>}
                   </div>
                   <p className="mt-1 text-xs t-muted">
-                    {lead.company && `${lead.company} · `}{lead.email} · {lead.phone} · {formatDate(lead.createdAt)}
+                    {lead.company && `${lead.company} · `}{lead.email}{lead.phone && ` · ${lead.phone}`} · {formatDate(lead.createdAt)}
                   </p>
                   <p className="mt-3 whitespace-pre-line text-sm t-secondary">{lead.message}</p>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <a href={`mailto:${lead.email}`} className={ghostButton}>Email</a>
-                  <a href={whatsappLink(lead.phone)} target="_blank" rel="noreferrer" className={ghostButton}>WhatsApp</a>
+                  {hasPhone(lead.phone) && <a href={whatsappLink(lead.phone)} target="_blank" rel="noreferrer" className={ghostButton}>WhatsApp</a>}
                   <select value={lead.status} onChange={(e) => update.mutate({ id: lead.id, status: e.target.value as Lead["status"] })} className={`${inputClass} !w-auto`}>
                     {LEAD_STATUSES.map((status) => <option key={status}>{status}</option>)}
                   </select>

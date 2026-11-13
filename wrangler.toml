@@ -1,0 +1,18 @@
+# Cloudflare Pages project: static site from dist/public + API from functions/ (Hono, server/app.ts).
+name = "cubictech"
+pages_build_output_dir = "dist/public"
+compatibility_date = "2026-11-01"
+
+# D1 database. `database_id` is a placeholder until the database exists:
+#   npx wrangler d1 create cubictech
+# then paste the printed database_id below. Local development (`npm run dev`, `--local`
+# migrations) works with the placeholder; a change of id starts a fresh local database, so
+# re-run `npm run db:migrate:local` afterwards.
+[[d1_databases]]
+binding = "DB"
+database_name = "cubictech"
+database_id = "REPLACE_AFTER_wrangler_d1_create"
+migrations_dir = "migrations"
+
+# Secrets are never stored here. Production: `npx wrangler pages secret put ADMIN_PASSWORD`
+# and `npx wrangler pages secret put SESSION_SECRET`. Local: copy .dev.vars.example to .dev.vars.

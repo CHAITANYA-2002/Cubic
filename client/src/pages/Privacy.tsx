@@ -1,1 +1,16 @@
-import { Legal } from "./Legal"; const sections:[string,string][]=[["Information we collect","We collect the information you submit through enquiries, including contact details and project context."],["How we use information","We use it to respond to requests, deliver services, improve our website, and protect our operations."],["Data sharing","We do not sell personal information. We share it only with necessary service providers or where legally required."],["Your rights","You can request access, correction, or deletion of your data by emailing chaitanyakhurana10@gmail.com."],["Security","We use reasonable safeguards to protect data. No online system can guarantee absolute security."]]; export default function Privacy(){return <Legal title="Privacy Policy" description="A plain-language explanation of the information we handle and why." sections={sections}/>}
+import { Legal, type LegalSection } from "./Legal";
+
+const sections: LegalSection[] = [
+  ["Who we are", "CubicTech (Cubic Technologies) is a software studio based in India. For any privacy question or request, email chaitanyakhurana10@gmail.com — this address is also our grievance contact under India's Digital Personal Data Protection Act, 2023."],
+  ["Information we collect", "When you send an enquiry we collect the details you enter: name, email, optional phone and company, the service and budget you select, and your message. When you subscribe to updates we collect your email address. Our hosting provider records standard technical logs (such as IP address and browser type) to keep the site secure."],
+  ["How we use it", "We use your details only to reply to your enquiry, prepare proposals, deliver services you engage us for, and protect the site against abuse. We do not sell personal information or use it for advertising."],
+  ["Service providers", "We rely on a small number of processors: Cloudflare (website hosting, security and the database that stores enquiries), Web3Forms (delivering enquiry emails to our inbox) and Google Fonts (serving the typefaces this site uses, which receives your IP address). The country you're in may be inferred from your connection to show prices in your currency; it is not stored."],
+  ["Retention", "Enquiries are kept only as long as needed to respond and manage our relationship with you, and are deleted on request. Client project records are kept as long as required for accounting and legal obligations."],
+  ["Your rights", "You can ask to access, correct or delete your personal data, or withdraw consent, by emailing chaitanyakhurana10@gmail.com. If you are in the European Union or United Kingdom you also have rights under the GDPR, including the right to complain to your local data protection authority."],
+  ["Security", "Data is transmitted over encrypted connections and access to stored enquiries is restricted to authorised people. No online system can guarantee absolute security."],
+  ["Changes", "We will update this page if how we handle personal data changes, and revise the date above."],
+];
+
+export default function Privacy() {
+  return <Legal updated="November 14, 2026" title="Privacy Policy" description="A plain-language explanation of the information we handle, why, and your rights." sections={sections} />;
+}

@@ -1,9 +1,9 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { Link, useParams } from "wouter";
 import { useQueryClient } from "@tanstack/react-query";
-import { BarChart3, Briefcase, FileText, FolderKanban, Inbox, LogOut, Settings as SettingsIcon, Users } from "lucide-react";
+import { BarChart3, Briefcase, FileText, FolderKanban, Globe, Inbox, LogOut, Mail, Settings as SettingsIcon, Users } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
-import { getToken, setToken } from "@/lib/os-api";
+import { signIn, signOut, useAdminSession, useNoIndex } from "@/lib/os-api";
 import DashboardView from "./os/Dashboard";
 import LeadsView from "./os/Leads";
 import PipelineView from "./os/Pipeline";
@@ -11,6 +11,8 @@ import ClientsView from "./os/Clients";
 import ProjectsView from "./os/Projects";
 import InvoicesView from "./os/Invoices";
 import SettingsView from "./os/Settings";
+import SiteView from "./os/site/SiteView";
+import SubscribersView from "./os/Subscribers";
 
 const tabs = [
   { id: "dashboard", label: "Dashboard", icon: BarChart3, view: DashboardView },
@@ -19,18 +21,10 @@ const tabs = [
   { id: "clients", label: "Clients", icon: Users, view: ClientsView },
   { id: "projects", label: "Projects", icon: FolderKanban, view: ProjectsView },
   { id: "invoices", label: "Invoices & quotes", icon: FileText, view: InvoicesView },
+  { id: "subscribers", label: "Subscribers", icon: Mail, view: SubscribersView },
+  { id: "site", label: "Site", icon: Globe, view: SiteView },
   { id: "settings", label: "Settings", icon: SettingsIcon, view: SettingsView },
 ] as const;
-
-function useAuthToken() {
-  const [token, setLocal] = useState(getToken);
-  useEffect(() => {
-    const sync = () => setLocal(getToken());
-    window.addEventListener("cubic-auth", sync);
-    return () => window.removeEventListener("cubic-auth", sync);
-  }, []);
-  return token;
-}
 
 function Login() {
   const [password, setPassword] = useState("");
@@ -42,10 +36,8 @@ function Login() {
     setBusy(true);
     setError("");
     try {
-      const res = await fetch("/api/admin/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password }) });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.message ?? "Sign in failed");
-      setToken(data.token);
+      await signIn(password);
+      setPassword("");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Sign in failed");
     } finally {
@@ -59,8 +51,21 @@ function Login() {
         <p className="label mb-4">Private access</p>
         <h1 className="mb-2 text-3xl t-primary">Cubic OS</h1>
         <p className="mb-6 text-sm t-muted">Leads, pipeline, clients, projects and billing for CubicTech.</p>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="glow-input mb-3" autoFocus />
-        {error && <p className="mb-3 text-sm text-red-400">{error}</p>}
+        <label htmlFor="admin-password" className="mb-1.5 block text-xs font-medium t-secondary">Password</label>
+        <input
+          id="admin-password"
+          name="password"
+          type="password"
+          autoComplete="current-password"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="glow-input mb-3"
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? "admin-login-error" : undefined}
+          autoFocus
+        />
+        {error && <p id="admin-login-error" role="alert" className="mb-3 text-sm text-red-400">{error}</p>}
         <button disabled={busy} className="btn-primary h-12 w-full rounded-xl disabled:opacity-50">{busy ? "Signing in…" : "Sign in"}</button>
       </form>
     </main>
@@ -68,12 +73,14 @@ function Login() {
 }
 
 export default function Admin() {
-  const token = useAuthToken();
+  useNoIndex();
+  const signedIn = useAdminSession();
   const params = useParams<{ tab?: string }>();
   const queryClient = useQueryClient();
   const active = tabs.find((tab) => tab.id === params.tab) ?? tabs[0];
 
-  if (!token) {
+  if (signedIn === null) return <p className="p-10 text-center t-muted">Loading…</p>;
+  if (!signedIn) {
     return (
       <>
         <PageMeta title="Cubic OS" description="CubicTech internal workspace" />
@@ -82,10 +89,9 @@ export default function Admin() {
     );
   }
 
-  async function signOut() {
-    await fetch("/api/admin/logout", { method: "POST", headers: { "x-admin-token": getToken() } }).catch(() => undefined);
+  async function handleSignOut() {
+    await signOut();
     queryClient.removeQueries({ queryKey: ["os"] });
-    setToken("");
   }
 
   const View = active.view;
@@ -96,7 +102,7 @@ export default function Admin() {
         <aside className="border-b border-white/10 bg-black/40 lg:sticky lg:top-0 lg:h-screen lg:border-b-0 lg:border-r">
           <div className="flex items-center justify-between px-5 py-5">
             <Link href="/" className="text-lg font-semibold t-primary">Cubic<span className="text-[var(--accent-primary)]">OS</span></Link>
-            <button onClick={signOut} className="t-muted hover:t-primary lg:hidden" aria-label="Sign out"><LogOut className="h-4 w-4" /></button>
+            <button onClick={handleSignOut} className="t-muted hover:t-primary lg:hidden" aria-label="Sign out"><LogOut className="h-4 w-4" /></button>
           </div>
           <nav className="flex gap-1 overflow-x-auto px-3 pb-3 lg:flex-col lg:overflow-visible">
             {tabs.map((tab) => {
@@ -114,7 +120,7 @@ export default function Admin() {
               );
             })}
           </nav>
-          <button onClick={signOut} className="absolute bottom-6 left-5 hidden items-center gap-2 text-sm t-muted hover:t-primary lg:flex">
+          <button onClick={handleSignOut} className="absolute bottom-6 left-5 hidden items-center gap-2 text-sm t-muted hover:t-primary lg:flex">
             <LogOut className="h-4 w-4" /> Sign out
           </button>
         </aside>

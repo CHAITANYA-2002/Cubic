@@ -1,31 +1,38 @@
-import { invoiceTotals, isInvoiceOverdue, todayIso, type Dashboard } from "@shared/os";
-import type { OsDocument } from "./store";
+import { invoiceTotals, isInvoiceOverdue, todayIso, type Activity, type Dashboard, type Deal, type Invoice, type Project, type Settings } from "../../shared/os";
+
+export type DashboardInput = {
+  deals: Deal[];
+  projects: Project[];
+  invoices: Invoice[];
+  activity: Activity[];
+  settings: Settings;
+  newLeads: number;
+};
 
 const sum = (values: number[]) => values.reduce((total, value) => total + value, 0);
 
-function setupWarnings(doc: OsDocument): string[] {
-  const { settings } = doc;
+function setupWarnings({ settings, invoices }: DashboardInput): string[] {
   const warnings = [
-    !process.env.ADMIN_PASSWORD && "ADMIN_PASSWORD is not set — the default development password is in use.",
     !settings.legalName && "Legal entity name is blank — invoices will show the trading name only.",
     !settings.upiId && !settings.accountNumber && "No UPI ID or bank account in Settings — invoices have no payment instructions.",
-    doc.invoices.some((row) => row.gstMode !== "none") && !settings.gstin && "An invoice charges GST but no GSTIN is set in Settings.",
+    invoices.some((row) => row.gstMode !== "none") && !settings.gstin && "An invoice charges GST but no GSTIN is set in Settings.",
   ];
   return warnings.filter((warning): warning is string => Boolean(warning));
 }
 
-export function buildDashboard(doc: OsDocument, newLeads: number): Dashboard {
+export function buildDashboard(input: DashboardInput): Dashboard {
+  const { deals, projects, invoices, activity, newLeads } = input;
   const today = todayIso();
   const monthPrefix = today.slice(0, 7);
 
-  const open = doc.deals.filter((deal) => deal.stage !== "Won" && deal.stage !== "Lost");
-  const won = doc.deals.filter((deal) => deal.stage === "Won" && deal.updatedAt.startsWith(monthPrefix));
-  const billed = doc.invoices.filter((row) => row.kind === "invoice");
+  const open = deals.filter((deal) => deal.stage !== "Won" && deal.stage !== "Lost");
+  const won = deals.filter((deal) => deal.stage === "Won" && deal.updatedAt.startsWith(monthPrefix));
+  const billed = invoices.filter((row) => row.kind === "invoice");
   const outstanding = billed.filter((row) => row.status === "Sent");
   const overdue = outstanding.filter((row) => isInvoiceOverdue(row, today));
   const paidThisMonth = billed.filter((row) => row.status === "Paid" && row.paidDate.startsWith(monthPrefix));
 
-  const upcomingMilestones = doc.projects
+  const upcomingMilestones = projects
     .filter((project) => project.status === "Active" || project.status === "Planning" || project.status === "Review")
     .flatMap((project) =>
       project.milestones
@@ -42,14 +49,14 @@ export function buildDashboard(doc: OsDocument, newLeads: number): Dashboard {
     weightedPipeline: Math.round(sum(open.map((deal) => (deal.valueInr * deal.probability) / 100))),
     wonThisMonth: won.length,
     wonValueThisMonth: sum(won.map((deal) => deal.valueInr)),
-    activeProjects: doc.projects.filter((project) => project.status === "Active" || project.status === "Review").length,
+    activeProjects: projects.filter((project) => project.status === "Active" || project.status === "Review").length,
     receivable: sum(outstanding.map((row) => invoiceTotals(row).total)),
     overdueReceivable: sum(overdue.map((row) => invoiceTotals(row).total)),
     collectedThisMonth: sum(paidThisMonth.map((row) => invoiceTotals(row).total)),
     overdueFollowUps: open.filter((deal) => !deal.nextActionDate || deal.nextActionDate <= today).slice(0, 8),
     upcomingMilestones,
     overdueInvoices: overdue,
-    recentActivity: doc.activity.slice(0, 12),
-    setupWarnings: setupWarnings(doc),
+    recentActivity: activity.slice(0, 12),
+    setupWarnings: setupWarnings(input),
   };
 }

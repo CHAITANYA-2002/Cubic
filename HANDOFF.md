@@ -13,31 +13,34 @@ people submit the contact form so the owner can see what they want.
 
 ```bash
 npm install
-npm run dev          # http://localhost:5000  (serves API + client via Vite middleware)
+cp .dev.vars.example .dev.vars      # set ADMIN_PASSWORD and a 32+ char SESSION_SECRET
+npm run db:migrate:local            # creates the local D1 database (.wrangler/, gitignored)
+npm run dev                         # http://localhost:5000 — Vite + the Hono API on local D1
 ```
 
 | Script | Does |
 |---|---|
-| `npm run dev` | Dev server (Express + Vite), port 5000 |
+| `npm run dev` | Vite on port 5000; `/api/*` served by `server/app.ts` (Hono) via `@hono/vite-dev-server` with wrangler's local D1 + `.dev.vars` |
 | `npm run check` | TypeScript typecheck |
-| `npm run build` | Full build — client to `dist/public`, server to `dist/index.cjs` |
-| `npm run build:static` | Client only (for static hosting) |
-| `npm start` | Run the built server |
-
-No database required. Without `DATABASE_URL` the app uses in-memory storage (see §4).
+| `npm run build` / `build:static` | Client to `dist/public` |
+| `npm run preview` | Build, then run the real Pages runtime locally (`wrangler pages dev`, port 8788) |
+| `npm run db:migrate:local` / `db:migrate:remote` | Apply `migrations/*.sql` to the local / Cloudflare D1 database |
+| `npm run deploy` | Build and `wrangler pages deploy` (needs `wrangler login`) |
 
 ---
 
 ## 2. Stack
 
 React 18 + TypeScript + Vite · wouter (routing) · Tailwind + shadcn/ui · framer-motion
-Express (dev + prod server) · Drizzle ORM + Postgres (optional) · Zod validation
+Hono on Cloudflare Pages Functions · Cloudflare D1 (SQLite) · Zod validation
 
 ```
 client/src/pages        route components
 client/src/components   shared UI (Navbar, Footer, HeroBackdrop, AdvancedCursor, ...)
-server/                 index.ts (bootstrap), routes.ts (API), storage.ts, db.ts
-shared/                 schema.ts (Drizzle + Zod), routes.ts (typed API contract)
+server/                 app.ts (Hono API), routes/, os/, db/ (D1 mapping), security/, site/
+functions/api/          Cloudflare Pages Functions entry ([[route]].ts → server/app.ts)
+migrations/             D1 SQL migrations
+shared/                 schema.ts, os.ts, site.ts (Zod), routes.ts (typed API contract)
 ```
 
 ### Routes
@@ -55,70 +58,65 @@ used on its Services-grid card **and** carried into its detail page hero + eyebr
 
 ## 3. API
 
+Hono app in `server/` (entry `server/app.ts`), deployed as Cloudflare Pages Functions
+(`functions/api/[[route]].ts`), data in Cloudflare D1 (`migrations/`).
+
 | Method | Path | Auth | Notes |
 |---|---|---|---|
-| POST | `/api/contact` | — | Zod-validated; creates lead, appends to `submissions.csv` |
-| POST | `/api/newsletter` | — | Email capture (in-memory set) |
-| POST | `/api/admin/login` | — | Body `{password}`; returns `{token}` |
-| GET | `/api/admin/submissions` | `x-admin-token` | List leads |
-| GET | `/api/admin/stats` | `x-admin-token` | Counts |
-| PATCH | `/api/admin/submissions/:id` | `x-admin-token` | Update status/notes |
-| DELETE | `/api/admin/submissions/:id` | `x-admin-token` | Delete lead |
+| POST | `/api/contact` | — | Zod-validated, honeypot `botcheck`, 5/min per IP; stores the lead in D1 |
+| POST | `/api/newsletter` | — | Unique email in D1, 5/min per IP |
+| GET | `/api/site` | — | Site settings (defaults from `shared/site.ts` + admin overrides), cached 60 s |
+| GET | `/api/geo` | — | `{ country, currency }` from Cloudflare geolocation |
+| GET | `/api/portal/:token` | token | One client's projects, milestones and issued documents |
+| POST | `/api/admin/login` | — | Body `{password}`; sets an HttpOnly signed session cookie (12 h). 5 failures / IP / 15 min → 429 |
+| POST | `/api/admin/logout` | — | Clears the cookie |
+| GET | `/api/admin/session` | cookie | 200 when signed in, else 401 |
+| GET/PATCH/DELETE | `/api/admin/submissions[/:id]` | cookie | Leads |
+| GET | `/api/admin/stats`, `/api/admin/subscribers` | cookie | Counts, newsletter list |
+| PUT | `/api/admin/site` | cookie | Save site settings |
+| * | `/api/os/*` | cookie | Cubic OS (see §10) |
 
-Admin UI at `/admin` — search, status filter, CSV export. Password default `cubic@14412815`
-(override with `ADMIN_PASSWORD`).
+There is no default password: admin login is disabled until `ADMIN_PASSWORD` and
+`SESSION_SECRET` are set.
 
 ---
 
 ## 4. Where contact submissions go — READ THIS
 
-Three possible destinations depending on configuration:
+Every submission is stored in D1 and shows in `/admin` → Inbox. If `VITE_WEB3FORMS_KEY` is set at
+build time, the browser also sends it to Web3Forms, which emails it to the key's address. The two
+are independent: the form succeeds if either accepts it. Back everything up from
+`/admin/settings` → Download backup (JSON).
 
-1. **Local file (default)** — leads and all Cubic OS data live in `data/cubic-os.json`
-   (gitignored; override path with `CUBIC_DATA_FILE`). Survives restarts. Back it up from
-   `/admin/settings` → Download backup.
-2. **Postgres** — set `DATABASE_URL`: leads go to `consultation_requests` (Drizzle) and the
-   Cubic OS document to one row in `cubic_os_documents` (table auto-created).
-3. **Web3Forms (static hosting)** — set `VITE_WEB3FORMS_KEY` and the client posts submissions
-   straight to Web3Forms, which **emails each one to the address the key is registered to**.
-   No server needed. Implemented in `client/src/hooks/use-contact.ts`; falls back to the
-   Express API when the key is absent.
-
-Contact email throughout the site: **chaitanyakhurana10@gmail.com**
+Contact email throughout the site: **chaitanyakhurana10@gmail.com** (editable in `/admin/site`).
 
 ---
 
 ## 5. Environment variables
 
-See `.env.example`. `.env*` is gitignored.
-
-| Var | Needed for |
-|---|---|
-| `VITE_WEB3FORMS_KEY` | Static deploy — emails each submission (free key at web3forms.com) |
-| `DATABASE_URL` | Persistent Postgres storage |
-| `ADMIN_PASSWORD` | Admin login (**must be set on any public server**) |
-| `CUBIC_DATA_FILE` | Optional path for the local Cubic OS data file |
+| Var | Where | Needed for |
+|---|---|---|
+| `ADMIN_PASSWORD` | Pages secret / `.dev.vars` | Admin login |
+| `SESSION_SECRET` | Pages secret / `.dev.vars` | Signing the admin cookie (32+ chars; rotating it signs everyone out) |
+| `VITE_WEB3FORMS_KEY` | Pages build env var (optional) | Email copy of each enquiry |
+| `DB` | `wrangler.toml` D1 binding | All data |
 
 ---
 
-## 6. Deployment — decision still open
+## 6. Deployment — Cloudflare Pages + D1 (free tier)
 
-The frontend is static-ready. The **backend is not serverless-compatible** as written
-(in-memory state + writes `submissions.csv` to disk), so it will not work on Cloudflare Pages
-or Vercel serverless without changes.
+```bash
+npx wrangler login
+npx wrangler d1 create cubictech            # paste database_id into wrangler.toml
+npm run db:migrate:remote
+npx wrangler pages project create cubictech --production-branch main
+npx wrangler pages secret put ADMIN_PASSWORD --project-name cubictech
+npx wrangler pages secret put SESSION_SECRET --project-name cubictech
+npm run deploy
+```
 
-Options discussed with the owner (constraint: **zero cost**):
-
-- **Vercel static + Web3Forms** — recommended for the LinkedIn use case. Instant load,
-  nothing sleeps, every lead emailed. `vercel.json` is already committed
-  (build `npm run build:static`, output `dist/public`, SPA rewrites, security headers,
-  asset caching). Trade-off: `/admin` dashboard is non-functional (no backend).
-- **Render + Postgres** — whole app runs unchanged, but the free tier sleeps after 15 min
-  idle (~50 s cold start on first visit).
-- **Supabase** for the database — works with existing code via `DATABASE_URL`, and leads are
-  viewable in the Supabase table editor. Caveat: free projects pause after ~7 days idle.
-
-Owner has not made the final call. Nothing is deployed yet.
+Or connect the GitHub repo in the Cloudflare dashboard (build `npm run build`, output
+`dist/public`) and bind D1 as `DB` under Settings → Functions.
 
 ---
 
@@ -169,9 +167,8 @@ no console errors · no horizontal overflow at 375 px on any page.
 
 ## 10. Cubic OS — the firm's internal system (`/admin`)
 
-Login at `/admin` (password = `ADMIN_PASSWORD`; dev default only when `NODE_ENV` is not
-production — in production login is disabled until it is set). Sessions are random tokens,
-12 h expiry, 8 failed logins per IP per 15 min → 429.
+Login at `/admin` (password = `ADMIN_PASSWORD`; disabled until it and `SESSION_SECRET` are set).
+Sessions are HMAC-signed HttpOnly cookies, 12 h expiry, 5 failed logins per IP per 15 min → 429.
 
 | Tab | Does |
 |---|---|
@@ -181,12 +178,14 @@ production — in production login is disabled until it is set). Sessions are ra
 | Clients | Billed / paid per client, private **portal link** (copy, preview, reset) |
 | Projects | Milestones (date, amount, status), progress updates (client-visible or internal), one-click milestone invoice |
 | Invoices & quotes | Numbered `CT-YYYY-NNN` / `CT-Q-YYYY-NNN`, GST none / IGST / CGST+SGST, Draft → Sent → Paid, quote → invoice, print / save as PDF |
+| Subscribers | Newsletter sign-ups, CSV export |
+| Site | Public contact details, socials, accepting-projects flag, FX, rate card (INR/USD, EUR/AED preview), testimonials |
 | Settings | Legal name, GSTIN, PAN, address, UPI + bank details, prefix, payment terms, JSON backup |
 
 Client portal: `/portal/<token>` — milestones, client-visible updates, non-draft quotes and
 invoices with payment details. No login; the 48-char token is the secret, reset it from Clients.
 
-Code: `shared/os.ts` (types, zod, invoice maths), `server/os/` (store, routes, dashboard),
-`server/auth.ts`, `client/src/pages/os/`, `client/src/pages/Portal.tsx`,
+Code: `shared/os.ts` (types, zod, invoice maths), `server/os/` (routes, dashboard, numbering),
+`server/routes/auth.ts`, `server/security/`, `client/src/pages/os/`, `client/src/pages/Portal.tsx`,
 `client/src/components/InvoiceDocument.tsx`. Public `/pricing` mirrors
 `firm/playbooks/pricing.md` Part 2 — change both together.

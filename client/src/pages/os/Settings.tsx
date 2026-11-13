@@ -1,6 +1,6 @@
 import { useEffect, useState, type FormEvent } from "react";
 import type { Settings } from "@shared/os";
-import { getToken, osFetch, useOsMutation, useOsState } from "@/lib/os-api";
+import { downloadFile, osFetch, useOsMutation, useOsState } from "@/lib/os-api";
 import { Actions, Field, FormError, ghostButton, inputClass, Panel, primaryButton } from "./ui";
 
 type TextKey = { [K in keyof Settings]: Settings[K] extends string ? K : never }[keyof Settings];
@@ -36,6 +36,7 @@ export default function SettingsView() {
   const { data } = useOsState();
   const [draft, setDraft] = useState<Settings | null>(null);
   const [saved, setSaved] = useState(false);
+  const [backupError, setBackupError] = useState<unknown>(null);
   const save = useOsMutation((body: Settings) => osFetch<Settings>("PUT", "/api/os/settings", body));
 
   useEffect(() => {
@@ -54,10 +55,12 @@ export default function SettingsView() {
   };
 
   async function downloadBackup() {
-    const res = await fetch("/api/os/export", { headers: { "x-admin-token": getToken() } });
-    const url = URL.createObjectURL(await res.blob());
-    Object.assign(document.createElement("a"), { href: url, download: `cubic-os-backup-${new Date().toISOString().slice(0, 10)}.json` }).click();
-    URL.revokeObjectURL(url);
+    setBackupError(null);
+    try {
+      await downloadFile("/api/os/export", `cubic-os-backup-${new Date().toISOString().slice(0, 10)}.json`);
+    } catch (error) {
+      setBackupError(error);
+    }
   }
 
   return (
@@ -91,7 +94,7 @@ export default function SettingsView() {
         </div>
       </Panel>
 
-      <FormError error={save.error} />
+      <FormError error={save.error || backupError} />
       <Actions>
         <button type="button" onClick={downloadBackup} className={ghostButton}>Download backup (JSON)</button>
         <button disabled={save.isPending} className={primaryButton}>{saved ? "Saved ✓" : save.isPending ? "Saving…" : "Save settings"}</button>
