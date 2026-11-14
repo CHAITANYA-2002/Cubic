@@ -1,4 +1,6 @@
 import { Layout } from "@/components/site/Layout";
+import { Render3D } from "@/components/visuals/Render3D";
+import { PhotoBand } from "@/components/visuals/PhotoBand";
 import { CtaBand, Headline, PageHero, SectionHeader, TrustStrip } from "@/components/site/blocks";
 import { useI18n } from "@/i18n";
 
@@ -7,7 +9,8 @@ export default function About() {
   const a = t.about;
   return (
     <Layout>
-      <PageHero eyebrow={a.eyebrow} title={a.title} subtitle={a.intro} />
+      <PageHero eyebrow={a.eyebrow} title={a.title} subtitle={a.intro} art={<Render3D name="web-development" float eager />} />
+      <PhotoBand photo="laptop-glow" />
 
       <section className="section-pad">
         <div className="container-w grid gap-12 lg:grid-cols-[1.4fr_1fr]">

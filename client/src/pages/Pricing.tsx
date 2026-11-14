@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import type { OfferId } from "@shared/site";
 import { CurrencySelect } from "@/components/site/Preferences";
 import { Layout } from "@/components/site/Layout";
+import { Render3D } from "@/components/visuals/Render3D";
 import { CheckList, CtaBand, Headline, OfferPrice, PageHero, SectionHeader } from "@/components/site/blocks";
 import { useI18n } from "@/i18n";
 import { useSite } from "@/lib/site";
@@ -15,7 +16,7 @@ export default function Pricing() {
 
   return (
     <Layout>
-      <PageHero eyebrow={p.eyebrow} title={p.title} subtitle={p.subtitle}>
+      <PageHero eyebrow={p.eyebrow} title={p.title} subtitle={p.subtitle} art={<Render3D name="process" float eager />}>
         <p className="text-sm t-secondary">{t.common.prefs.currencyNote} <strong className="t-primary">{currency}</strong> · {t.common.price.vatNote}</p>
       </PageHero>
 

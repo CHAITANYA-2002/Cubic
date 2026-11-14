@@ -57,15 +57,18 @@ export function SectionHeader({ eyebrow, title, subtitle, align = "start", actio
   );
 }
 
-export function PageHero({ eyebrow, title, subtitle, children }: { eyebrow: string; title: string; subtitle?: string; children?: ReactNode }) {
+export function PageHero({ eyebrow, title, subtitle, children, art }: { eyebrow: string; title: string; subtitle?: string; children?: ReactNode; art?: ReactNode }) {
   return (
     <section className="banner-hero border-b border-[var(--line)]">
       <Banner />
-      <div className="container-w section-pad">
-        <p className="label mb-5">{eyebrow}</p>
-        <h1 className="display-1 max-w-4xl"><Headline text={title} animate /></h1>
-        {subtitle && <p className="lead mt-6 max-w-2xl">{subtitle}</p>}
-        {children && <div className="mt-8">{children}</div>}
+      <div className={`container-w section-pad ${art ? "grid items-center gap-10 lg:grid-cols-[1.4fr_1fr]" : ""}`}>
+        <div>
+          <p className="label mb-5">{eyebrow}</p>
+          <h1 className="display-1 max-w-4xl"><Headline text={title} animate /></h1>
+          {subtitle && <p className="lead mt-6 max-w-2xl">{subtitle}</p>}
+          {children && <div className="mt-8">{children}</div>}
+        </div>
+        {art && <div className="hero-art hidden lg:block" aria-hidden="true">{art}</div>}
       </div>
     </section>
   );

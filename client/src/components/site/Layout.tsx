@@ -1,5 +1,6 @@
 import { useReveal } from "@/components/visuals/useReveal";
 import { useSpotlight } from "@/components/visuals/useSpotlight";
+import { useScrollMotion } from "@/components/visuals/useScrollMotion";
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "wouter";
 import { MessageCircle } from "lucide-react";
@@ -64,6 +65,7 @@ function WhatsAppButton() {
 export function Layout({ children }: { children: ReactNode }) {
   const revealRef = useReveal();
   useSpotlight();
+  useScrollMotion();
   const { t } = useI18n();
   const [showBanner, setShowBanner] = useState(false);
   useEffect(() => setShowBanner(readConsent() === null), []);

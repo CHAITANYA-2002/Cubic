@@ -1,3 +1,4 @@
+import { Render3D } from "@/components/visuals/Render3D";
 import { ServiceIllustration } from "@/components/visuals/ServiceIllustration";
 import { Link } from "wouter";
 import { Layout } from "@/components/site/Layout";
@@ -41,7 +42,7 @@ export default function Services() {
   const { t } = useI18n();
   return (
     <Layout>
-      <PageHero eyebrow={t.services.index.eyebrow} title={t.services.index.title} subtitle={t.services.index.subtitle}>
+      <PageHero eyebrow={t.services.index.eyebrow} title={t.services.index.title} subtitle={t.services.index.subtitle} art={<Render3D name="cta" float eager />}>
         <div className="flex flex-col gap-3 sm:flex-row">
           <Link href="/contact" className="btn btn-primary btn-lg">{t.common.cta.bookCall}</Link>
           <Link href="/pricing" className="btn btn-outline btn-lg">{t.common.cta.seePricing}</Link>

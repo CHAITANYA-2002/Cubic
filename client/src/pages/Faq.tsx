@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { Layout } from "@/components/site/Layout";
+import { Render3D } from "@/components/visuals/Render3D";
 import { FaqList, PageHero } from "@/components/site/blocks";
 import { useI18n } from "@/i18n";
 import { useSite } from "@/lib/site";
@@ -10,7 +11,7 @@ export default function Faq() {
   const f = t.faq;
   return (
     <Layout>
-      <PageHero eyebrow={f.eyebrow} title={f.title} subtitle={f.subtitle} />
+      <PageHero eyebrow={f.eyebrow} title={f.title} subtitle={f.subtitle} art={<Render3D name="faq" float eager />} />
       <section className="section-pad">
         <div className="container-w grid gap-12 lg:grid-cols-[260px_1fr]">
           <nav aria-label={f.eyebrow} className="hidden lg:block">

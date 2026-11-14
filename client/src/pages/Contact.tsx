@@ -1,5 +1,6 @@
 import { Clock, Mail, MessageCircle, Phone } from "lucide-react";
 import { Layout } from "@/components/site/Layout";
+import { Render3D } from "@/components/visuals/Render3D";
 import { PageHero } from "@/components/site/blocks";
 import { ContactForm } from "@/components/ContactForm";
 import { useI18n } from "@/i18n";
@@ -18,7 +19,7 @@ export default function Contact() {
 
   return (
     <Layout>
-      <PageHero eyebrow={c.eyebrow} title={c.title} subtitle={c.subtitle} />
+      <PageHero eyebrow={c.eyebrow} title={c.title} subtitle={c.subtitle} art={<Render3D name="ai-solutions" float eager />} />
       <section className="section-pad">
         <div className="container-w grid gap-12 lg:grid-cols-[1.5fr_1fr]">
           <div className="card order-2 p-6 md:p-9 lg:order-1">

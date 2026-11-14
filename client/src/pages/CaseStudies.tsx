@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MousePointerClick } from "lucide-react";
 import { Layout } from "@/components/site/Layout";
+import { WorkCollage } from "@/components/visuals/WorkCollage";
 import { CheckList, CtaBand, PageHero } from "@/components/site/blocks";
 import { BrowserFrame, KindBadge, LiveLink } from "@/components/work/ProjectCard";
 import { Testimonials } from "@/components/work/Testimonials";
@@ -46,7 +47,7 @@ export default function CaseStudies() {
 
   return (
     <Layout>
-      <PageHero eyebrow={t.work.eyebrow} title={t.work.title} subtitle={t.work.subtitle} />
+      <PageHero eyebrow={t.work.eyebrow} title={t.work.title} subtitle={t.work.subtitle} art={<WorkCollage />} />
       <div className="sticky top-16 z-30 border-b border-[var(--line)] bg-[var(--header-bg)] backdrop-blur-xl">
         <div className="container-w flex flex-wrap gap-2 py-3" role="group" aria-label={t.work.filterLabel}>
           {tabs.map((tab) => (

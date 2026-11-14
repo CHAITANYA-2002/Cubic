@@ -8,6 +8,14 @@ with CubicTech's own identity (near-black + warm gold + editorial serif).
 Read before touching code: `HANDOFF.md`, `CLAUDE.md`/`AGENTS.md`, `client/src/index.css`,
 `client/src/components/site/*`, `client/src/i18n/en/*`.
 
+> **Update (2026-11-14):** the site now ships a production visual layer that supersedes the
+> imagery and motion limits below: a lazy WebGL hero (`client/src/components/three/`, desktop only,
+> static render fallback), build-time 3D renders (`script/render-3d.ts` → `client/public/images/3d/`),
+> licensed graded photography (`client/public/images/photos/`, `images/banners/`), mesh gradients,
+> grain, CSS 3D tilt, Lenis smooth scroll and parallax (`client/src/styles/depth.css`,
+> `components/visuals/useScrollMotion.ts`, `useSpotlight.ts`). Keep those working; the honesty,
+> i18n, RTL, prerender and accessibility rules below still apply in full.
+
 ---
 
 ## 0. Hard constraints (do not break)
