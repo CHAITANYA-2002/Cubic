@@ -1,5 +1,5 @@
 import { Banner } from "@/components/visuals/Banner";
-import type { ReactNode } from "react";
+import { Fragment, type CSSProperties, type ReactNode } from "react";
 import { Link } from "wouter";
 import { ArrowRight, CheckCircle2, ChevronDown, FileText, KeyRound, LayoutDashboard, Receipt, ShieldCheck, UserRound } from "lucide-react";
 import type { OfferId } from "@shared/site";
@@ -16,13 +16,27 @@ function splitAccent(text: string): [string, string] {
   return [`${words.slice(0, -tail).join(" ")} `, words.slice(-tail).join(" ")];
 }
 
-export function Headline({ text }: { text: string }) {
+/** Headline with a gold accent phrase; `animate` brings it in word by word (CSS only). */
+export function Headline({ text, animate = false }: { text: string; animate?: boolean }) {
   const [lead, accent] = splitAccent(text);
+  if (!animate) {
+    return (
+      <>
+        {lead}
+        {accent && <span className="accent-text">{accent}</span>}
+      </>
+    );
+  }
+  const words = lead.trim().split(" ");
   return (
-    <>
-      {lead}
-      {accent && <span className="accent-text">{accent}</span>}
-    </>
+    <span className="word-in">
+      {words.map((word, index) => (
+        <Fragment key={`${word}-${index}`}>
+          <span style={{ "--i": index } as CSSProperties}>{word}</span>{" "}
+        </Fragment>
+      ))}
+      {accent && <span className="accent-text" style={{ "--i": words.length } as CSSProperties}>{accent}</span>}
+    </span>
   );
 }
 
@@ -48,7 +62,7 @@ export function PageHero({ eyebrow, title, subtitle, children }: { eyebrow: stri
       <Banner />
       <div className="container-w section-pad">
         <p className="label mb-5">{eyebrow}</p>
-        <h1 className="display-1 max-w-4xl"><Headline text={title} /></h1>
+        <h1 className="display-1 max-w-4xl"><Headline text={title} animate /></h1>
         {subtitle && <p className="lead mt-6 max-w-2xl">{subtitle}</p>}
         {children && <div className="mt-8">{children}</div>}
       </div>

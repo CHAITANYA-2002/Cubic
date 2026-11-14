@@ -1,4 +1,5 @@
 import { useReveal } from "@/components/visuals/useReveal";
+import { useSpotlight } from "@/components/visuals/useSpotlight";
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "wouter";
 import { MessageCircle } from "lucide-react";
@@ -62,6 +63,7 @@ function WhatsAppButton() {
 /** Chrome shared by every public page: skip link, header, footer, WhatsApp, cookie notice. */
 export function Layout({ children }: { children: ReactNode }) {
   const revealRef = useReveal();
+  useSpotlight();
   const { t } = useI18n();
   const [showBanner, setShowBanner] = useState(false);
   useEffect(() => setShowBanner(readConsent() === null), []);
@@ -71,6 +73,7 @@ export function Layout({ children }: { children: ReactNode }) {
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:start-3 focus:top-3 focus:z-[70] focus:min-h-11 focus:rounded-xl focus:bg-[var(--surface-2)] focus:px-4 focus:py-2 focus:shadow">
         {t.common.skipToContent}
       </a>
+      <div className="scroll-progress" aria-hidden="true" />
       <PageMeta />
       <Navbar />
       <main ref={revealRef} id="main" tabIndex={-1} className="flex-grow">{children}</main>

@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Layout } from "@/components/site/Layout";
 import { CtaBand, FaqList, Headline, OfferPrice, SectionHeader, TrustStrip } from "@/components/site/blocks";
 import { DeviceComposition } from "@/components/visuals/Devices";
+import { Aurora } from "@/components/visuals/Aurora";
 import { ServiceIllustration } from "@/components/visuals/ServiceIllustration";
 import { TechnologyStrip, StatsBand } from "@/components/visuals/TechnologyStrip";
 import { DeliveryBento } from "@/components/visuals/DeliveryBento";
@@ -23,10 +24,11 @@ function Hero() {
 
   return (
     <section className="home-hero tech-grid overflow-hidden border-b border-[var(--line)]">
+      <Aurora />
       <div className="container-w section-pad relative grid items-center gap-12 lg:min-h-[88vh] lg:grid-cols-[1.1fr_1fr]">
         <div className="reveal">
           <p className="label mb-5">{t.home.hero.eyebrow}</p>
-          <h1 className="display-1"><Headline text={t.home.hero.title} /></h1>
+          <h1 className="display-1"><Headline text={t.home.hero.title} animate /></h1>
           <p className="lead mt-6 max-w-xl">{t.home.hero.subtitle}</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="/contact" className="btn btn-primary btn-lg">

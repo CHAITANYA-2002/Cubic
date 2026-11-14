@@ -1,12 +1,37 @@
+import { useId } from "react";
+
+/** The CubicTech mark: an isometric cube in gold, amber and deep teal, faces split by hairline gaps. */
+export function LogoMark({ className = "h-8 w-8" }: { className?: string }) {
+  const id = useId().replace(/:/g, "");
+  return (
+    <svg viewBox="0 0 40 40" className={`shrink-0 ${className}`} aria-hidden="true">
+      <defs>
+        <linearGradient id={`${id}-top`} x1="6" y1="4" x2="34" y2="20" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#f6dcbc" />
+          <stop offset="1" stopColor="#d6a77a" />
+        </linearGradient>
+        <linearGradient id={`${id}-right`} x1="34" y1="14" x2="21" y2="37" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#c48c5c" />
+          <stop offset="1" stopColor="#8a5a35" />
+        </linearGradient>
+        <linearGradient id={`${id}-left`} x1="6" y1="14" x2="19" y2="37" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#2b8f83" />
+          <stop offset="1" stopColor="#123d38" />
+        </linearGradient>
+      </defs>
+      <path d="M20 4 34 12 20 20 6 12z" fill={`url(#${id}-top)`} />
+      <path d="M6 14.2 18.9 21.6v15.2L6 29.4z" fill={`url(#${id}-left)`} />
+      <path d="M34 14.2 21.1 21.6v15.2L34 29.4z" fill={`url(#${id}-right)`} />
+      <path d="M20 9.2 25.6 12.4 20 15.6 14.4 12.4z" fill="#0a0a0b" opacity="0.18" />
+    </svg>
+  );
+}
+
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <span className={`inline-flex items-center gap-2.5 ${className}`} dir="ltr">
-      <svg viewBox="0 0 32 32" className="h-7 w-7 shrink-0" aria-hidden="true">
-        <path d="M16 2.5 28 9.25v13.5L16 29.5 4 22.75V9.25z" fill="#1c1c22" stroke="rgba(214,167,122,0.45)" strokeWidth="0.8" />
-        <path d="M16 2.5 28 9.25 16 16 4 9.25z" fill="#e2b88e" />
-        <path d="M16 16v13.5l12-6.75v-13.5z" fill="#b9875a" />
-      </svg>
-      <span className="text-[1.45rem] font-semibold leading-none tracking-tight" style={{ fontFamily: "var(--font-display)" }}>
+    <span className={`logo inline-flex items-center gap-2.5 ${className}`} dir="ltr">
+      <LogoMark className="logo-mark h-8 w-8" />
+      <span className="text-[1.5rem] font-semibold leading-none tracking-tight" style={{ fontFamily: "var(--font-display)" }}>
         <span className="accent-text">Cubic</span>
         <span className="t-primary">Tech</span>
       </span>

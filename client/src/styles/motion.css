@@ -1,0 +1,209 @@
+/* ===========================================================
+   Colour depth and motion layer.
+   Gold stays the brand; teal and violet add depth in glows only, never in body text.
+   Everything here is decorative: content is visible and usable with motion disabled.
+   =========================================================== */
+
+:root {
+  --teal: #2fb3a2;
+  --teal-soft: rgba(47, 179, 162, 0.14);
+  --violet: #8b7cf6;
+  --violet-soft: rgba(139, 124, 246, 0.14);
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* ---------- Aurora: three slow, blurred colour fields ---------- */
+.aurora {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.aurora i {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.75;
+  will-change: transform;
+}
+.aurora i:nth-child(1) {
+  width: 46vw; height: 46vw; max-width: 720px; max-height: 720px;
+  inset-inline-end: -10%; top: -18%;
+  background: radial-gradient(circle, rgba(214, 167, 122, 0.55), transparent 65%);
+  animation: aurora-a 22s ease-in-out infinite;
+}
+.aurora i:nth-child(2) {
+  width: 36vw; height: 36vw; max-width: 560px; max-height: 560px;
+  inset-inline-start: -12%; top: 30%;
+  background: radial-gradient(circle, rgba(47, 179, 162, 0.38), transparent 65%);
+  animation: aurora-b 28s ease-in-out infinite;
+}
+.aurora i:nth-child(3) {
+  width: 30vw; height: 30vw; max-width: 480px; max-height: 480px;
+  inset-inline-end: 22%; bottom: -22%;
+  background: radial-gradient(circle, rgba(139, 124, 246, 0.32), transparent 65%);
+  animation: aurora-c 26s ease-in-out infinite;
+}
+.aurora-soft i { opacity: 0.4; }
+@keyframes aurora-a { 50% { transform: translate(-8%, 10%) scale(1.12); } }
+@keyframes aurora-b { 50% { transform: translate(14%, -8%) scale(0.92); } }
+@keyframes aurora-c { 50% { transform: translate(-10%, -12%) scale(1.1); } }
+
+/* ---------- Scroll progress hairline (browsers with scroll timelines) ---------- */
+.scroll-progress { display: none; }
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    display: block;
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 70;
+    height: 2px;
+    background: linear-gradient(90deg, var(--teal), var(--brand), var(--violet));
+    transform-origin: 0 50%;
+    animation: progress-grow linear both;
+    animation-timeline: scroll(root);
+  }
+  :dir(rtl) .scroll-progress { transform-origin: 100% 50%; }
+}
+@keyframes progress-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* ---------- Logo ---------- */
+.logo .logo-mark { transition: transform 0.6s var(--ease-out), filter 0.6s var(--ease-out); }
+.logo:hover .logo-mark { transform: rotate(-8deg) scale(1.08); filter: drop-shadow(0 6px 18px rgba(214, 167, 122, 0.45)); }
+
+/* ---------- Gold accent shimmer on hero headlines ---------- */
+.home-hero .accent-text,
+.banner-hero .accent-text {
+  background-image: linear-gradient(110deg, #b9875a 0%, #ecd0b0 30%, #d6a77a 50%, #2fb3a2 75%, #d6a77a 100%);
+  background-size: 250% 100%;
+  animation: accent-flow 9s ease-in-out infinite alternate;
+}
+@keyframes accent-flow { to { background-position: 100% 0; } }
+
+/* ---------- Word-by-word headline entrance ---------- */
+.word-in > span {
+  display: inline-block;
+  animation: word-in 0.8s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 55ms + 120ms);
+}
+/* First visit: let the intro finish before the headline arrives. */
+#intro ~ #root .word-in > span { animation-delay: calc(var(--i, 0) * 55ms + 1.55s); }
+#intro ~ #root .reveal { animation-delay: 1.5s; }
+
+@keyframes word-in {
+  from { opacity: 0; transform: translateY(0.45em); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+/* ---------- Eyebrow: pulsing status dot ---------- */
+.home-hero .label::before,
+.banner-hero .label::before {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  opacity: 1;
+  background: var(--teal);
+  box-shadow: 0 0 0 0 rgba(47, 179, 162, 0.6);
+  animation: pulse-dot 2.4s ease-out infinite;
+}
+@keyframes pulse-dot {
+  70% { box-shadow: 0 0 0 9px rgba(47, 179, 162, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(47, 179, 162, 0); }
+}
+
+/* ---------- Cards: cursor spotlight + rotating gradient border ---------- */
+.card-hover { position: relative; isolation: isolate; }
+.card-hover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), var(--spot, rgba(214, 167, 122, 0.12)), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.card-hover::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--angle), transparent 0deg, var(--brand) 60deg, var(--teal) 120deg, transparent 180deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.card-hover:hover::before, .card-hover:focus-visible::before { opacity: 1; }
+.card-hover:hover::after, .card-hover:focus-visible::after { opacity: 1; animation: spin-angle 3.5s linear infinite; }
+@keyframes spin-angle { to { --angle: 360deg; } }
+
+/* Each card in a grid takes the next tone: gold, teal, violet */
+.card-hover:nth-child(3n+2) { --spot: rgba(47, 179, 162, 0.13); }
+.card-hover:nth-child(3n+3) { --spot: rgba(139, 124, 246, 0.13); }
+.card-hover:nth-child(3n+2) .step-dot,
+.card-hover:nth-child(3n+2) [class*="illustration"] { filter: hue-rotate(115deg) saturate(1.1); }
+.card-hover:nth-child(3n+3) [class*="illustration"] { filter: hue-rotate(200deg) saturate(0.9); }
+
+/* ---------- Buttons: light sweep on the primary ---------- */
+.btn-primary { position: relative; overflow: hidden; isolation: isolate; }
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.7s var(--ease-out);
+}
+.btn-primary:hover::after { transform: translateX(120%); }
+.btn-outline, .btn-ghost { transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease; }
+.btn:active { transform: translateY(1px); }
+
+/* ---------- Floating sample-UI cards: gentle bob ---------- */
+.floating-ui { animation: bob 6s ease-in-out infinite; backdrop-filter: blur(10px); }
+.float-two { animation-delay: -2s; }
+.float-three { animation-delay: -4s; }
+@keyframes bob { 50% { transform: translateY(-8px); } }
+.device-laptop { transition: transform 0.8s var(--ease-out); }
+.device-composition:hover .device-laptop { transform: translateY(-4px) rotate(-0.4deg); }
+
+/* ---------- Section dividers glow ---------- */
+.section-subtle { position: relative; }
+.section-subtle::before {
+  content: "";
+  position: absolute;
+  inset-inline: 10%;
+  top: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--brand), var(--teal), transparent);
+  opacity: 0.55;
+}
+
+/* ---------- Reveal: soften with a slight blur ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .visual-ready .display-2 { animation: word-in 0.9s var(--ease-out) both; }
+}
+
+/* ---------- Reduced motion: keep colour, drop movement ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .aurora i, .floating-ui, .home-hero .accent-text, .banner-hero .accent-text,
+  .home-hero .label::before, .banner-hero .label::before, .word-in > span,
+  .card-hover:hover::after { animation: none !important; }
+  .scroll-progress { display: none; }
+}
+
+/* Small screens: lighter blur keeps scrolling smooth */
+@media (max-width: 639px) {
+  .aurora i { filter: blur(50px); opacity: 0.4; }
+}
