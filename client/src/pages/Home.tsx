@@ -2,9 +2,11 @@ import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
 import { Layout } from "@/components/site/Layout";
 import { CtaBand, FaqList, Headline, OfferPrice, SectionHeader, TrustStrip } from "@/components/site/blocks";
-import { DeviceComposition } from "@/components/visuals/Devices";
 import { Aurora } from "@/components/visuals/Aurora";
-import { ServiceIllustration } from "@/components/visuals/ServiceIllustration";
+import { Render3D } from "@/components/visuals/Render3D";
+import { HeroVisual } from "@/components/visuals/HeroVisual";
+import { ImageStrip } from "@/components/visuals/ImageStrip";
+import { ProcessStack } from "@/components/visuals/ProcessStack";
 import { TechnologyStrip, StatsBand } from "@/components/visuals/TechnologyStrip";
 import { DeliveryBento } from "@/components/visuals/DeliveryBento";
 import { VisualProjectCard } from "@/components/visuals/VisualProjectCard";
@@ -41,7 +43,7 @@ function Hero() {
             {t.home.stack.map((tech) => <li key={tech} className="chip">{tech}</li>)}
           </ul>
         </div>
-        <DeviceComposition />
+        <HeroVisual />
       </div>
     </section>
   );
@@ -50,18 +52,18 @@ function Hero() {
 function ServicesGrid() {
   const { t } = useI18n();
   return (
-    <section className="section-pad">
+    <section className="section-pad mesh mesh-gold">
       <div className="container-w">
         <SectionHeader eyebrow={t.home.services.eyebrow} title={t.home.services.title} subtitle={t.home.services.subtitle} />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICE_SLUGS.map((slug) => {
             return (
               <Link key={slug} href={`/services/${slug}`} className="card card-hover group flex flex-col p-6">
-                <ServiceIllustration service={slug} />
+                <div className="service-media"><Render3D name={slug} sizes="(min-width: 1024px) 280px, 60vw" /></div>
                 <h3 className="mt-5 text-lg font-bold t-primary">{t.common.serviceNames[slug]}</h3>
                 <p className="mt-2 flex-grow text-[0.95rem] leading-relaxed t-secondary">{t.services.items[slug].short}</p>
                 <div className="mt-5 flex items-center justify-between border-t border-[var(--line)] pt-4 text-sm">
-                  <OfferPrice offer={SERVICE_OFFER[slug]} prefix className="font-semibold t-primary" />
+                  <OfferPrice offer={SERVICE_OFFER[slug]} prefix className="font-semibold figure-gradient" />
                   <ArrowRight className="h-4 w-4 t-secondary transition-transform group-hover:translate-x-0.5 rtl:rotate-180" aria-hidden="true" />
                 </div>
               </Link>
@@ -76,7 +78,7 @@ function ServicesGrid() {
 function SelectedWork() {
   const { t } = useI18n();
   return (
-    <section className="section-pad section-subtle">
+    <section className="section-pad section-subtle mesh mesh-violet">
       <div className="container-w">
         <SectionHeader
           eyebrow={t.home.work.eyebrow}
@@ -122,15 +124,18 @@ function Process() {
     <section className="section-pad section-subtle">
       <div className="container-w">
         <SectionHeader eyebrow={t.home.process.eyebrow} title={t.home.process.title} />
-        <ol className="process-steps grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+        <ProcessStack />
+        <ol className="process-steps grid gap-5 sm:grid-cols-2">
           {t.home.process.steps.map((step, index) => (
             <li key={step.title} className="card p-6">
-              <span className="step-dot">{index + 1}</span>
+              <span className="font-display text-4xl font-semibold figure-gradient">0{index + 1}</span>
               <h3 className="mt-4 font-bold t-primary">{step.title}</h3>
               <p className="mt-2 text-[0.95rem] leading-relaxed t-secondary">{step.text}</p>
             </li>
           ))}
         </ol>
+        </div>
       </div>
     </section>
   );
@@ -149,9 +154,9 @@ function PricingTeaser() {
         />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {PRICE_TEASER.map((offer) => (
-            <div key={offer} className="card p-6">
+            <div key={offer} className="card card-hover glass-panel p-6">
               <p className="text-sm font-medium t-secondary">{t.common.offerNames[offer]}</p>
-              <OfferPrice offer={offer} prefix className="mt-2 block text-xl font-bold t-primary" />
+              <OfferPrice offer={offer} prefix className="mt-2 block text-2xl font-bold figure-gradient" />
             </div>
           ))}
         </div>
@@ -171,6 +176,7 @@ function FaqTeaser() {
           <p className="label mb-3">{t.home.faq.eyebrow}</p>
           <h2 className="display-2"><Headline text={t.home.faq.title} /></h2>
           <Link href="/faq" className="btn btn-outline mt-6">{t.home.faq.cta}</Link>
+          <div className="render-stage mt-10 hidden max-w-[260px] lg:grid"><Render3D name="faq" float /></div>
         </div>
         <FaqList items={items} />
       </div>
@@ -182,13 +188,14 @@ export default function Home() {
   return (
     <Layout>
       <Hero />
-      <StatsBand />
       <TechnologyStrip />
       <ServicesGrid />
+      <ImageStrip />
       <SelectedWork />
+      <Process />
+      <StatsBand />
       <DeliveryBento />
       <WhyUs />
-      <Process />
       <Testimonials />
       <PricingTeaser />
       <FaqTeaser />

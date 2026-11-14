@@ -7,5 +7,5 @@ export function TechnologyStrip() {
 }
 export function StatsBand() {
   const { t } = useI18n();
-  return <div className="stats-band"><ul className="container-w">{t.visuals.stats.map(s=><li key={s}>{s}</li>)}</ul></div>;
+  return <div className="light-band"><ul className="container-w">{t.visuals.stats.map(s=><li key={s}>{s}</li>)}</ul></div>;
 }

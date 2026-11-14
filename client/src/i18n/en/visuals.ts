@@ -38,5 +38,8 @@ export const visuals = {
     "Vercel",
     "OpenAI",
     "Anthropic"
-  ]
+  ],
+  "insideEyebrow": "Inside a project",
+  "insideTitle": "Real code. Real dashboards. Real handover.",
+  "inside": [{"title": "Engineered, not templated", "text": "Typed, tested code in a repository you own from day one."}, {"title": "Decisions with live data", "text": "Dashboards and reports wired to your real numbers, not screenshots."}, {"title": "Designed before it's built", "text": "Flows and screens agreed in prototypes before a line of code."}]
 };

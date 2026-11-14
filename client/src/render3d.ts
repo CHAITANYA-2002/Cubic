@@ -24,7 +24,7 @@ document.body.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(30, width / height, 0.1, 100);
-camera.position.set(0, 0.4, name === "hero" ? 14 : 9.2);
+camera.position.set(0, 0.4, name === "hero" ? 11.2 : 9.2);
 camera.lookAt(0, 0, 0);
 lightScene(scene, renderer);
 const palette = createMaterials();

@@ -38,5 +38,8 @@ export const visuals = {
     "Vercel",
     "OpenAI",
     "Anthropic"
-  ]
+  ],
+  "insideEyebrow": "Einblick ins Projekt",
+  "insideTitle": "Echter Code. Echte Dashboards. Vollständige Übergabe.",
+  "inside": [{"title": "Entwickelt, nicht aus Vorlagen", "text": "Typisierter, getesteter Code in einem Repository, das Ihnen ab Tag eins gehört."}, {"title": "Entscheidungen mit Live-Daten", "text": "Dashboards und Reports mit Ihren echten Zahlen – keine Screenshots."}, {"title": "Erst gestaltet, dann gebaut", "text": "Abläufe und Screens werden im Prototyp abgestimmt, bevor Code entsteht."}]
 };

@@ -1,4 +1,5 @@
 import { Banner } from "@/components/visuals/Banner";
+import { Render3D } from "@/components/visuals/Render3D";
 import { Fragment, type CSSProperties, type ReactNode } from "react";
 import { Link } from "wouter";
 import { ArrowRight, CheckCircle2, ChevronDown, FileText, KeyRound, LayoutDashboard, Receipt, ShieldCheck, UserRound } from "lucide-react";
@@ -149,6 +150,7 @@ export function CtaBand({ title, text, accent = true }: { title?: string; text?:
               <p className="mt-4 max-w-2xl text-lg leading-relaxed t-secondary">{text ?? t.home.final.text}</p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col lg:items-stretch">
+              <div className="render-stage -mt-24 hidden lg:grid" aria-hidden="true"><Render3D name="cta" float sizes="320px" className="max-w-[300px]" /></div>
               <Link href="/contact" className="btn btn-primary btn-lg">
                 {t.home.final.primary} <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
               </Link>

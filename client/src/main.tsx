@@ -2,6 +2,7 @@ import { LOCALE_META, localeFromPath } from "./i18n/config";
 import "./index.css";
 import "./styles/visuals.css";
 import "./styles/motion.css";
+import "./styles/depth.css";
 
 const locale = localeFromPath(window.location.pathname);
 const prerenderLocale = document.documentElement.lang;

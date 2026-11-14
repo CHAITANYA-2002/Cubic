@@ -38,5 +38,8 @@ export const visuals = {
     "Vercel",
     "OpenAI",
     "Anthropic"
-  ]
+  ],
+  "insideEyebrow": "Au cœur d'un projet",
+  "insideTitle": "Du vrai code. De vrais tableaux de bord. Une passation complète.",
+  "inside": [{"title": "Conçu, pas assemblé", "text": "Un code typé et testé, dans un dépôt qui vous appartient dès le premier jour."}, {"title": "Décider avec des données réelles", "text": "Tableaux de bord et rapports reliés à vos vrais chiffres, pas des captures."}, {"title": "Pensé avant d'être construit", "text": "Parcours et écrans validés en prototype avant la première ligne de code."}]
 };

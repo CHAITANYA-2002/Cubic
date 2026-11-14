@@ -38,5 +38,8 @@ export const visuals = {
     "Vercel",
     "OpenAI",
     "Anthropic"
-  ]
+  ],
+  "insideEyebrow": "प्रोजेक्ट के अंदर",
+  "insideTitle": "असली code. असली dashboards. पूरा handover.",
+  "inside": [{"title": "Template नहीं, engineering", "text": "Typed और tested code, ऐसे repository में जो पहले दिन से आपका है।"}, {"title": "Live data से फ़ैसले", "text": "आपके असली आँकड़ों से जुड़े dashboards और reports, screenshots नहीं।"}, {"title": "बनाने से पहले design", "text": "Code की एक line से पहले flows और screens prototype में तय।"}]
 };

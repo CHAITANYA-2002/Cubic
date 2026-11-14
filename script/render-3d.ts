@@ -41,7 +41,9 @@ async function main() {
   });
   try {
     const page = await browser.newPage();
-    for (const job of jobs) {
+    // Optional filter: `npx tsx script/render-3d.ts hero faq` renders only those objects.
+    const only = process.argv.slice(2);
+    for (const job of jobs.filter((item) => only.length === 0 || only.includes(item.name))) {
       // Rendered at 2x pixel ratio inside a CSS-pixel viewport of half the target size.
       await page.setViewport({ width: job.width / 2, height: job.height / 2, deviceScaleFactor: 2 });
       await page.goto(`http://localhost:${PORT}/render-3d.html?obj=${job.name}&w=${job.width / 2}&h=${job.height / 2}`, { waitUntil: "networkidle0" });
