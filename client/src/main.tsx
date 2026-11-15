@@ -3,6 +3,7 @@ import "./index.css";
 import "./styles/visuals.css";
 import "./styles/motion.css";
 import "./styles/depth.css";
+import "./styles/faq.css";
 
 const locale = localeFromPath(window.location.pathname);
 const prerenderLocale = document.documentElement.lang;

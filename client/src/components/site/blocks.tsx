@@ -2,7 +2,7 @@ import { Banner } from "@/components/visuals/Banner";
 import { Render3D } from "@/components/visuals/Render3D";
 import { Fragment, type CSSProperties, type ReactNode } from "react";
 import { Link } from "wouter";
-import { ArrowRight, CheckCircle2, ChevronDown, FileText, KeyRound, LayoutDashboard, Receipt, ShieldCheck, UserRound } from "lucide-react";
+import { ArrowRight, CheckCircle2, FileText, KeyRound, LayoutDashboard, Receipt, ShieldCheck, UserRound } from "lucide-react";
 import type { OfferId } from "@shared/site";
 import { useI18n } from "@/i18n";
 import { useOfferPrice, useSite } from "@/lib/site";
@@ -90,14 +90,15 @@ export function CheckList({ items, className = "" }: { items: string[]; classNam
 /** Native <details>: works without JavaScript, keyboard accessible, and indexable. */
 export function FaqList({ items }: { items: Array<{ q: string; a: string }> }) {
   return (
-    <div className="divide-y divide-[var(--line)] rounded-2xl border border-[var(--line)] bg-[var(--surface)]">
-      {items.map((item) => (
-        <details key={item.q} className="group px-6 md:px-7">
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-start font-semibold t-primary [&::-webkit-details-marker]:hidden">
-            <span>{item.q}</span>
-            <ChevronDown className="h-5 w-5 shrink-0 t-secondary transition-transform group-open:rotate-180" aria-hidden="true" />
+    <div className="faq-list">
+      {items.map((item, index) => (
+        <details key={item.q} className="faq-item">
+          <summary className="faq-q text-start">
+            <span className="faq-num" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+            <span className="flex-1">{item.q}</span>
+            <span className="faq-icon" aria-hidden="true" />
           </summary>
-          <p className="pb-5 leading-relaxed t-secondary">{item.a}</p>
+          <p className="faq-a">{item.a}</p>
         </details>
       ))}
     </div>

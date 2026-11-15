@@ -125,6 +125,16 @@ function faq(p: Palette) {
   ]);
   g.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 96, 0.2, 24, false), p.teal));
   g.add(at(new THREE.Mesh(new THREE.SphereGeometry(0.24, 48, 48), p.gold), 0, -0.95, 0));
+  const halo = new THREE.Mesh(new THREE.TorusGeometry(0.55, 0.03, 16, 96), p.violet);
+  halo.rotation.x = Math.PI / 2.9;
+  g.add(at(halo, 0, -0.95, 0));
+  // Answer bubble with typing dots, behind and to the right.
+  g.add(at(new THREE.Mesh(slab(1.6, 0.9, 0.2, 0.3), p.smoke), 1.4, 0.95, -0.75));
+  [-0.38, 0, 0.38].forEach((dx) => g.add(at(new THREE.Mesh(new THREE.SphereGeometry(0.09, 32, 32), p.glowGold), 1.4 + dx, 0.95, -0.6)));
+  g.add(at(new THREE.Mesh(new THREE.SphereGeometry(0.12, 32, 32), p.smoke), 0.75, 0.42, -0.75));
+  // Second, smaller amber bubble with text lines, lower left.
+  g.add(at(new THREE.Mesh(slab(1.15, 0.62, 0.16, 0.22), p.amber), -1.45, -0.3, -0.55));
+  [0.1, -0.1].forEach((dy, i) => g.add(at(new THREE.Mesh(slab(i ? 0.5 : 0.72, 0.06, 0.04, 0.02), p.ink), -1.45 - (i ? 0.11 : 0), -0.3 + dy, -0.45)));
   g.rotation.set(0.1, -0.5, 0.08);
   return g;
 }
