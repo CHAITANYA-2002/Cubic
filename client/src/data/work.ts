@@ -4,7 +4,10 @@
 // data with placeholder brands; never present one as a paying client or quote its sample numbers.
 
 export type ServiceLine = "websites" | "apps" | "ai" | "marketing";
-export type ProjectKind = "client" | "demo" | "concept";
+// lab: the firm's own AI and data builds (capstones, team projects) — not client work, not a sales demo.
+export type ProjectKind = "client" | "demo" | "concept" | "lab";
+// live: liveUrl opens the running product. writeup: it opens the code and full technical write-up.
+export type ProjectLink = "live" | "writeup";
 
 export const SERVICE_LINES: Array<{ id: ServiceLine; service: string }> = [
   { id: "websites", service: "web-development" },
@@ -21,6 +24,7 @@ export type Project = {
   stack: string[];
   image: string;
   liveUrl: string;
+  link?: ProjectLink;
 };
 
 export const PROJECT_SLUGS = [
@@ -28,6 +32,9 @@ export const PROJECT_SLUGS = [
   "humorah",
   "mani-doro",
   "alsisar-haveli",
+  "interviewly",
+  "slopewatch",
+  "aml-sentinel",
   "aria-frontdesk",
   "flowops-sdr",
   "northwind-lifecycle",
@@ -71,6 +78,35 @@ export const projects: Project[] = [
     stack: ["Next.js 15", "TypeScript", "Tailwind", "Neon Postgres", "Vercel"],
     image: "/images/work/alsisar-haveli.webp",
     liveUrl: "https://alsisar-haveli-demo.vercel.app",
+  },
+  {
+    slug: "interviewly",
+    name: "Interviewly — AI interviewer",
+    kind: "lab",
+    lines: ["apps", "ai"],
+    stack: ["Next.js 16", "TypeScript", "Gemini", "Whisper", "FastAPI", "Render"],
+    image: "/images/work/interviewly.webp",
+    liveUrl: "https://interviewly-ow35.onrender.com",
+  },
+  {
+    slug: "slopewatch",
+    name: "Slopewatch — landslide early warning",
+    kind: "lab",
+    lines: ["ai", "apps"],
+    stack: ["Python", "MySQL", "XGBoost", "SHAP", "Streamlit"],
+    image: "/images/work/slopewatch.webp",
+    liveUrl: "https://github.com/CHAITANYA-2002/imarticus/tree/main/imarticus%20projects/Capstone%201",
+    link: "writeup",
+  },
+  {
+    slug: "aml-sentinel",
+    name: "AML Sentinel — money-laundering triage",
+    kind: "lab",
+    lines: ["ai"],
+    stack: ["SQL", "SQLite", "Python", "scikit-learn", "networkx", "Power BI"],
+    image: "/images/work/aml-sentinel.webp",
+    liveUrl: "https://github.com/CHAITANYA-2002/imarticus/tree/main/imarticus%20projects/capstone%20-powerbi/blog",
+    link: "writeup",
   },
   {
     slug: "aria-frontdesk",

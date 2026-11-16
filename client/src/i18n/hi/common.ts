@@ -22,6 +22,7 @@ export const common: Dict["common"] = {
     seeWork: "लाइव काम देखें",
     seePricing: "कीमतें देखें",
     openLive: "लाइव खोलें",
+    openWriteup: "पूरा write-up पढ़ें",
     learnMore: "और जानें",
     allWork: "सारा काम",
     whatsapp: "WhatsApp करें",
@@ -92,6 +93,7 @@ export const common: Dict["common"] = {
     client: "क्लाइंट प्रोजेक्ट",
     demo: "प्रोडक्ट डेमो",
     concept: "कॉन्सेप्ट बिल्ड",
+    lab: "लैब प्रोजेक्ट",
   },
   form: {
     name: "आपका नाम",

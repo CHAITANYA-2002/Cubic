@@ -20,6 +20,7 @@ export const common = {
     seeWork: "See live work",
     seePricing: "See pricing",
     openLive: "Open live",
+    openWriteup: "Read the write-up",
     learnMore: "Learn more",
     allWork: "All work",
     whatsapp: "WhatsApp us",
@@ -90,6 +91,7 @@ export const common = {
     client: "Client build",
     demo: "Product demo",
     concept: "Concept build",
+    lab: "Lab project",
   },
   form: {
     name: "Your name",

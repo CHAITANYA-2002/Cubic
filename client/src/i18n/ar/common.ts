@@ -22,6 +22,7 @@ export const common: Dict["common"] = {
     seeWork: "شاهد أعمالنا الحيّة",
     seePricing: "اطّلع على الأسعار",
     openLive: "افتح النسخة الحيّة",
+    openWriteup: "اقرأ الشرح الكامل",
     learnMore: "اعرف المزيد",
     allWork: "جميع الأعمال",
     whatsapp: "راسلنا على واتساب",
@@ -92,6 +93,7 @@ export const common: Dict["common"] = {
     client: "مشروع لعميل",
     demo: "عرض توضيحي لمنتج",
     concept: "نموذج مفاهيمي",
+    lab: "مشروع مختبري",
   },
   form: {
     name: "الاسم",

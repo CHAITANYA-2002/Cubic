@@ -48,7 +48,7 @@ export function LiveLink({ project, className = "" }: { project: Project; classN
   return (
     <a href={project.liveUrl} target="_blank" rel="noopener noreferrer"
       className={`link-more ${className}`}>
-      {t.common.cta.openLive} <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+      {project.link === "writeup" ? t.common.cta.openWriteup : t.common.cta.openLive} <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
       <span className="sr-only">— {project.name}</span>
     </a>
   );
