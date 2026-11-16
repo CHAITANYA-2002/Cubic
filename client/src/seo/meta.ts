@@ -2,6 +2,7 @@ import { DEFAULT_SITE, priceIn, type OfferId, type SiteSettings } from "@shared/
 import type { Dict } from "@/i18n";
 import { LOCALES, LOCALE_META, localizedPath, type Locale } from "@/i18n/config";
 import { SERVICE_SLUGS, SERVICE_OFFER, type ServiceSlug } from "@/data/services";
+import { projects } from "@/data/work";
 
 export const SITE_URL = (import.meta.env.VITE_SITE_URL as string | undefined)?.replace(/\/$/, "") || "https://cubictech.pages.dev";
 export const OG_IMAGE = `${SITE_URL}/og.png`;
@@ -13,16 +14,24 @@ export type PageMetaData = {
   path: string;
   locale: Locale;
   noindex?: boolean;
+  /** False for pages that exist only in English (legal): canonical points at the English URL and no hreflang set is emitted. */
+  localized: boolean;
   jsonLd: JsonLd[];
 };
 
 const LEGAL: Record<string, { title: string; description: string }> = {
-  "/terms": { title: "Terms of Service | CubicTech", description: "The terms that govern use of the CubicTech website and our services." },
+  "/terms": { title: "Terms of Service | CubicTech", description: "The terms that govern use of the CubicTech website and the services we provide. Read them before you engage us for a project." },
   "/privacy": { title: "Privacy Policy | CubicTech", description: "How CubicTech collects, uses and protects personal data, and your rights." },
-  "/cookies": { title: "Cookie Policy | CubicTech", description: "The essential storage CubicTech uses and how to control it." },
+  "/cookies": { title: "Cookie Policy | CubicTech", description: "The essential cookies and browser storage the CubicTech website uses, why it needs them, and how you can control or clear them." },
 };
 
 export const absoluteUrl = (path: string, locale: Locale) => `${SITE_URL}${localizedPath(path, locale)}`;
+
+/** Legal pages are published in English only; their locale copies carry a note and defer to the English URL. */
+export const isLocalized = (path: string) => !LEGAL[path];
+
+export const canonicalUrl = (meta: Pick<PageMetaData, "path" | "locale" | "localized">) =>
+  absoluteUrl(meta.path, meta.localized ? meta.locale : "en");
 
 export const alternates = (path: string) => [
   ...LOCALES.map((locale) => ({ hreflang: locale, href: absoluteUrl(path, locale) })),
@@ -38,11 +47,18 @@ function organization(site: SiteSettings, t: Dict): JsonLd {
     name: "CubicTech",
     alternateName: "Cubic Technologies",
     url: SITE_URL,
-    logo: `${SITE_URL}/favicon.png`,
+    logo: { "@type": "ImageObject", url: `${SITE_URL}/apple-touch-icon.png`, width: 180, height: 180 },
     image: OG_IMAGE,
     description: t.common.footer.blurb,
     email: site.email,
     telephone: site.phone,
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "sales",
+      email: site.email,
+      telephone: site.phone,
+      availableLanguage: ["English", "Hindi"],
+    },
     founder: { "@type": "Person", name: "Chaitanya Khurana" },
     address: { "@type": "PostalAddress", addressCountry: "IN" },
     areaServed: ["IN", "US", "GB", "DE", "FR", "AE", "SA", "EU"],
@@ -66,6 +82,49 @@ const website = (locale: Locale): JsonLd => ({
   name: "CubicTech",
   inLanguage: locale,
   publisher: { "@id": `${SITE_URL}/#organization` },
+});
+
+const PAGE_TYPE: Record<string, string> = {
+  "/about": "AboutPage",
+  "/contact": "ContactPage",
+  "/work": "CollectionPage",
+  "/services": "CollectionPage",
+};
+
+const webPage = (path: string, locale: Locale, title: string, description: string): JsonLd => {
+  const url = absoluteUrl(path, locale);
+  return {
+    "@context": "https://schema.org",
+    "@type": PAGE_TYPE[path] ?? "WebPage",
+    "@id": `${url}#webpage`,
+    url,
+    name: title,
+    description,
+    inLanguage: locale,
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    about: { "@id": `${SITE_URL}/#organization` },
+    primaryImageOfPage: { "@type": "ImageObject", url: OG_IMAGE, width: 1200, height: 630 },
+  };
+};
+
+/** The live builds on /work, as an ordered list of creative works. */
+const workList = (t: Dict, locale: Locale): JsonLd => ({
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: t.work.metaTitle,
+  itemListElement: projects.map((project, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "CreativeWork",
+      name: project.name,
+      url: project.liveUrl,
+      image: `${SITE_URL}${project.image}`,
+      description: t.work.projects[project.slug].summary,
+      inLanguage: locale,
+      creator: { "@id": `${SITE_URL}/#organization` },
+    },
+  })),
 });
 
 const breadcrumb = (items: Array<{ name: string; path: string }>, locale: Locale): JsonLd => ({
@@ -104,13 +163,18 @@ function serviceLd(slug: ServiceSlug, t: Dict, locale: Locale, site: SiteSetting
 
 /** Title, description and structured data for a page. Shared by the prerenderer and the client. */
 export function metaFor(path: string, locale: Locale, t: Dict, site: SiteSettings = DEFAULT_SITE): PageMetaData {
-  const base = { path, locale, jsonLd: [organization(site, t), website(locale)] };
+  const base = { path, locale, localized: isLocalized(path), jsonLd: [organization(site, t), website(locale)] };
   const home = { name: t.common.brand, path: "/" };
   const page = (title: string, description: string, extra: JsonLd[] = [], crumbs: Array<{ name: string; path: string }> = []) => ({
     ...base,
     title,
     description,
-    jsonLd: [...base.jsonLd, ...(crumbs.length ? [breadcrumb([home, ...crumbs], locale)] : []), ...extra],
+    jsonLd: [
+      ...base.jsonLd,
+      webPage(path, locale, title, description),
+      ...(crumbs.length ? [breadcrumb([home, ...crumbs], locale)] : []),
+      ...extra,
+    ],
   });
 
   if (path === "/") return page(t.home.metaTitle, t.home.metaDescription);
@@ -124,7 +188,7 @@ export function metaFor(path: string, locale: Locale, t: Dict, site: SiteSetting
       { name: t.common.serviceNames[slug], path },
     ]);
   }
-  if (path === "/work") return page(t.work.metaTitle, t.work.metaDescription, [], [{ name: t.common.nav.work, path }]);
+  if (path === "/work") return page(t.work.metaTitle, t.work.metaDescription, [workList(t, locale)], [{ name: t.common.nav.work, path }]);
   if (path === "/pricing") return page(t.pricing.metaTitle, t.pricing.metaDescription, [], [{ name: t.common.nav.pricing, path }]);
   if (path === "/about") return page(t.about.metaTitle, t.about.metaDescription, [], [{ name: t.common.nav.about, path }]);
   if (path === "/contact") return page(t.contact.metaTitle, t.contact.metaDescription, [], [{ name: t.common.nav.contact, path }]);

@@ -1,6 +1,6 @@
 export const pricing = {
-  metaTitle: "Pricing — Fixed-Price Websites, Web Apps & AI Projects | CubicTech",
-  metaDescription: "Published price ranges for websites, web applications, AI automation, UI/UX, digital marketing and care plans — in INR, USD, EUR and AED. Fixed quotes, milestone payments.",
+  metaTitle: "Pricing — Fixed-Price Websites, Apps & AI | CubicTech",
+  metaDescription: "Published prices for websites, web apps, AI automation, UI/UX, marketing and care plans in INR, USD, EUR and AED. Fixed quotes, milestone payments.",
   eyebrow: "Pricing",
   title: "Clear prices. Written scope. No surprises.",
   subtitle: "Every engagement is fixed-price and quoted in writing. These ranges show where most projects land — your proposal names one number, with exactly what it includes.",
@@ -42,7 +42,7 @@ export const pricing = {
 
 export const about = {
   metaTitle: "About CubicTech — An Independent Software Studio in India",
-  metaDescription: "CubicTech is a principal-led software studio in India building websites, web applications and AI systems for growing businesses in India, the US, Europe and the Middle East.",
+  metaDescription: "CubicTech is a principal-led software studio in India building websites, web apps and AI systems for businesses in India, the US, Europe and the Middle East.",
   eyebrow: "About",
   title: "A small studio, deliberately.",
   intro: "CubicTech is an independent software studio based in India, led by its founder, Chaitanya Khurana. We build websites, web applications, AI agents and marketing systems for businesses that have outgrown spreadsheets, WhatsApp groups and off-the-shelf tools.",
@@ -95,7 +95,7 @@ export const contact = {
 
 export const work = {
   metaTitle: "Our Work — Live Websites, Web Apps & AI Agents | CubicTech",
-  metaDescription: "Live builds by CubicTech: travel booking platform, AI front desk, AI sales agent, lifecycle email agent, analytics dashboard and e-commerce. Open each one and try it.",
+  metaDescription: "Live builds by CubicTech: travel booking platform, AI front desk, AI sales agent, lifecycle email agent, analytics dashboard and e-commerce. Open each one.",
   eyebrow: "Work",
   title: "Don't take our word for it. Open it.",
   subtitle: "Every project below is live. Client builds are in production; product demos run on sample data so you can try every feature safely.",

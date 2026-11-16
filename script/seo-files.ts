@@ -2,6 +2,12 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { DEFAULT_SITE, OFFER_IDS } from "../shared/site";
 import { en } from "../client/src/i18n/en";
+import { projects } from "../client/src/data/work";
+
+// Published in English only: one sitemap entry, no hreflang set (locale copies canonicalise to English).
+const ENGLISH_ONLY = new Set(["/terms", "/privacy", "/cookies"]);
+// Pages that show the live-work screenshots, for Google Images.
+const WITH_SCREENSHOTS = new Set(["/", "/work"]);
 
 const url = (siteUrl: string, pagePath: string, locale: string) => {
   const prefix = locale === "en" ? "" : `/${locale}`;
@@ -10,15 +16,28 @@ const url = (siteUrl: string, pagePath: string, locale: string) => {
 
 function sitemap(siteUrl: string, locales: readonly string[], paths: string[]): string {
   const today = new Date().toISOString().slice(0, 10);
-  const entries = paths.flatMap((pagePath) =>
-    locales.map((locale) => {
-      const alternates = [...locales.map((alt) => `    <xhtml:link rel="alternate" hreflang="${alt}" href="${url(siteUrl, pagePath, alt)}"/>`),
-        `    <xhtml:link rel="alternate" hreflang="x-default" href="${url(siteUrl, pagePath, "en")}"/>`];
-      const priority = pagePath === "/" ? "1.0" : pagePath.startsWith("/services") || pagePath === "/work" || pagePath === "/pricing" ? "0.8" : "0.5";
-      return `  <url>\n    <loc>${url(siteUrl, pagePath, locale)}</loc>\n    <lastmod>${today}</lastmod>\n    <priority>${priority}</priority>\n${alternates.join("\n")}\n  </url>`;
-    }),
-  );
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${entries.join("\n")}\n</urlset>\n`;
+  const screenshots = projects
+    .map((project) => `    <image:image><image:loc>${siteUrl}${project.image}</image:loc></image:image>`)
+    .join("\n");
+  const entries = paths.flatMap((pagePath) => {
+    const pageLocales = ENGLISH_ONLY.has(pagePath) ? ["en"] : locales;
+    return pageLocales.map((locale) => {
+      const alternates = ENGLISH_ONLY.has(pagePath)
+        ? []
+        : [...locales.map((alt) => `    <xhtml:link rel="alternate" hreflang="${alt}" href="${url(siteUrl, pagePath, alt)}"/>`),
+          `    <xhtml:link rel="alternate" hreflang="x-default" href="${url(siteUrl, pagePath, "en")}"/>`];
+      const priority = pagePath === "/" ? "1.0" : pagePath.startsWith("/services") || pagePath === "/work" || pagePath === "/pricing" ? "0.8" : ENGLISH_ONLY.has(pagePath) ? "0.3" : "0.5";
+      const lines = [
+        `    <loc>${url(siteUrl, pagePath, locale)}</loc>`,
+        `    <lastmod>${today}</lastmod>`,
+        `    <priority>${priority}</priority>`,
+        ...alternates,
+        ...(WITH_SCREENSHOTS.has(pagePath) ? [screenshots] : []),
+      ];
+      return `  <url>\n${lines.join("\n")}\n  </url>`;
+    });
+  });
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${entries.join("\n")}\n</urlset>\n`;
 }
 
 const robots = (siteUrl: string) => `# Search engines and AI assistants are welcome to read the public site.
@@ -106,9 +125,18 @@ const headers = `/*
 /images/*
   Cache-Control: public, max-age=604800
 
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
 /admin
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store
+
+/admin/*
+  X-Robots-Tag: noindex, nofollow
+
+/portal/*
+  X-Robots-Tag: noindex, nofollow
 `;
 
 export async function writeSeoFiles(outDir: string, siteUrl: string, locales: readonly string[], paths: string[]) {

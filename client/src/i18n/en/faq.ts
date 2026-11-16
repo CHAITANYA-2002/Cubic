@@ -1,5 +1,5 @@
 export const faq = {
-  metaTitle: "FAQ — Pricing, Process, Ownership & AI Questions Answered | CubicTech",
+  metaTitle: "FAQ — Pricing, Process & Code Ownership | CubicTech",
   metaDescription: "Detailed answers on how CubicTech prices projects, payment terms, timelines, code ownership, NDAs, international clients, AI data safety, hosting and support.",
   eyebrow: "FAQ",
   title: "Questions we're asked before every project.",

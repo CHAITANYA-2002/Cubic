@@ -1,6 +1,6 @@
 export const services = {
   index: {
-    metaTitle: "Services — Websites, Web Apps, AI Agents & Digital Marketing | CubicTech",
+    metaTitle: "Services — Websites, Web Apps & AI Agents | CubicTech",
     metaDescription: "Websites, custom web applications, AI agents and automation, digital marketing systems, UI/UX design and care plans. Published prices in INR, USD, EUR and AED.",
     eyebrow: "Services",
     title: "Websites, software and AI that do real work.",
@@ -26,8 +26,8 @@ export const services = {
   },
   items: {
     "web-development": {
-      metaTitle: "Website Design & Development — Fast, SEO-ready Business Websites | CubicTech",
-      metaDescription: "Business websites and landing pages that load fast, rank, and turn visitors into enquiries. Fixed price, agreed in writing. Mobile-first, SEO foundation, CMS included.",
+      metaTitle: "Website Design & Development — Fast, SEO-ready | CubicTech",
+      metaDescription: "Business websites and landing pages that load fast, rank, and turn visitors into enquiries. Fixed price, agreed in writing. Mobile-first, SEO-ready, CMS included.",
       short: "Fast, credible websites that turn visitors into enquiries.",
       title: "A website that brings in business — not just one that exists.",
       intro: "Most business websites are slow, vague about what the company sells, and impossible for the team to update. We plan the message with you, design for mobile first, and build a fast site with the SEO foundation and enquiry tracking in place from day one.",
@@ -59,8 +59,8 @@ export const services = {
       ],
     },
     "web-applications": {
-      metaTitle: "Custom Web Application Development — Portals, Dashboards & Internal Tools | CubicTech",
-      metaDescription: "Custom web applications for teams running on spreadsheets and WhatsApp: booking systems, client portals, dashboards and internal tools. Fixed price, agreed in writing.",
+      metaTitle: "Custom Web App Development — Portals & Dashboards | CubicTech",
+      metaDescription: "Custom web applications for teams running on spreadsheets and WhatsApp: booking systems, client portals, dashboards and internal tools. Fixed price in writing.",
       short: "Custom software for the way your business actually runs.",
       title: "Replace spreadsheets and copy-paste with software built for your process.",
       intro: "When a business grows, the work spreads across WhatsApp groups, Excel sheets and one person who knows how everything fits together. We turn that process into a secure web application — with logins, roles, a real database and the dashboards your team needs to run the day.",
@@ -92,7 +92,7 @@ export const services = {
       ],
     },
     "ai-solutions": {
-      metaTitle: "AI Agents & Automation for Business — Support, Sales & Document Workflows | CubicTech",
+      metaTitle: "AI Agents & Automation — Support, Sales, Docs | CubicTech",
       metaDescription: "AI agents that answer customers, qualify leads, draft emails and process documents — with human approval where it matters. Fixed price, agreed in writing.",
       short: "AI that takes repetitive work off your team, safely.",
       title: "AI agents that do the repetitive work — with a human in control.",
@@ -125,8 +125,8 @@ export const services = {
       ],
     },
     "digital-marketing": {
-      metaTitle: "Digital Marketing Systems — SEO, Outreach & Email Automation | CubicTech",
-      metaDescription: "SEO, landing pages, outbound email and lifecycle automation built as systems that run every day — with tracking that shows what works. Fixed price, agreed in writing.",
+      metaTitle: "Digital Marketing — SEO, Outreach & Email Systems | CubicTech",
+      metaDescription: "SEO, landing pages, outbound email and lifecycle automation built as systems that run every day — with tracking that shows what works. Fixed price in writing.",
       short: "Systems that bring in leads and follow them up, every day.",
       title: "Marketing that runs as a system — measured, repeatable, every day.",
       intro: "Most marketing fails quietly: a burst of posts, a campaign nobody tracks, leads that never get a second email. We build the engine instead — search visibility, landing pages, outreach and lifecycle email — wired to tracking so you can see which activity brings revenue.",
@@ -158,7 +158,7 @@ export const services = {
       ],
     },
     "ui-ux-design": {
-      metaTitle: "UI/UX Design — Product Design, Prototypes & Design Systems | CubicTech",
+      metaTitle: "UI/UX Design — Prototypes & Design Systems | CubicTech",
       metaDescription: "Product design for apps and SaaS: user flows, clickable prototypes and design systems your developers can build from. Fixed price, agreed in writing.",
       short: "Clear products, designed and tested before code is written.",
       title: "Make your product obvious to use — before you spend on building it.",
@@ -191,7 +191,7 @@ export const services = {
       ],
     },
     maintenance: {
-      metaTitle: "Website & Software Care Plans — Maintenance, Security & Support | CubicTech",
+      metaTitle: "Website Care Plans — Maintenance & Security | CubicTech",
       metaDescription: "Monthly care plans for websites and web apps: monitoring, security updates, backups and small improvements with an agreed response time. Fixed monthly fee.",
       short: "Someone accountable for keeping your software healthy.",
       title: "Software that stays secure, fast and improving — every month.",
