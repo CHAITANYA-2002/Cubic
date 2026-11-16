@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { Link } from "wouter";
 import { ArrowUpRight, Check, ChevronRight } from "lucide-react";
 import type { OfferId } from "@shared/site";
@@ -15,13 +15,33 @@ function splitAccent(text: string): [string, string] {
   return [`${words.slice(0, -tail).join(" ")} `, words.slice(-tail).join(" ")];
 }
 
-/** Two-tone headline: the lead in full contrast, the closing phrase in grey. */
+const toWords = (text: string) => text.trim().split(/\s+/).filter(Boolean);
+
+/** One masked word: the inner span slides up through the clip when its headline animates. */
+function Word({ word, index }: { word: string; index: number }) {
+  return (
+    <>
+      <span className="w" style={{ "--w": index } as CSSProperties}><span>{word}</span></span>{" "}
+    </>
+  );
+}
+
+/**
+ * Two-tone headline: the lead in full contrast, the closing phrase in grey.
+ * Words rise through a mask — on load when `animate` is set, otherwise when the nearest `.reveal` enters view.
+ */
 export function Headline({ text, animate = false }: { text: string; animate?: boolean }) {
   const [lead, accent] = splitAccent(text);
+  const leadWords = toWords(lead);
+  const accentWords = toWords(accent);
   return (
-    <span className={animate ? "rise-lines" : undefined}>
-      <span>{lead}</span>
-      {accent && <span className="accent-text">{accent}</span>}
+    <span className={animate ? "mask-words words-load" : "mask-words"}>
+      {leadWords.map((word, index) => <Word key={`l${index}`} word={word} index={index} />)}
+      {accentWords.length > 0 && (
+        <span className="accent-text">
+          {accentWords.map((word, index) => <Word key={`a${index}`} word={word} index={leadWords.length + index} />)}
+        </span>
+      )}
     </span>
   );
 }

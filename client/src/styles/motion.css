@@ -1,63 +1,141 @@
 /* ===========================================================
-   Motion: few moves, done slowly and well.
-   - .rise          on-load fade-up for hero copy (CSS only)
-   - .reveal        fade-up when scrolled into view (JS adds .is-in)
-   - .reveal-img    photo/screen wipes open and settles from a slight zoom
-   - .zoom-on-scroll  scale tied to scroll position (scroll-driven animations)
-   Everything is transform/opacity, and nothing hides content without JavaScript.
+   Motion: a continuous scroll story, transform/opacity/clip only.
+   - .rise            on-load fade-up for hero copy (CSS only)
+   - .mask-words      headline words slide up through a mask (on load, or when their .reveal enters)
+   - .reveal          fade-up when scrolled into view (JS adds .is-in)
+   - .reveal-img      photo/screen wipes open and settles from a slight zoom
+   - scroll-driven    hero tilt-to-flat, hero copy lift-out, light sections opening like a curtain,
+                      photo parallax, closing headline scale-in (animation-timeline)
+   Nothing hides content without JavaScript except the pure-CSS load animations, which always finish.
    =========================================================== */
 
 @keyframes rise {
   from { opacity: 0; transform: translateY(28px); }
   to { opacity: 1; transform: none; }
 }
-.rise, .rise-lines > span {
-  animation: rise 1.1s var(--ease-out) both;
+@keyframes word-up {
+  from { transform: translateY(108%); }
+  to { transform: none; }
 }
-.rise-lines > span { display: inline; }
-.rise-lines > span + span { animation-delay: 0.12s; }
-.rise-2 { animation-delay: 0.22s; }
-.rise-3 { animation-delay: 0.34s; }
-.rise-4 { animation-delay: 0.5s; }
+.rise { animation: rise 1.1s var(--ease-out) both; }
+.rise-2 { animation-delay: 0.3s; }
+.rise-3 { animation-delay: 0.42s; }
+.rise-4 { animation-delay: 0.56s; }
+
+/* Masked words. Padding keeps ascenders, matras and descenders inside the clip. */
+.mask-words .w {
+  display: inline-block;
+  overflow: clip;
+  overflow-clip-margin: 0.04em;
+  vertical-align: top;
+  padding-block: 0.08em 0.12em;
+  margin-block: -0.08em -0.12em;
+}
+.mask-words .w > span { display: inline-block; }
+:lang(hi) .mask-words .w, :lang(ar) .mask-words .w { padding-block: 0.25em; margin-block: -0.25em; }
+
+.words-load .w > span {
+  animation: word-up 1.15s var(--ease-out) both;
+  animation-delay: calc(var(--w, 0) * 60ms + 0.05s);
+}
+
 /* While the intro plays, hold the hero until it lifts. */
-#intro ~ #root .rise,
-#intro ~ #root .rise-lines > span { animation-delay: 1.1s; }
-#intro ~ #root .rise-lines > span + span { animation-delay: 1.22s; }
-#intro ~ #root .rise-2 { animation-delay: 1.32s; }
-#intro ~ #root .rise-3 { animation-delay: 1.44s; }
-#intro ~ #root .rise-4 { animation-delay: 1.6s; }
+#intro ~ #root .rise { animation-delay: 1.15s; }
+#intro ~ #root .rise-2 { animation-delay: 1.45s; }
+#intro ~ #root .rise-3 { animation-delay: 1.57s; }
+#intro ~ #root .rise-4 { animation-delay: 1.71s; }
+#intro ~ #root .words-load .w > span { animation-delay: calc(var(--w, 0) * 60ms + 1.05s); }
 
 /* Scroll reveals. */
 .reveal-armed .reveal:not(.is-in) {
   opacity: 0;
-  transform: translateY(32px);
+  transform: translateY(56px);
 }
 .reveal-armed .reveal {
-  transition: opacity 1s var(--ease-out), transform 1.2s var(--ease-out);
-  transition-delay: calc(var(--d, 0) * 90ms);
+  transition: opacity 1.1s var(--ease-out), transform 1.3s var(--ease-out);
+  transition-delay: calc(var(--d, 0) * 110ms);
 }
+.reveal-armed .reveal:not(.is-in) .mask-words .w > span { transform: translateY(108%); }
+.reveal-armed .reveal .mask-words .w > span {
+  transition: transform 1.15s var(--ease-out);
+  transition-delay: calc(var(--d, 0) * 110ms + var(--w, 0) * 45ms + 60ms);
+}
+/* Cards rise from a little further and a little smaller. */
+.reveal-armed .service-tile.reveal:not(.is-in),
+.reveal-armed .price-tile.reveal:not(.is-in) { transform: translateY(90px) scale(0.94); }
+
 .reveal-armed .reveal-img:not(.is-in) {
-  clip-path: inset(8% 6% 8% 6% round var(--card-radius));
+  clip-path: inset(10% 8% 10% 8% round var(--card-radius));
 }
-.reveal-armed .reveal-img:not(.is-in) img { transform: scale(1.12); }
+.reveal-armed .reveal-img:not(.is-in) img { transform: scale(1.18); }
 .reveal-armed .reveal-img {
   clip-path: inset(0 round var(--card-radius));
-  transition: clip-path 1.4s var(--ease-out);
+  transition: clip-path 1.5s var(--ease-out);
 }
-.reveal-armed .reveal-img img { transition: transform 1.8s var(--ease-out); }
+.reveal-armed .reveal-img img { transition: transform 2s var(--ease-out); }
 
-/* Hero stage: the work settles from a slight zoom-out to full size as you scroll. */
+/* Scroll-driven scenes. Browsers without scroll timelines simply show the settled state. */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
+    /* Hero: the flagship screen starts tilted back and lies flat as it rises into view. */
+    .home-hero { perspective: 1800px; }
     .zoom-on-scroll {
-      animation: zoom-settle linear both;
+      animation: tilt-settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 42%;
+    }
+    @keyframes tilt-settle {
+      from { transform: rotateX(22deg) scale(0.82) translateY(-4%); border-radius: 3rem; }
+      to { transform: none; border-radius: var(--card-radius); }
+    }
+
+    /* Hero copy lifts away and fades as the screen takes over. */
+    .hero-copy {
+      animation: hero-out linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 75vh;
+    }
+    @keyframes hero-out {
+      to { opacity: 0.1; transform: translateY(-10vh) scale(0.94); }
+    }
+
+    /* Light sections open like a curtain: an inset rounded panel that widens to full bleed. */
+    .public-site main > section.theme-light {
+      animation: curtain linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 75%;
+    }
+    @keyframes curtain {
+      from { clip-path: inset(0 4vw round 3rem); }
+      to { clip-path: inset(0 0 round 0); }
+    }
+
+    /* Photography drifts inside its frame. */
+    .service-tile-media img,
+    .feature-media img,
+    .hero-figure img {
+      scale: 1.14;
+      animation: img-drift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+    .service-tile:hover .service-tile-media img { scale: 1.2; }
+    @keyframes img-drift {
+      from { translate: 0 -6%; }
+      to { translate: 0 6%; }
+    }
+
+    /* Closing call to action grows into place. */
+    .cta-band > .container-w {
+      animation: cta-in linear both;
       animation-timeline: view();
       animation-range: entry 0% cover 45%;
     }
-    @keyframes zoom-settle {
-      from { transform: scale(0.84); border-radius: 3rem; }
-      to { transform: scale(1); border-radius: var(--card-radius); }
+    @keyframes cta-in {
+      from { transform: scale(0.88); }
+      to { transform: none; }
     }
+
     .drift-on-scroll {
       animation: drift linear both;
       animation-timeline: view();
@@ -80,12 +158,13 @@
 @view-transition { navigation: auto; }
 
 @media print {
-  .reveal, .reveal-img, .reveal img, .reveal-img img, .process-steps > li {
+  .reveal, .reveal-img, .reveal img, .reveal-img img, .process-steps > li, .mask-words .w > span,
+  .hero-copy, .zoom-on-scroll, section.theme-light, .cta-band > .container-w {
     opacity: 1 !important; transform: none !important; clip-path: none !important; animation: none !important;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rise, .rise-lines > span { animation: none; }
+  .rise, .words-load .w > span, .process-counter-num { animation: none; }
   .statement-words > span { opacity: 1; }
 }

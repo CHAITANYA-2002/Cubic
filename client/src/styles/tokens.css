@@ -1,9 +1,19 @@
 /* Palette, type and spacing tokens. Imported by index.css.
    Two surfaces, like a product page: black (default) and paper (.theme-light / .section-subtle).
    Colour does almost no decorative work — type, space and real imagery carry the design. */
+/* Local fallback sized to Inter's metrics, so headlines keep their line breaks when the web font swaps in. */
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial"), local("Helvetica"), local("Roboto");
+  size-adjust: 107.1%;
+  ascent-override: 90.4%;
+  descent-override: 22.5%;
+  line-gap-override: 0%;
+}
+
 :root {
-  --font-display: "Inter", "Noto Sans Devanagari", "IBM Plex Sans Arabic", system-ui, sans-serif;
-  --font-body: "Inter", "Noto Sans Devanagari", "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --font-display: "Inter", "Inter Fallback", "Noto Sans Devanagari", "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --font-body: "Inter", "Inter Fallback", "Noto Sans Devanagari", "IBM Plex Sans Arabic", system-ui, sans-serif;
   --font-sans: var(--font-body);
   --font-serif: var(--font-display);
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;

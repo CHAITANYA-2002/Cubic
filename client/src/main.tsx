@@ -19,7 +19,14 @@ function settleIntro() {
   } catch {
     // Storage blocked: the CSS animation simply plays and hides itself.
   }
-  if (root.firstElementChild === null) intro.remove();
+  if (root.firstElementChild === null) {
+    intro.remove();
+    return;
+  }
+  // Once it has faded and the hero has finished rising, drop it so later in-app pages animate without the intro delay.
+  intro.addEventListener("animationend", (event) => {
+    if (event.target === intro) window.setTimeout(() => intro.remove(), 2500);
+  });
 }
 settleIntro();
 

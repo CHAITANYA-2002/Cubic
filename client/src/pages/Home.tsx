@@ -21,7 +21,7 @@ function Hero() {
   const flagship = projects[0];
   return (
     <section className="home-hero">
-      <div className="container-w pt-16 text-center md:pt-28">
+      <div className="hero-copy container-w pt-16 text-center md:pt-28">
         <p className="label rise">{h.eyebrow}</p>
         <h1 className="display-1 mx-auto mt-5 max-w-5xl"><Headline text={h.title} animate /></h1>
         <p className="lead rise rise-2 mx-auto mt-7">{h.subtitle}</p>
@@ -127,9 +127,9 @@ function Process() {
       <div className="container-w grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
         <div className="lg:sticky lg:top-28 lg:h-fit">
           <p className="label mb-3">{t.home.process.eyebrow}</p>
-          <h2 className="display-2"><Headline text={t.home.process.title} /></h2>
+          <h2 className="display-2 reveal"><Headline text={t.home.process.title} /></h2>
           <div className="process-counter mt-12 hidden lg:flex" aria-hidden="true">
-            <span className="process-counter-num" key={active}>{pad(active + 1)}</span>
+            <span className="process-counter-mask"><span className="process-counter-num" key={active}>{pad(active + 1)}</span></span>
             <span className="process-counter-total">/ {pad(steps.length)}</span>
           </div>
           <div className="process-track mt-6 hidden lg:block" aria-hidden="true">

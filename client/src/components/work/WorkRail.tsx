@@ -31,6 +31,7 @@ export function WorkRail({ projects }: { projects: Project[] }) {
       const travel = Math.max(1, box.height - window.innerHeight);
       const progress = Math.min(1, Math.max(0, -box.top / travel));
       list.style.transform = `translate3d(${(rtl ? 1 : -1) * progress * distance}px, 0, 0)`;
+      root.style.setProperty("--rail-p", progress.toFixed(4));
     };
     const schedule = () => {
       if (!frame) frame = window.requestAnimationFrame(measure);
@@ -97,6 +98,7 @@ export function WorkRail({ projects }: { projects: Project[] }) {
             );
           })}
         </ul>
+        <div className="work-rail-progress" aria-hidden="true"><i /></div>
       </div>
     </div>
   );
