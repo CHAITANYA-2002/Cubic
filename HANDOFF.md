@@ -190,3 +190,54 @@ Code: `shared/os.ts` (types, zod, invoice maths), `server/os/` (routes, dashboar
 `server/routes/auth.ts`, `server/security/`, `client/src/pages/os/`, `client/src/pages/Portal.tsx`,
 `client/src/components/InvoiceDocument.tsx`. Public `/pricing` mirrors
 `firm/playbooks/pricing.md` Part 2 — change both together.
+
+### 10.1 Workspace v2 — team, sales desk, calls, chatbot (migration `0002_workspace.sql`)
+
+**Sign-in.** Owner: email blank (or the owner's email) + `ADMIN_PASSWORD`; the owner row is
+created on first sign-in. Staff: their work email + their own password (PBKDF2, set by the owner
+in Team). Sessions are `v2` signed cookies carrying user id + token version; deactivating someone,
+changing their role or password signs them out everywhere. Old `v1` cookies are rejected.
+
+| Role | Opens |
+|---|---|
+| Owner | Everything, including Team |
+| Admin | Everything except Team |
+| Sales | Dashboard, Tasks, Inbox, Pipeline, Calls, Chats, Clients — own records + unassigned |
+| Delivery | Dashboard, Tasks, Clients, Projects, Calls |
+
+Guards live in `server/app.ts` (`GUARDS`) and `shared/team.ts` (`can`); ownership checks in
+`server/crm/access.ts`. The UI hides tabs but the server is the authority.
+
+| Tab | Does |
+|---|---|
+| Tasks | Follow-ups with due date, priority, owner; overdue / today / upcoming |
+| Inbox | Leads from the form, chatbot, call booking and manual entry; source, page, UTM, owner; detail with timeline (note / call / email / WhatsApp / meeting), follow-up task, qualify → deal |
+| Pipeline | Owner per deal, owner filter, deal timeline |
+| Calls | Calendar in IST, outcome notes (saved to the lead), move / reassign / .ics; availability and booking rules |
+| Chats | Every chatbot conversation, review status, linked lead |
+| Chatbot | Taught answers (knowledge base), on/off, daily caps, extra instructions, test box |
+| Expenses | Spend by month and category, GST paid, CSV; dashboard shows cash profit |
+| Team | Staff logins, roles, lead routing (least busy), who takes calls |
+| My account | Name, email, password (staff), weekly hours |
+
+**Lead routing.** New leads go to the active owner/admin/sales person with `takes_leads` and the
+fewest open leads + open deals (`server/crm/assign.ts`). Toggle in Team.
+
+**Call booking** (`/book`, 5 languages). Slots = each host's weekly IST hours, minus holidays,
+notice period and other calls ± buffer (`server/booking/slots.ts`, unit-tested). A unique index
+stops double booking. Visitors get a manage link `/book/manage/<token>` to add to calendar,
+reschedule or cancel. Every booking creates or updates a lead.
+
+**Chatbot.** Floating "Ask us anything" on every public page; the panel's code loads on click.
+Answers come from Cloudflare Workers AI (`[ai]` binding, Llama 3.3 70B with an 8B fallback),
+grounded only on the English site copy, live prices/contact from Site settings and the owner's
+taught answers (`server/chat/`). Per-visitor and site-wide daily caps; over the cap or without
+AI it answers from the best-matching FAQ / price list. Visitors can leave details; the lead gets
+the transcript. Local `wrangler pages dev` cannot run the AI binding without a workers.dev
+subdomain — comment out `[ai]` locally to test the fallback.
+
+**Optional e-mail alerts.** Set Pages secrets `RESEND_API_KEY`, `MAIL_FROM` (a verified sender)
+and `NOTIFY_EMAIL` to get new-lead / new-call mails and send booking confirmations. Without them
+nothing is sent and everything else works.
+
+Tests: `npm test` (vitest — slots, chatbot retrieval and fallback, passwords, sessions, roles).

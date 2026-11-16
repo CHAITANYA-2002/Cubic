@@ -1,6 +1,8 @@
 import { useState, type FormEvent } from "react";
 import { DEAL_STAGES, todayIso, type Deal, type DealInput } from "@shared/os";
 import { formatDate, formatInr, osFetch, useOsMutation, useOsState } from "@/lib/os-api";
+import { isAdminRole, nameOf, useMe, useTeam } from "@/lib/workspace-api";
+import { AssigneeSelect, TimelinePanel } from "./parts";
 import { Actions, Badge, dangerButton, Field, FormError, ghostButton, inputClass, Modal, primaryButton, Stat } from "./ui";
 
 const SERVICES = ["AI Solutions", "Web Applications", "Web Development", "UI/UX Design", "Maintenance & Support", "Digital Marketing", "Diagnostic"];
@@ -24,6 +26,7 @@ const blankDeal = (): Draft => ({
   lostReason: "",
   clientId: null,
   leadId: null,
+  assignedTo: null,
   notes: "",
 });
 
@@ -44,6 +47,7 @@ function DealForm({ deal, onClose }: { deal: Deal | null; onClose: () => void })
   };
 
   return (
+    <>
     <form onSubmit={submit} className="space-y-4">
       <Field label="Deal name"><input required value={draft.title} onChange={(e) => set("title", e.target.value)} className={inputClass} placeholder="Acme Logistics — dispatch copilot" /></Field>
       <div className="grid gap-4 sm:grid-cols-2">
@@ -63,6 +67,7 @@ function DealForm({ deal, onClose }: { deal: Deal | null; onClose: () => void })
         <Field label="Value (₹)"><input type="number" min={0} value={draft.valueInr} onChange={(e) => set("valueInr", Number(e.target.value))} className={inputClass} /></Field>
         <Field label="Probability %" hint="Blank = stage default"><input type="number" min={0} max={100} value={draft.probability} onChange={(e) => set("probability", e.target.value === "" ? "" : Number(e.target.value))} className={inputClass} /></Field>
         <Field label="Next action date"><input type="date" value={draft.nextActionDate} onChange={(e) => set("nextActionDate", e.target.value)} className={inputClass} /></Field>
+        <Field label="Owner"><AssigneeSelect value={draft.assignedTo} onChange={(id) => set("assignedTo", id)} /></Field>
       </div>
       <Field label="Next action"><input value={draft.nextAction} onChange={(e) => set("nextAction", e.target.value)} className={inputClass} placeholder="Send proposal v2" /></Field>
       {draft.stage === "Lost" && <Field label="Why lost"><input value={draft.lostReason} onChange={(e) => set("lostReason", e.target.value)} className={inputClass} /></Field>}
@@ -78,13 +83,27 @@ function DealForm({ deal, onClose }: { deal: Deal | null; onClose: () => void })
         <button disabled={save.isPending} className={primaryButton}>{save.isPending ? "Saving…" : "Save deal"}</button>
       </Actions>
     </form>
+    {deal && (
+      <div className="mt-6 border-t border-white/10 pt-5">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] t-muted">History</p>
+        <TimelinePanel entity="deal" id={deal.id} />
+      </div>
+    )}
+    </>
   );
 }
 
 export default function PipelineView() {
-  const { data, isLoading } = useOsState();
+  const me = useMe();
+  const { data: stateData, isLoading } = useOsState();
+  const { data: team } = useTeam();
   const [editing, setEditing] = useState<Deal | null | "new">(null);
   const [showClosed, setShowClosed] = useState(false);
+  const [owner, setOwner] = useState("all");
+  const data = stateData && {
+    ...stateData,
+    deals: stateData.deals.filter((deal) => owner === "all" || (owner === "mine" ? deal.assignedTo === me.id : String(deal.assignedTo) === owner)),
+  };
   const move = useOsMutation(({ id, stage }: { id: number; stage: Deal["stage"] }) => osFetch("PATCH", `/api/os/deals/${id}`, { stage }));
 
   if (isLoading || !data) return <p className="t-muted">Loading…</p>;
@@ -101,7 +120,12 @@ export default function PipelineView() {
           <p className="label mb-2">Revenue</p>
           <h1 className="text-3xl t-primary">Pipeline</h1>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
+          <select aria-label="Owner" value={owner} onChange={(e) => setOwner(e.target.value)} className={`${inputClass} !w-auto`}>
+            <option value="all">Everyone</option>
+            <option value="mine">Mine</option>
+            {isAdminRole(me.role) && team?.filter((member) => member.id !== me.id).map((member) => <option key={member.id} value={String(member.id)}>{member.name}</option>)}
+          </select>
           <button onClick={() => setShowClosed(!showClosed)} className={ghostButton}>{showClosed ? "Hide closed" : "Show won / lost"}</button>
           <button onClick={() => setEditing("new")} className={primaryButton}>New deal</button>
         </div>
@@ -131,7 +155,7 @@ export default function PipelineView() {
                     <div key={deal.id} className="rounded-xl border border-white/10 bg-black/30 p-3">
                       <button onClick={() => setEditing(deal)} className="block w-full text-left">
                         <p className="text-sm t-primary">{deal.title}</p>
-                        <p className="mt-1 text-xs t-muted">{formatInr(deal.valueInr)} · {deal.probability}%</p>
+                        <p className="mt-1 text-xs t-muted">{formatInr(deal.valueInr)} · {deal.probability}% · {nameOf(team, deal.assignedTo)}</p>
                         {deal.nextAction && <p className="mt-2 text-xs t-secondary">→ {deal.nextAction}</p>}
                       </button>
                       <div className="mt-2 flex items-center justify-between gap-2">

@@ -192,6 +192,7 @@ export function metaFor(path: string, locale: Locale, t: Dict, site: SiteSetting
   if (path === "/pricing") return page(t.pricing.metaTitle, t.pricing.metaDescription, [], [{ name: t.common.nav.pricing, path }]);
   if (path === "/about") return page(t.about.metaTitle, t.about.metaDescription, [], [{ name: t.common.nav.about, path }]);
   if (path === "/contact") return page(t.contact.metaTitle, t.contact.metaDescription, [], [{ name: t.common.nav.contact, path }]);
+  if (path === "/book") return page(t.booking.metaTitle, t.booking.metaDescription, [], [{ name: t.booking.title, path }]);
   if (path === "/faq") {
     const all = t.faq.categories.flatMap((category) => category.items);
     return page(t.faq.metaTitle, t.faq.metaDescription, [faqPage(all)], [{ name: t.common.nav.faq, path }]);
@@ -209,6 +210,7 @@ export const PUBLIC_PATHS = [
   "/about",
   "/faq",
   "/contact",
+  "/book",
   "/terms",
   "/privacy",
   "/cookies",

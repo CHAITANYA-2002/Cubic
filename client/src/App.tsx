@@ -19,12 +19,14 @@ import Terms from "@/pages/Terms";
 import Privacy from "@/pages/Privacy";
 import Cookies from "@/pages/Cookies";
 import NotFound from "@/pages/not-found";
+import Book from "@/pages/Book";
 
 // The workspace (admin OS and client portals) is never prerendered and most visitors never
 // open it, so it loads on demand.
 const Admin = lazy(() => import("@/pages/Admin"));
 const InvoicePrint = lazy(() => import("@/pages/os/InvoicePrint"));
 const Portal = lazy(() => import("@/pages/Portal"));
+const BookManage = lazy(() => import("@/pages/BookManage"));
 const WorkspaceChrome = lazy(() => import("@/components/WorkspaceChrome"));
 
 export const isWorkspacePath = (path: string) => path.startsWith("/admin") || path.startsWith("/portal");
@@ -42,6 +44,12 @@ function PublicRoutes() {
         <Route path="/about" component={About} />
         <Route path="/faq" component={Faq} />
         <Route path="/contact" component={Contact} />
+        <Route path="/book" component={Book} />
+        <Route path="/book/manage/:token">
+          <Suspense fallback={<div className="min-h-screen" />}>
+            <BookManage />
+          </Suspense>
+        </Route>
         <Route path="/terms" component={Terms} />
         <Route path="/privacy" component={Privacy} />
         <Route path="/cookies" component={Cookies} />

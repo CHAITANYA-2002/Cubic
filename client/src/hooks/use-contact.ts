@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { api, type InsertConsultationRequest } from "@shared/routes";
+import { readAttribution } from "@/lib/attribution";
 
 /**
  * Every enquiry is posted to /api/contact so it lands in the admin Inbox (Cloudflare D1).
@@ -69,7 +70,7 @@ export function useSubmitContact() {
   return useMutation({
     mutationFn: async (data: InsertConsultationRequest) => {
       // Validate before sending, regardless of destination.
-      const validated = api.contact.submit.input.parse(data);
+      const validated = api.contact.submit.input.parse({ ...data, ...readAttribution() });
       await submitEverywhere(validated);
     },
   });

@@ -63,7 +63,7 @@ export function Navbar() {
 
         <div className="hidden items-center gap-4 lg:flex">
           <Preferences />
-          <Link href="/contact" className="btn btn-primary !min-h-9 !px-4 !text-[0.84rem]">{t.common.cta.bookCall}</Link>
+          <Link href="/book" className="btn btn-primary !min-h-9 !px-4 !text-[0.84rem]">{t.common.cta.bookCall}</Link>
         </div>
 
         <button
@@ -94,7 +94,7 @@ export function Navbar() {
           </nav>
           <div className="container-w flex flex-col gap-4 pb-6">
             <Preferences compact />
-            <Link href="/contact" className="btn btn-primary btn-lg w-full">{t.common.cta.bookCall}</Link>
+            <Link href="/book" className="btn btn-primary btn-lg w-full">{t.common.cta.bookCall}</Link>
           </div>
         </div>
       )}

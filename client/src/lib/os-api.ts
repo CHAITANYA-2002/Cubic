@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { Client, Dashboard, Deal, Invoice, Lead, Project, Settings } from "@shared/os";
 import type { Subscriber } from "@shared/schema";
 import type { SiteSettings } from "@shared/site";
+import type { Me } from "@shared/team";
 
 // The admin session is an HttpOnly cookie set by /api/admin/login. Nothing secret is ever stored in
 // JavaScript-readable storage; the UI only tracks whether the server accepted the cookie.
@@ -38,37 +39,41 @@ export async function osFetch<T>(method: string, url: string, body?: unknown): P
   return res.status === 204 ? (undefined as T) : ((await res.json()) as T);
 }
 
-async function checkSession(): Promise<boolean> {
+async function checkSession(): Promise<Me | false> {
   try {
     const res = await fetch("/api/admin/session", { credentials: "same-origin" });
-    return res.ok;
+    return res.ok ? ((await res.json()) as Me) : false;
   } catch {
     return false;
   }
 }
 
-/** null while the first check runs, then whether the admin cookie is valid. */
-export function useAdminSession(): boolean | null {
-  const [signedIn, setSignedIn] = useState<boolean | null>(null);
+/** null while the first check runs, then the signed-in person (or false). */
+export function useAdminSession(): Me | false | null {
+  const [me, setMe] = useState<Me | false | null>(null);
   useEffect(() => {
     let active = true;
-    checkSession().then((ok) => active && setSignedIn(ok));
-    const sync = (event: Event) => setSignedIn(Boolean((event as CustomEvent<boolean>).detail));
+    const refresh = () => checkSession().then((value) => active && setMe(value));
+    refresh();
+    const sync = (event: Event) => {
+      if ((event as CustomEvent<boolean>).detail) refresh();
+      else setMe(false);
+    };
     window.addEventListener(AUTH_EVENT, sync);
     return () => {
       active = false;
       window.removeEventListener(AUTH_EVENT, sync);
     };
   }, []);
-  return signedIn;
+  return me;
 }
 
-export async function signIn(password: string): Promise<void> {
+export async function signIn(email: string, password: string): Promise<void> {
   const res = await fetch("/api/admin/login", {
     method: "POST",
     credentials: "same-origin",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ password }),
+    body: JSON.stringify({ email, password }),
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new ApiError(res.status, data.message ?? "Sign in failed");

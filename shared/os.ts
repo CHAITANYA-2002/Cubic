@@ -41,6 +41,7 @@ export const dealInput = z.object({
   lostReason: optionalText(240),
   clientId: z.coerce.number().int().positive().nullable().optional().default(null),
   leadId: z.coerce.number().int().positive().nullable().optional().default(null),
+  assignedTo: z.coerce.number().int().positive().nullable().optional().default(null),
   notes: optionalText(4000),
 });
 
@@ -149,7 +150,12 @@ export type Lead = {
   message: string;
   status: (typeof LEAD_STATUSES)[number];
   notes: string;
+  source: string;
+  assignedTo: number | null;
+  page: string;
+  utm: string;
   createdAt: string;
+  updatedAt: string;
 };
 
 export type Dashboard = {
@@ -168,6 +174,18 @@ export type Dashboard = {
   overdueInvoices: Invoice[];
   recentActivity: Activity[];
   setupWarnings: string[];
+  /** Workspace v2. Money figures are zero for roles without the invoices area. */
+  myOpenTasks: number;
+  myOverdueTasks: number;
+  dueTasks: Array<{ id: number; title: string; dueDate: string; priority: string; entityLabel: string }>;
+  upcomingCalls: Array<{ id: number; name: string; company: string; startAt: string; channel: string; hostId: number }>;
+  callsToday: number;
+  openChats: number;
+  chatsToday: number;
+  leadsBySource: Array<{ source: string; count: number }>;
+  expensesThisMonth: number;
+  profitThisMonth: number;
+  winRate: number;
 };
 
 export type PortalView = {

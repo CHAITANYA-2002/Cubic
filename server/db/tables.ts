@@ -1,6 +1,116 @@
+import type { Booking, ChatRecord, Expense, KbEntry, Task, TimelineEntry } from "../../shared/crm";
 import type { Activity, Client, Deal, Invoice, Project } from "../../shared/os";
 import type { ConsultationRequest, Subscriber } from "../../shared/schema";
+import type { TeamUser } from "../../shared/team";
 import { defineTable } from "./table";
+
+/** A user row as stored. passwordHash and tokenVersion never leave the server. */
+export type UserRow = TeamUser & { passwordHash: string; tokenVersion: number };
+
+export const users = defineTable<UserRow>("users", [
+  ["id", "id", "int"],
+  ["name", "name", "text"],
+  ["email", "email", "text"],
+  ["role", "role", "text"],
+  ["passwordHash", "password_hash", "text"],
+  ["active", "active", "bool"],
+  ["takesCalls", "takes_calls", "bool"],
+  ["takesLeads", "takes_leads", "bool"],
+  ["availability", "availability", "json"],
+  ["tokenVersion", "token_version", "int"],
+  ["lastLoginAt", "last_login_at", "text"],
+  ["createdAt", "created_at", "text"],
+  ["updatedAt", "updated_at", "text"],
+]);
+
+export const publicUser = ({ passwordHash: _hash, tokenVersion: _version, ...user }: UserRow): TeamUser => user;
+
+export const timeline = defineTable<TimelineEntry>("timeline", [
+  ["id", "id", "int"],
+  ["entity", "entity", "text"],
+  ["entityId", "entity_id", "int"],
+  ["kind", "kind", "text"],
+  ["text", "text", "text"],
+  ["userId", "user_id", "ref"],
+  ["userName", "user_name", "text"],
+  ["at", "at", "text"],
+]);
+
+export const tasks = defineTable<Task>("tasks", [
+  ["id", "id", "int"],
+  ["title", "title", "text"],
+  ["dueDate", "due_date", "text"],
+  ["priority", "priority", "text"],
+  ["done", "done", "bool"],
+  ["entity", "entity", "text"],
+  ["entityId", "entity_id", "ref"],
+  ["entityLabel", "entity_label", "text"],
+  ["assignedTo", "assigned_to", "ref"],
+  ["createdBy", "created_by", "ref"],
+  ["notes", "notes", "text"],
+  ["completedAt", "completed_at", "text"],
+  ["createdAt", "created_at", "text"],
+  ["updatedAt", "updated_at", "text"],
+]);
+
+export const bookings = defineTable<Booking>("bookings", [
+  ["id", "id", "int"],
+  ["hostId", "host_id", "int"],
+  ["leadId", "lead_id", "ref"],
+  ["name", "name", "text"],
+  ["email", "email", "text"],
+  ["phone", "phone", "text"],
+  ["company", "company", "text"],
+  ["topic", "topic", "text"],
+  ["notes", "notes", "text"],
+  ["channel", "channel", "text"],
+  ["meetingLink", "meeting_link", "text"],
+  ["startAt", "start_at", "text"],
+  ["endAt", "end_at", "text"],
+  ["status", "status", "text"],
+  ["outcome", "outcome", "text"],
+  ["locale", "locale", "text"],
+  ["manageToken", "manage_token", "text"],
+  ["createdAt", "created_at", "text"],
+  ["updatedAt", "updated_at", "text"],
+]);
+
+export const chats = defineTable<ChatRecord & { ipHash: string }>("chats", [
+  ["id", "id", "int"],
+  ["sessionId", "session_id", "text"],
+  ["locale", "locale", "text"],
+  ["page", "page", "text"],
+  ["ipHash", "ip_hash", "text"],
+  ["messages", "messages", "json"],
+  ["messageCount", "message_count", "int"],
+  ["leadId", "lead_id", "ref"],
+  ["status", "status", "text"],
+  ["createdAt", "created_at", "text"],
+  ["updatedAt", "updated_at", "text"],
+]);
+
+export const kbEntries = defineTable<KbEntry>("kb_entries", [
+  ["id", "id", "int"],
+  ["question", "question", "text"],
+  ["answer", "answer", "text"],
+  ["tags", "tags", "text"],
+  ["active", "active", "bool"],
+  ["createdAt", "created_at", "text"],
+  ["updatedAt", "updated_at", "text"],
+]);
+
+export const expenses = defineTable<Expense>("expenses", [
+  ["id", "id", "int"],
+  ["date", "date", "text"],
+  ["category", "category", "text"],
+  ["vendor", "vendor", "text"],
+  ["description", "description", "text"],
+  ["amountInr", "amount_inr", "int"],
+  ["gstInr", "gst_inr", "int"],
+  ["projectId", "project_id", "ref"],
+  ["createdAt", "created_at", "text"],
+  ["updatedAt", "updated_at", "text"],
+]);
 
 const stamps = [
   ["createdAt", "created_at", "text"],
@@ -18,7 +128,12 @@ export const leads = defineTable<ConsultationRequest>("leads", [
   ["message", "message", "text"],
   ["status", "status", "text"],
   ["notes", "notes", "text"],
+  ["source", "source", "text"],
+  ["assignedTo", "assigned_to", "ref"],
+  ["page", "page", "text"],
+  ["utm", "utm", "text"],
   ["createdAt", "created_at", "text"],
+  ["updatedAt", "updated_at", "text"],
 ]);
 
 export const subscribers = defineTable<Subscriber>("subscribers", [
@@ -57,6 +172,7 @@ export const deals = defineTable<Deal>("deals", [
   ["lostReason", "lost_reason", "text"],
   ["clientId", "client_id", "ref"],
   ["leadId", "lead_id", "ref"],
+  ["assignedTo", "assigned_to", "ref"],
   ["notes", "notes", "text"],
   ...stamps,
 ]);

@@ -8,6 +8,8 @@ import { logActivity } from "../os/activity";
 import { hit, LIMITS } from "../security/rate-limit";
 import { currencyFor, normaliseCountry } from "../site/geo";
 import { loadSite } from "../site/settings";
+import { chooseAssignee } from "../crm/assign";
+import { notifyTeam } from "../mail";
 
 export const publicRoutes = new Hono<AppEnv>();
 
@@ -21,14 +23,27 @@ publicRoutes.post(api.contact.submit.path, async (c) => {
   const { botcheck, ...input } = api.contact.submit.input.parse(await readJson(c));
   rejectBots(botcheck);
 
-  const lead: Omit<ConsultationRequest, "id"> = { ...input, status: "New", notes: "", createdAt: new Date().toISOString() };
+  const stamp = new Date().toISOString();
+  const lead: Omit<ConsultationRequest, "id"> = {
+    ...input,
+    status: "New",
+    notes: "",
+    source: "Website form",
+    assignedTo: await chooseAssignee(db),
+    createdAt: stamp,
+    updatedAt: stamp,
+  };
   const [inserted] = await db.batch([
     leads.insert(db, lead),
     ...logActivity(db, "lead", `New enquiry from ${lead.name}${lead.company ? ` (${lead.company})` : ""}`),
   ]);
   const row = leads.firstRow(inserted);
   if (!row) throw new Error("Lead insert returned no row");
-  return c.json(row, 201);
+  const facts = [`${row.name} <${row.email}>${row.phone ? ` · ${row.phone}` : ""}`, row.company, row.service ? `Service: ${row.service}` : "", row.budget ? `Budget: ${row.budget}` : ""];
+  const details = `${facts.filter(Boolean).join("\n")}\n\n${row.message}`;
+  await notifyTeam(c.env, `New enquiry: ${row.name}${row.company ? ` (${row.company})` : ""}`, details, row.email);
+  // The visitor needs to know it arrived, not what is stored about them.
+  return c.json({ id: row.id, ok: true }, 201);
 });
 
 publicRoutes.post(api.newsletter.subscribe.path, async (c) => {

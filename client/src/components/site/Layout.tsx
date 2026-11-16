@@ -2,12 +2,12 @@ import { useReveal } from "@/components/visuals/useReveal";
 import { useScrollMotion } from "@/components/visuals/useScrollMotion";
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "wouter";
-import { MessageCircle } from "lucide-react";
 import { useI18n } from "@/i18n";
-import { useSite } from "@/lib/site";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { PageMeta } from "./PageMeta";
+import { ChatLauncher } from "@/components/chat/ChatLauncher";
+import { captureAttribution } from "@/lib/attribution";
 
 const CONSENT_KEY = "cubic.consent";
 
@@ -43,21 +43,6 @@ function CookieBanner({ onClose }: { onClose: () => void }) {
   );
 }
 
-function WhatsAppButton() {
-  const { t } = useI18n();
-  const { site } = useSite();
-  return (
-    <a
-      href={`https://wa.me/${site.whatsapp}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={t.common.cta.whatsapp}
-      className="fixed bottom-5 end-5 z-50 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#f5f5f7] text-black shadow-[0_10px_30px_-10px_rgba(0,0,0,0.6)] transition-transform hover:scale-105"
-    >
-      <MessageCircle className="h-5 w-5" aria-hidden="true" />
-    </a>
-  );
-}
 
 /** Chrome shared by every public page: skip link, header, footer, WhatsApp, cookie notice. */
 export function Layout({ children }: { children: ReactNode }) {
@@ -65,7 +50,10 @@ export function Layout({ children }: { children: ReactNode }) {
   useScrollMotion();
   const { t } = useI18n();
   const [showBanner, setShowBanner] = useState(false);
-  useEffect(() => setShowBanner(readConsent() === null), []);
+  useEffect(() => {
+    setShowBanner(readConsent() === null);
+    captureAttribution();
+  }, []);
 
   return (
     <div className="public-site flex min-h-screen flex-col bg-[var(--bg-primary)]">
@@ -76,7 +64,7 @@ export function Layout({ children }: { children: ReactNode }) {
       <Navbar />
       <main ref={revealRef} id="main" tabIndex={-1} className="flex-grow">{children}</main>
       <Footer />
-      {showBanner ? <CookieBanner onClose={() => setShowBanner(false)} /> : <WhatsAppButton />}
+      {showBanner ? <CookieBanner onClose={() => setShowBanner(false)} /> : <ChatLauncher />}
     </div>
   );
 }

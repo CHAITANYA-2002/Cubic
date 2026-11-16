@@ -14,5 +14,10 @@ database_name = "cubictech"
 database_id = "bd59333c-58ee-46bc-85d2-cef1b88ca075"
 migrations_dir = "migrations"
 
+# Workers AI for the website assistant (/api/chat). Free tier covers a modest daily volume; the
+# assistant caps its own daily usage (admin → Chatbot) and falls back to FAQ answers without it.
+[ai]
+binding = "AI"
+
 # Secrets are never stored here. Production: `npx wrangler pages secret put ADMIN_PASSWORD`
 # and `npx wrangler pages secret put SESSION_SECRET`. Local: copy .dev.vars.example to .dev.vars.

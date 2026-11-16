@@ -58,5 +58,17 @@ export function buildDashboard(input: DashboardInput): Dashboard {
     overdueInvoices: overdue,
     recentActivity: activity.slice(0, 12),
     setupWarnings: setupWarnings(input),
+    // Filled in by the route, which knows who is asking.
+    myOpenTasks: 0,
+    myOverdueTasks: 0,
+    dueTasks: [],
+    upcomingCalls: [],
+    callsToday: 0,
+    openChats: 0,
+    chatsToday: 0,
+    leadsBySource: [],
+    expensesThisMonth: 0,
+    profitThisMonth: 0,
+    winRate: 0,
   };
 }

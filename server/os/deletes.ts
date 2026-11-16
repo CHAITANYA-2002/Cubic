@@ -3,6 +3,7 @@ import type { AppEnv } from "../env";
 import type { D1Database } from "../db/d1";
 import { clients, deals, invoices, projects } from "../db/tables";
 import { HttpError, parseId } from "../http";
+import { assertAdmin, assertMayTouch } from "../crm/access";
 
 type Collection = "deals" | "clients" | "projects" | "invoices";
 
@@ -37,6 +38,9 @@ export const deleteRoutes = new Hono<AppEnv>();
   deleteRoutes.delete(`/api/os/${key}/:id`, async (c) => {
     const db = c.env.DB;
     const id = parseId(c);
+    const user = c.get("user");
+    if (key === "deals") assertMayTouch(user, (await deals.byId(db, id))?.assignedTo);
+    else assertAdmin(user);
     const blocked = await blockers[key](db, id);
     if (blocked) throw new HttpError(409, blocked);
     const result = await tables[key].remove(db, id).run();

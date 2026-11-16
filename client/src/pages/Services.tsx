@@ -36,7 +36,7 @@ export default function Services() {
     <Layout>
       <PageHero eyebrow={t.services.index.eyebrow} title={t.services.index.title} subtitle={t.services.index.subtitle} photo="blueprint">
         <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-7">
-          <Link href="/contact" className="btn btn-primary btn-lg">{t.common.cta.bookCall}</Link>
+          <Link href="/book" className="btn btn-primary btn-lg">{t.common.cta.bookCall}</Link>
           <MoreLink href="/pricing">{t.common.cta.seePricing}</MoreLink>
         </div>
       </PageHero>
