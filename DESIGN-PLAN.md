@@ -8,13 +8,20 @@ with CubicTech's own identity (near-black + warm gold + editorial serif).
 Read before touching code: `HANDOFF.md`, `CLAUDE.md`/`AGENTS.md`, `client/src/index.css`,
 `client/src/components/site/*`, `client/src/i18n/en/*`.
 
-> **Update (2026-11-14):** the site now ships a production visual layer that supersedes the
-> imagery and motion limits below: a lazy WebGL hero (`client/src/components/three/`, desktop only,
-> static render fallback), build-time 3D renders (`script/render-3d.ts` → `client/public/images/3d/`),
-> licensed graded photography (`client/public/images/photos/`, `images/banners/`), mesh gradients,
-> grain, CSS 3D tilt, Lenis smooth scroll and parallax (`client/src/styles/depth.css`,
-> `components/visuals/useScrollMotion.ts`, `useSpotlight.ts`). Keep those working; the honesty,
-> i18n, RTL, prerender and accessibility rules below still apply in full.
+> **Update (2026-11-16) — supersedes the visual sections below.** The site now follows a
+> product-page language (Apple / Stripe / consulting-firm restraint), chosen because the earlier
+> gradients, glows, grain, serif-italic gold accents and 3D renders read as AI-generated:
+> - **Type:** Inter only, heavy and tight; a headline's closing phrase drops to grey (`Headline`).
+> - **Surfaces:** black by default, paper (`.theme-light` / `.section-subtle`) alternating for rhythm.
+>   Both are token sets in `client/src/styles/tokens.css`; components never hard-code colour.
+> - **Colour:** gold only for small text (eyebrows, links). No gradients, glows, grain or gradient text.
+> - **Imagery:** real project screenshots (`images/work/`) and graded photos (`images/photos/`). No 3D
+>   renders, no illustrations, no stock people.
+> - **Motion** (`client/src/styles/motion.css`, `components/visuals/use*.ts`): hero fade-up, scroll
+>   reveals, hero screenshot zoom on scroll, word-by-word statement, pinned horizontal work rail,
+>   sticky process steps, Lenis on desktop. Transform/opacity only; content stays visible without JS.
+> - **Buttons:** pills (light on black, dark on paper) plus "Learn more ›" text links (`MoreLink`).
+> The honesty, i18n, RTL, prerender and accessibility rules below still apply in full.
 
 ---
 

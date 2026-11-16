@@ -1,6 +1,6 @@
 import { useId } from "react";
 
-/** The CubicTech mark: an isometric cube in gold, amber and deep teal, faces split by hairline gaps. */
+/** The CubicTech mark: an isometric cube in gold, amber and deep teal, used as a solid brand mark. */
 export function LogoMark({ className = "h-8 w-8" }: { className?: string }) {
   const id = useId().replace(/:/g, "");
   return (
@@ -22,7 +22,6 @@ export function LogoMark({ className = "h-8 w-8" }: { className?: string }) {
       <path d="M20 4 34 12 20 20 6 12z" fill={`url(#${id}-top)`} />
       <path d="M6 14.2 18.9 21.6v15.2L6 29.4z" fill={`url(#${id}-left)`} />
       <path d="M34 14.2 21.1 21.6v15.2L34 29.4z" fill={`url(#${id}-right)`} />
-      <path d="M20 9.2 25.6 12.4 20 15.6 14.4 12.4z" fill="#0a0a0b" opacity="0.18" />
     </svg>
   );
 }
@@ -30,10 +29,9 @@ export function LogoMark({ className = "h-8 w-8" }: { className?: string }) {
 export function Logo({ className = "" }: { className?: string }) {
   return (
     <span className={`logo inline-flex items-center gap-2.5 ${className}`} dir="ltr">
-      <LogoMark className="logo-mark h-8 w-8" />
-      <span className="text-[1.5rem] font-semibold leading-none tracking-tight" style={{ fontFamily: "var(--font-display)" }}>
-        <span className="accent-text">Cubic</span>
-        <span className="t-primary">Tech</span>
+      <LogoMark className="logo-mark h-7 w-7" />
+      <span className="text-[1.2rem] font-semibold leading-none tracking-[-0.03em] t-primary" style={{ fontFamily: "Inter, system-ui, sans-serif" }}>
+        CubicTech
       </span>
     </span>
   );

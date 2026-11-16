@@ -13,6 +13,7 @@ export const home: Dict["home"] = {
     secondary: "Live-Projekte ansehen",
     note: "Kostenloses Gespräch · Antwort innerhalb eines Werktags · NDA auf Wunsch",
   },
+  statement: "Wir sind ein unabhängiges Studio. Wer im ersten Gespräch mit Ihnen spricht, entwirft und baut auch Ihre Software. Sie erhalten einen Festpreis schriftlich, sehen jede Woche den Fortschritt und besitzen beim Launch jede Zeile Code.",
   proofBar: ["6 Live-Projekte zum Ausprobieren", "Festpreis schriftlich vereinbart", "5 Sprachen · 4 Währungen", "Antwort innerhalb eines Werktags"],
   proofStrip: {
     title: "Das ist in jedem Projekt enthalten",

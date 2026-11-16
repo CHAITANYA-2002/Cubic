@@ -1,76 +1,119 @@
-/* Shared palette, type and spacing tokens. Imported by index.css. */
+/* Palette, type and spacing tokens. Imported by index.css.
+   Two surfaces, like a product page: black (default) and paper (.theme-light / .section-subtle).
+   Colour does almost no decorative work — type, space and real imagery carry the design. */
 :root {
-  --font-display: "Cormorant Garamond", "Noto Sans Devanagari", "IBM Plex Sans Arabic", Georgia, serif;
+  --font-display: "Inter", "Noto Sans Devanagari", "IBM Plex Sans Arabic", system-ui, sans-serif;
   --font-body: "Inter", "Noto Sans Devanagari", "IBM Plex Sans Arabic", system-ui, sans-serif;
   --font-sans: var(--font-body);
   --font-serif: var(--font-display);
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --section-space: 4.5rem;
-  --card-radius: 1rem;
-  --card-padding: 1.5rem;
+  --section-space: 5.5rem;
+  --card-radius: 1.5rem;
+  --card-padding: 1.75rem;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-apple: cubic-bezier(0.25, 0.1, 0.25, 1);
 
-  /* Brand */
-  --brand: #d6a77a;
-  --brand-hover: #e6bb91;
-  --brand-soft: rgba(214, 167, 122, 0.1);
-  --brand-line: rgba(214, 167, 122, 0.28);
-  --on-brand: #0a0a0b;
-  --success: #5fd3a0;
-  --success-soft: rgba(95, 211, 160, 0.1);
+  /* Accent: the warm brand gold, used for small text only (eyebrows, links). */
+  --brand: #d9ad80;
+  --brand-hover: #ecc49b;
+  --brand-soft: rgba(217, 173, 128, 0.12);
+  --brand-line: rgba(217, 173, 128, 0.32);
+  --link: #e3b88c;
+  --on-brand: #000;
+  --success: #4cc38a;
+  --success-soft: rgba(76, 195, 138, 0.12);
 
-  /* Surfaces */
-  --bg-primary: #0a0a0b;
-  --bg-subtle: #0e0e11;
-  --bg-ink: #121216;
-  --surface: #131317;
-  --surface-2: #19191e;
-  --header-bg: rgba(10, 10, 11, 0.78);
-  --line: rgba(255, 255, 255, 0.08);
-  --line-strong: rgba(255, 255, 255, 0.16);
+  /* Black surface */
+  --bg-primary: #000;
+  --bg-subtle: #0b0b0c;
+  --bg-ink: #121214;
+  --surface: #141416;
+  --surface-2: #1d1d1f;
+  --header-bg: rgba(0, 0, 0, 0.72);
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.18);
 
-  /* Text (body tiers pass WCAG AA on --bg-primary) */
-  --t-primary: #f4f4f5;
-  --t-secondary: #c4c4cb;
-  --t-muted: #9a9aa3;
-  --t-deco: #74747d;
-  --t-ghost: #3a3a42;
+  /* Text (all tiers pass WCAG AA on black) */
+  --t-primary: #f5f5f7;
+  --t-secondary: #a1a1a6;
+  --t-muted: #86868b;
+  --t-dim: #6e6e73;
+  --t-deco: #6e6e73;
+  --t-ghost: #2c2c2e;
   --label-color: var(--brand);
   --accent-primary: var(--brand);
-  --ink: #f4f4f5;
+  --ink: #f5f5f7;
+
+  /* Buttons follow the surface: light pill on black, dark pill on paper. */
+  --btn-bg: #f5f5f7;
+  --btn-fg: #000;
+  --btn-hover: #fff;
 
   /* Workspace legacy names */
   --glass-card-bg: var(--surface);
   --glass-border: var(--line);
-  --input-bg: rgba(255, 255, 255, 0.03);
-  --input-border: rgba(255, 255, 255, 0.14);
+  --input-bg: rgba(255, 255, 255, 0.04);
+  --input-border: rgba(255, 255, 255, 0.16);
 
   /* shadcn (HSL triplets) */
-  --background: 240 5% 4%;
-  --foreground: 240 5% 96%;
-  --card: 240 9% 8%;
-  --card-foreground: 240 5% 96%;
-  --card-border: 240 5% 14%;
-  --popover: 240 9% 8%;
-  --popover-foreground: 240 5% 96%;
-  --popover-border: 240 5% 14%;
-  --primary: 29 53% 66%;
-  --primary-foreground: 240 5% 4%;
-  --secondary: 240 6% 12%;
-  --secondary-foreground: 240 5% 96%;
-  --muted: 240 6% 12%;
-  --muted-foreground: 240 4% 62%;
-  --accent: 240 6% 12%;
-  --accent-foreground: 240 5% 96%;
+  --background: 0 0% 0%;
+  --foreground: 240 11% 96%;
+  --card: 240 5% 8%;
+  --card-foreground: 240 11% 96%;
+  --card-border: 240 3% 16%;
+  --popover: 240 5% 8%;
+  --popover-foreground: 240 11% 96%;
+  --popover-border: 240 3% 16%;
+  --primary: 30 54% 68%;
+  --primary-foreground: 0 0% 0%;
+  --secondary: 240 3% 12%;
+  --secondary-foreground: 240 11% 96%;
+  --muted: 240 3% 12%;
+  --muted-foreground: 240 3% 64%;
+  --accent: 240 3% 12%;
+  --accent-foreground: 240 11% 96%;
   --destructive: 0 72% 58%;
   --destructive-foreground: 0 0% 100%;
-  --border: 240 5% 14%;
-  --input: 240 5% 18%;
-  --ring: 29 53% 66%;
+  --border: 240 3% 16%;
+  --input: 240 3% 20%;
+  --ring: 30 54% 68%;
   --radius: 0.75rem;
-  --chart-1: 29 53% 66%;
-  --chart-2: 155 57% 60%;
-  --chart-3: 220 80% 68%;
-  --chart-4: 262 70% 72%;
+  --chart-1: 30 54% 68%;
+  --chart-2: 152 50% 53%;
+  --chart-3: 211 80% 62%;
+  --chart-4: 262 60% 70%;
   --chart-5: 0 72% 62%;
+}
+
+/* Paper surface: re-points the same tokens, so every component flips without extra classes. */
+.theme-light,
+.public-site .section-subtle {
+  --bg-primary: #f5f5f7;
+  --bg-subtle: #fff;
+  --bg-ink: #e8e8ed;
+  --surface: #fff;
+  --surface-2: #fafafc;
+  --line: rgba(0, 0, 0, 0.1);
+  --line-strong: rgba(0, 0, 0, 0.18);
+  --t-primary: #1d1d1f;
+  --t-secondary: #515154;
+  --t-muted: #6e6e73;
+  --t-dim: #86868b;
+  --t-deco: #86868b;
+  --brand: #8f5f30;
+  --brand-hover: #74491f;
+  --brand-soft: rgba(143, 95, 48, 0.09);
+  --brand-line: rgba(143, 95, 48, 0.3);
+  --link: #8f5f30;
+  --label-color: #8f5f30;
+  --success: #1f8a55;
+  --success-soft: rgba(31, 138, 85, 0.1);
+  --btn-bg: #1d1d1f;
+  --btn-fg: #fff;
+  --btn-hover: #000;
+  --input-bg: #fff;
+  --input-border: rgba(0, 0, 0, 0.18);
+  background: var(--bg-primary);
+  color: var(--t-primary);
+  color-scheme: light;
 }

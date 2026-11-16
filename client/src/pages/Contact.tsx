@@ -1,6 +1,5 @@
 import { Clock, Mail, MessageCircle, Phone } from "lucide-react";
 import { Layout } from "@/components/site/Layout";
-import { Render3D } from "@/components/visuals/Render3D";
 import { PageHero } from "@/components/site/blocks";
 import { ContactForm } from "@/components/ContactForm";
 import { useI18n } from "@/i18n";
@@ -19,24 +18,22 @@ export default function Contact() {
 
   return (
     <Layout>
-      <PageHero eyebrow={c.eyebrow} title={c.title} subtitle={c.subtitle} art={<Render3D name="ai-solutions" float eager />} />
+      <PageHero eyebrow={c.eyebrow} title={c.title} subtitle={c.subtitle} />
       <section className="section-pad">
         <div className="container-w grid gap-12 lg:grid-cols-[1.5fr_1fr]">
-          <div className="card order-2 p-6 md:p-9 lg:order-1">
-            <h2 className="mb-6 text-xl font-bold t-primary">{c.formTitle}</h2>
+          <div className="card reveal order-2 p-6 md:p-10 lg:order-1">
+            <h2 className="display-3 mb-8">{c.formTitle}</h2>
             <ContactForm />
           </div>
           <aside className="order-1 space-y-8 lg:order-2">
             <div>
-              <h2 className="text-lg font-bold t-primary">{c.directTitle}</h2>
-              <ul className="mt-4 space-y-3">
+              <h2 className="text-lg font-semibold t-primary">{c.directTitle}</h2>
+              <ul className="mt-5 space-y-4">
                 {direct.map(({ icon: Icon, label, value, href, external }) => (
                   <li key={label} className="flex items-start gap-3">
-                    <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[var(--brand-soft)] t-brand">
-                      <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
-                    </span>
+                    <Icon className="mt-1 h-[18px] w-[18px] shrink-0 t-muted" aria-hidden="true" />
                     <div className="min-w-0">
-                      <p className="text-xs t-secondary">{label}</p>
+                      <p className="text-sm t-muted">{label}</p>
                       {href ? (
                         <a href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="inline-flex min-h-11 items-center break-all font-medium t-primary hover:underline" dir="ltr">{value}</a>
                       ) : (
@@ -47,8 +44,8 @@ export default function Contact() {
                 ))}
               </ul>
             </div>
-            <div className="rounded-2xl bg-[var(--bg-subtle)] p-6 md:p-7">
-              <h2 className="font-bold t-primary">{c.nextTitle}</h2>
+            <div className="rule-top pt-8">
+              <h2 className="text-lg font-semibold t-primary">{c.nextTitle}</h2>
               <ol className="mt-4 space-y-3">
                 {c.next.map((step, index) => (
                   <li key={step} className="flex gap-3 text-[0.95rem] t-secondary">

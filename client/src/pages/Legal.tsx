@@ -1,4 +1,3 @@
-import { Banner } from "@/components/visuals/Banner";
 import { Headline } from "@/components/site/blocks";
 import { Layout } from "@/components/site/Layout";
 import { useI18n } from "@/i18n";
@@ -11,9 +10,9 @@ export function Legal({ title, description, updated, sections }: { title: string
   return (
     <Layout>
       <article lang="en" dir="ltr">
-        <header className="banner-hero"><Banner /><div className="container-w section-pad">
+        <header><div className="container-w pb-10 pt-16 md:pt-28">
         <p className="label mb-4" lang={locale} dir="auto">{t.common.accessibility.legal}</p>
-        <h1 className="display-1"><Headline text={title} /></h1>
+        <h1 className="display-1"><Headline text={title} animate /></h1>
         <p className="lead mt-8">{description}</p>
         </div></header><div className="container-w section-pad max-w-3xl">
         <p className="mt-4 text-sm t-secondary">{t.common.accessibility.updated} {updated}</p>

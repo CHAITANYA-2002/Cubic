@@ -1,13 +1,11 @@
-import { Banner } from "@/components/visuals/Banner";
-import { Render3D } from "@/components/visuals/Render3D";
-import { Fragment, type CSSProperties, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Link } from "wouter";
-import { ArrowRight, CheckCircle2, FileText, KeyRound, LayoutDashboard, Receipt, ShieldCheck, UserRound } from "lucide-react";
+import { ArrowUpRight, Check, ChevronRight } from "lucide-react";
 import type { OfferId } from "@shared/site";
 import { useI18n } from "@/i18n";
 import { useOfferPrice, useSite } from "@/lib/site";
 
-/** Splits a headline so its second sentence (or closing phrase) can carry the gold italic accent. */
+/** Splits a headline so its second sentence (or closing phrase) can drop to the secondary tone. */
 function splitAccent(text: string): [string, string] {
   const sentence = text.match(/^(.+?[.!?।؟])\s+(.+)$/);
   if (sentence) return [`${sentence[1]} `, sentence[2]];
@@ -17,27 +15,52 @@ function splitAccent(text: string): [string, string] {
   return [`${words.slice(0, -tail).join(" ")} `, words.slice(-tail).join(" ")];
 }
 
-/** Headline with a gold accent phrase; `animate` brings it in word by word (CSS only). */
+/** Two-tone headline: the lead in full contrast, the closing phrase in grey. */
 export function Headline({ text, animate = false }: { text: string; animate?: boolean }) {
   const [lead, accent] = splitAccent(text);
-  if (!animate) {
+  return (
+    <span className={animate ? "rise-lines" : undefined}>
+      <span>{lead}</span>
+      {accent && <span className="accent-text">{accent}</span>}
+    </span>
+  );
+}
+
+/** "Learn more ›" style text link. External links get an outward arrow and open in a new tab. */
+export function MoreLink({ href, children, external = false, className = "" }: {
+  href: string; children: ReactNode; external?: boolean; className?: string;
+}) {
+  if (external) {
     return (
-      <>
-        {lead}
-        {accent && <span className="accent-text">{accent}</span>}
-      </>
+      <a href={href} target="_blank" rel="noopener noreferrer" className={`link-more ${className}`}>
+        {children} <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+      </a>
     );
   }
-  const words = lead.trim().split(" ");
   return (
-    <span className="word-in">
-      {words.map((word, index) => (
-        <Fragment key={`${word}-${index}`}>
-          <span style={{ "--i": index } as CSSProperties}>{word}</span>{" "}
-        </Fragment>
-      ))}
-      {accent && <span className="accent-text" style={{ "--i": words.length } as CSSProperties}>{accent}</span>}
-    </span>
+    <Link href={href} className={`link-more ${className}`}>
+      {children} <ChevronRight className="h-4 w-4" aria-hidden="true" />
+    </Link>
+  );
+}
+
+/** A graded editorial photograph from /images/photos. Decorative unless given alt text. */
+export function Photo({ name, alt = "", className = "", eager = false, sizes = "(min-width: 1240px) 1160px, 100vw" }: {
+  name: string; alt?: string; className?: string; eager?: boolean; sizes?: string;
+}) {
+  return (
+    <img
+      src={`/images/photos/${name}-800.webp`}
+      srcSet={`/images/photos/${name}-800.webp 800w, /images/photos/${name}.webp 1600w`}
+      sizes={sizes}
+      width={1600}
+      height={900}
+      alt={alt}
+      aria-hidden={alt ? undefined : true}
+      loading={eager ? "eager" : "lazy"}
+      decoding="async"
+      className={className}
+    />
   );
 }
 
@@ -46,30 +69,34 @@ export function SectionHeader({ eyebrow, title, subtitle, align = "start", actio
 }) {
   const centered = align === "center";
   return (
-    <div className={`mb-10 flex flex-col gap-4 md:mb-14 ${centered ? "items-center text-center" : "md:flex-row md:items-end md:justify-between"}`}>
-      <div className={centered ? "max-w-2xl" : "max-w-3xl"}>
+    <div className={`reveal mb-12 flex flex-col gap-5 md:mb-16 ${centered ? "items-center text-center" : "md:flex-row md:items-end md:justify-between"}`}>
+      <div className={centered ? "max-w-3xl" : "max-w-3xl"}>
         {eyebrow && <p className="label mb-3">{eyebrow}</p>}
         <h2 className="display-2"><Headline text={title} /></h2>
-        {subtitle && <p className="lead mt-4">{subtitle}</p>}
+        {subtitle && <p className={`lead mt-5 ${centered ? "mx-auto" : ""}`}>{subtitle}</p>}
       </div>
-      {action}
+      {action && <div className="shrink-0">{action}</div>}
     </div>
   );
 }
 
-export function PageHero({ eyebrow, title, subtitle, children, art }: { eyebrow: string; title: string; subtitle?: string; children?: ReactNode; art?: ReactNode }) {
+/** Inner-page hero: large type on black, then an optional full-width photograph that settles in on scroll. */
+export function PageHero({ eyebrow, title, subtitle, children, photo }: {
+  eyebrow: string; title: string; subtitle?: string; children?: ReactNode; photo?: string;
+}) {
   return (
-    <section className="banner-hero border-b border-[var(--line)]">
-      <Banner />
-      <div className={`container-w section-pad ${art ? "grid items-center gap-10 lg:grid-cols-[1.4fr_1fr]" : ""}`}>
-        <div>
-          <p className="label mb-5">{eyebrow}</p>
-          <h1 className="display-1 max-w-4xl"><Headline text={title} animate /></h1>
-          {subtitle && <p className="lead mt-6 max-w-2xl">{subtitle}</p>}
-          {children && <div className="mt-8">{children}</div>}
-        </div>
-        {art && <div className="hero-art hidden lg:block" aria-hidden="true">{art}</div>}
+    <section className="page-hero">
+      <div className="container-w pb-14 pt-16 md:pb-20 md:pt-28">
+        <p className="label rise mb-4">{eyebrow}</p>
+        <h1 className="display-1 max-w-5xl"><Headline text={title} animate /></h1>
+        {subtitle && <p className="lead rise rise-2 mt-7 max-w-2xl">{subtitle}</p>}
+        {children && <div className="rise rise-3 mt-9">{children}</div>}
       </div>
+      {photo && (
+        <div className="container-w pb-4">
+          <figure className="hero-figure"><Photo name={photo} eager className="h-full w-full object-cover" /></figure>
+        </div>
+      )}
     </section>
   );
 }
@@ -79,7 +106,7 @@ export function CheckList({ items, className = "" }: { items: string[]; classNam
     <ul className={`space-y-3 ${className}`}>
       {items.map((item) => (
         <li key={item} className="flex gap-3 t-secondary">
-          <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[var(--success)]" aria-hidden="true" />
+          <Check className="mt-1 h-4 w-4 shrink-0 t-primary" strokeWidth={2.25} aria-hidden="true" />
           <span>{item}</span>
         </li>
       ))}
@@ -91,10 +118,9 @@ export function CheckList({ items, className = "" }: { items: string[]; classNam
 export function FaqList({ items }: { items: Array<{ q: string; a: string }> }) {
   return (
     <div className="faq-list">
-      {items.map((item, index) => (
+      {items.map((item) => (
         <details key={item.q} className="faq-item">
           <summary className="faq-q text-start">
-            <span className="faq-num" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
             <span className="flex-1">{item.q}</span>
             <span className="faq-icon" aria-hidden="true" />
           </summary>
@@ -119,20 +145,18 @@ export function OfferPrice({ offer, prefix = false, className = "" }: { offer: O
 export function TrustStrip() {
   const { t } = useI18n();
   const items = [
-    { icon: FileText, text: t.common.trust.fixedPrice },
-    { icon: Receipt, text: t.common.trust.milestones },
-    { icon: KeyRound, text: t.common.trust.ownCode },
-    { icon: ShieldCheck, text: t.common.trust.warranty },
-    { icon: UserRound, text: t.common.trust.builder },
-    { icon: LayoutDashboard, text: t.common.trust.portal },
+    t.common.trust.fixedPrice,
+    t.common.trust.milestones,
+    t.common.trust.ownCode,
+    t.common.trust.warranty,
+    t.common.trust.builder,
+    t.common.trust.portal,
   ];
   return (
-    <ul className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
-      {items.map(({ icon: Icon, text }) => (
-        <li key={text} className="flex items-center gap-3 text-[0.95rem] t-secondary">
-          <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[var(--brand-soft)] t-brand">
-            <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
-          </span>
+    <ul className="grid grid-cols-1 border-t border-[var(--line)] sm:grid-cols-2 lg:grid-cols-3">
+      {items.map((text) => (
+        <li key={text} className="flex items-start gap-3 border-b border-[var(--line)] py-5 pe-6 t-secondary">
+          <Check className="mt-1 h-4 w-4 shrink-0 t-primary" strokeWidth={2.25} aria-hidden="true" />
           {text}
         </li>
       ))}
@@ -140,30 +164,17 @@ export function TrustStrip() {
   );
 }
 
-export function CtaBand({ title, text, accent = true }: { title?: string; text?: string; accent?: boolean }) {
+export function CtaBand({ title, text }: { title?: string; text?: string; accent?: boolean }) {
   const { t } = useI18n();
   const { site } = useSite();
   return (
-    <section className="section-pad banner-cta">
-      <Banner name="earth" hero={false} />
-      <div className="container-w">
-        <div className={`${accent ? "card-accent" : "card"} px-6 py-12 md:px-14 md:py-16`}>
-          <div className="grid items-center gap-8 lg:grid-cols-[1.5fr_1fr]">
-            <div>
-              <h2 className="display-2"><Headline text={title ?? t.home.final.title} /></h2>
-              <p className="mt-4 max-w-2xl text-lg leading-relaxed t-secondary">{text ?? t.home.final.text}</p>
-            </div>
-            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col lg:items-stretch">
-              <div className="render-stage -mt-24 hidden lg:grid" aria-hidden="true"><Render3D name="cta" float sizes="320px" className="max-w-[300px]" /></div>
-              <Link href="/contact" className="btn btn-primary btn-lg">
-                {t.home.final.primary} <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
-              </Link>
-              <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener noreferrer"
-                className="btn btn-outline btn-lg">
-                {t.home.final.secondary}
-              </a>
-            </div>
-          </div>
+    <section className="cta-band section-pad">
+      <div className="container-w container-narrow text-center">
+        <h2 className="display-2 reveal"><Headline text={title ?? t.home.final.title} /></h2>
+        <p className="lead reveal mx-auto mt-6">{text ?? t.home.final.text}</p>
+        <div className="reveal mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-6">
+          <Link href="/contact" className="btn btn-primary btn-lg">{t.home.final.primary}</Link>
+          <MoreLink href={`https://wa.me/${site.whatsapp}`} external>{t.home.final.secondary}</MoreLink>
         </div>
       </div>
     </section>

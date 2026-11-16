@@ -1,8 +1,6 @@
-import { Link } from "wouter";
-import { ArrowRight } from "lucide-react";
 import { projectsFor, type ServiceLine } from "@/data/work";
 import { useI18n } from "@/i18n";
-import { SectionHeader } from "@/components/site/blocks";
+import { MoreLink, SectionHeader } from "@/components/site/blocks";
 import { ProjectCard } from "./ProjectCard";
 
 /** "Related live work" strip for a service page: the real builds behind that service line. */
@@ -17,9 +15,7 @@ export function RelatedWork({ line }: { line: ServiceLine }) {
           eyebrow={t.work.eyebrow}
           title={t.services.detail.relatedTitle}
           action={
-            <Link href="/work" className="inline-flex min-h-11 items-center gap-1.5 font-semibold t-brand hover:underline">
-              {t.common.cta.allWork} <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
-            </Link>
+<MoreLink href="/work">{t.common.cta.allWork}</MoreLink>
           }
         />
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">

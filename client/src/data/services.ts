@@ -32,6 +32,16 @@ export const SERVICE_ICON: Record<ServiceSlug, LucideIcon> = {
   maintenance: Wrench,
 };
 
+/** Editorial photograph (client/public/images/photos) shown with each service. */
+export const SERVICE_PHOTO: Record<ServiceSlug, string> = {
+  "web-development": "code-screens",
+  "web-applications": "dashboard",
+  "ai-solutions": "code-dim",
+  "digital-marketing": "analytics",
+  "ui-ux-design": "ui-design",
+  maintenance: "code-laptop",
+};
+
 /** Which live work to show as proof on each service page. */
 export const SERVICE_LINE: Record<ServiceSlug, ServiceLine | null> = {
   "web-development": "websites",

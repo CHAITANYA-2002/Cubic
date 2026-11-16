@@ -13,6 +13,7 @@ export const home: Dict["home"] = {
     secondary: "Voir les projets en ligne",
     note: "Appel gratuit · Réponse sous un jour ouvré · NDA sur demande",
   },
+  statement: "Nous sommes un studio indépendant. La personne à qui vous parlez lors du premier appel est celle qui conçoit et développe votre logiciel. Vous recevez un prix fixe par écrit, suivez l’avancement chaque semaine, et chaque ligne de code vous appartient au lancement.",
   proofBar: ["6 réalisations en ligne à découvrir", "Prix fixe convenu par écrit", "5 langues · 4 devises", "Réponse sous 1 jour ouvré"],
   proofStrip: {
     title: "Ce que comprend chaque mission",

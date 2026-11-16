@@ -1,5 +1,4 @@
 import { useReveal } from "@/components/visuals/useReveal";
-import { useSpotlight } from "@/components/visuals/useSpotlight";
 import { useScrollMotion } from "@/components/visuals/useScrollMotion";
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "wouter";
@@ -31,14 +30,14 @@ function CookieBanner({ onClose }: { onClose: () => void }) {
     onClose();
   };
   return (
-    <div role="region" aria-label={t.common.accessibility.cookies} className="fixed inset-x-3 bottom-3 z-[60] mx-auto max-w-xl rounded-xl border border-[var(--line-strong)] bg-[var(--surface-2)] p-4 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.7)] sm:inset-x-auto sm:start-4">
+    <div role="region" aria-label={t.common.accessibility.cookies} className="fixed inset-x-3 bottom-3 z-[60] mx-auto max-w-md rounded-2xl border border-[var(--line)] bg-[var(--surface-2)] p-5 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.7)] sm:inset-x-auto sm:start-5 sm:bottom-5">
       <p className="text-sm t-secondary">
         {t.common.cookie.text}{" "}
         <Link href="/cookies" className="underline underline-offset-2 t-primary">{t.common.cookie.policy}</Link>
       </p>
       <div className="mt-3 flex gap-2">
-        <button type="button" className="btn btn-dark" onClick={() => choose("ok")}>{t.common.cookie.accept}</button>
-        <button type="button" className="btn btn-outline" onClick={() => choose("declined")}>{t.common.cookie.decline}</button>
+        <button type="button" className="btn btn-primary !min-h-10" onClick={() => choose("ok")}>{t.common.cookie.accept}</button>
+        <button type="button" className="btn btn-outline !min-h-10" onClick={() => choose("declined")}>{t.common.cookie.decline}</button>
       </div>
     </div>
   );
@@ -53,10 +52,9 @@ function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={t.common.cta.whatsapp}
-      className="fixed bottom-4 end-4 z-50 inline-flex h-12 items-center gap-2 rounded-full border border-[var(--line-strong)] bg-[var(--surface)] px-4 text-sm font-semibold text-white shadow-lg hover:bg-[var(--surface-2)]"
+      className="fixed bottom-5 end-5 z-50 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#f5f5f7] text-black shadow-[0_10px_30px_-10px_rgba(0,0,0,0.6)] transition-transform hover:scale-105"
     >
       <MessageCircle className="h-5 w-5" aria-hidden="true" />
-      <span className="hidden sm:inline">{t.common.cta.whatsapp}</span>
     </a>
   );
 }
@@ -64,7 +62,6 @@ function WhatsAppButton() {
 /** Chrome shared by every public page: skip link, header, footer, WhatsApp, cookie notice. */
 export function Layout({ children }: { children: ReactNode }) {
   const revealRef = useReveal();
-  useSpotlight();
   useScrollMotion();
   const { t } = useI18n();
   const [showBanner, setShowBanner] = useState(false);
@@ -75,7 +72,6 @@ export function Layout({ children }: { children: ReactNode }) {
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:start-3 focus:top-3 focus:z-[70] focus:min-h-11 focus:rounded-xl focus:bg-[var(--surface-2)] focus:px-4 focus:py-2 focus:shadow">
         {t.common.skipToContent}
       </a>
-      <div className="scroll-progress" aria-hidden="true" />
       <PageMeta />
       <Navbar />
       <main ref={revealRef} id="main" tabIndex={-1} className="flex-grow">{children}</main>
