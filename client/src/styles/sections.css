@@ -348,3 +348,46 @@
 }
 
 .service-title { font-size: clamp(2.5rem, 5.2vw, 4.75rem); }
+
+/* ---------- Scroll type band (Home) ---------- */
+.scroll-type {
+  overflow: clip;
+  padding-block: 0 var(--section-space);
+  view-timeline: --scroll-type block;
+}
+.scroll-type-row {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  font-size: clamp(3rem, 10vw, 9.5rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+  color: var(--t-primary);
+}
+.scroll-type-row + .scroll-type-row { color: var(--t-dim); }
+.scroll-type-row span { display: inline-flex; align-items: center; }
+.scroll-type-row i { font-style: normal; padding-inline: 0.35em; color: var(--t-dim); }
+:lang(hi) .scroll-type-row, :lang(ar) .scroll-type-row { letter-spacing: 0; line-height: 1.4; }
+
+/* ---------- Process scroll line (desktop) ---------- */
+@media (min-width: 1024px) {
+  .process-steps { position: relative; padding-inline-start: 2.5rem; view-timeline: --steps block; }
+  .process-steps::before,
+  .process-steps::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: 2px;
+    border-radius: 2px;
+    background: var(--line);
+  }
+  .process-steps::after { background: var(--t-primary); transform-origin: 50% 0; scale: 1 1; }
+}
+
+/* ---------- Work rail: screenshots drift inside their frames ---------- */
+.work-rail.is-pinned .work-shot img {
+  scale: 1.12;
+  translate: calc(var(--shift, 0) * -10%) 0;
+}

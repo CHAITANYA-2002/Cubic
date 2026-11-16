@@ -136,6 +136,38 @@
       to { transform: none; }
     }
 
+    /* Oversized type rows slide in opposite directions with the scroll. */
+    .scroll-type-row {
+      --dir: -1;
+      animation: type-slide linear both;
+      animation-timeline: --scroll-type;
+      animation-range: cover 0% cover 100%;
+    }
+    [dir="rtl"] .scroll-type-row { --dir: 1; }
+    .scroll-type-row + .scroll-type-row { animation-direction: reverse; }
+    @keyframes type-slide { from { translate: 0 0; } to { translate: calc(var(--dir) * 38%) 0; } }
+
+    /* Process: a line fills down the steps as you read them. */
+    @media (min-width: 1024px) {
+      .process-steps::after {
+        animation: line-fill linear both;
+        animation-timeline: --steps;
+        animation-range: cover 25% contain 85%;
+      }
+      @keyframes line-fill { from { scale: 1 0; } to { scale: 1 1; } }
+    }
+
+    /* Services: the second and fourth tiles travel a little faster, giving the grid depth. */
+    @media (min-width: 768px) {
+      .service-tile:nth-child(2),
+      .service-tile:nth-child(4) {
+        animation: tile-depth linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+      }
+      @keyframes tile-depth { from { translate: 0 70px; } to { translate: 0 -70px; } }
+    }
+
     .drift-on-scroll {
       animation: drift linear both;
       animation-timeline: view();
@@ -159,8 +191,8 @@
 
 @media print {
   .reveal, .reveal-img, .reveal img, .reveal-img img, .process-steps > li, .mask-words .w > span,
-  .hero-copy, .zoom-on-scroll, section.theme-light, .cta-band > .container-w {
-    opacity: 1 !important; transform: none !important; clip-path: none !important; animation: none !important;
+  .hero-copy, .zoom-on-scroll, section.theme-light, .cta-band > .container-w, .scroll-type-row, .service-tile {
+    opacity: 1 !important; transform: none !important; translate: none !important; clip-path: none !important; animation: none !important;
   }
 }
 

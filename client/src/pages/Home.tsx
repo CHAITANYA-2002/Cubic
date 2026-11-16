@@ -32,7 +32,7 @@ function Hero() {
         <p className="rise rise-4 mt-4 text-sm t-muted">{h.note}</p>
       </div>
       <div className="container-w mt-16 md:mt-24">
-        <a href={flagship.liveUrl} target="_blank" rel="noopener noreferrer" className="hero-stage zoom-on-scroll" aria-label={`${flagship.name} — ${h.liveCaption}`}>
+        <a href={flagship.liveUrl} target="_blank" rel="noopener noreferrer" className="hero-stage zoom-on-scroll" aria-label={`${flagship.name} — ${h.liveCaption} — ${new URL(flagship.liveUrl).host}`}>
           <BrowserFrame project={flagship} eager sizes="(min-width: 1240px) 1160px, 100vw" />
         </a>
         <p className="mt-5 text-center text-sm t-muted">{flagship.name} · {h.liveCaption}</p>
@@ -70,6 +70,24 @@ function Statement() {
         </p>
       </div>
     </section>
+  );
+}
+
+/** Two rows of oversized type that slide in opposite directions as the page scrolls. Decorative. */
+function ScrollType() {
+  const { t } = useI18n();
+  const services = SERVICE_SLUGS.map((slug) => t.common.serviceNames[slug]);
+  const rows = [services, t.home.proofBar];
+  return (
+    <div className="scroll-type" aria-hidden="true">
+      {rows.map((items, row) => (
+        <p key={row} className="scroll-type-row">
+          {[...items, ...items].map((item, index) => (
+            <span key={`${item}-${index}`}>{item}<i>·</i></span>
+          ))}
+        </p>
+      ))}
+    </div>
   );
 }
 
@@ -217,6 +235,7 @@ export default function Home() {
       <Hero />
       <ProofBar />
       <Statement />
+      <ScrollType />
       <Services />
       <SelectedWork />
       <Process />

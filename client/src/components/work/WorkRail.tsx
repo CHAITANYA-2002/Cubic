@@ -30,8 +30,15 @@ export function WorkRail({ projects }: { projects: Project[] }) {
       const box = root.getBoundingClientRect();
       const travel = Math.max(1, box.height - window.innerHeight);
       const progress = Math.min(1, Math.max(0, -box.top / travel));
-      list.style.transform = `translate3d(${(rtl ? 1 : -1) * progress * distance}px, 0, 0)`;
+      const offset = (rtl ? 1 : -1) * progress * distance;
+      list.style.transform = `translate3d(${offset}px, 0, 0)`;
       root.style.setProperty("--rail-p", progress.toFixed(4));
+      // Each screenshot drifts inside its frame by how far its slide sits from the viewport centre.
+      const half = window.innerWidth / 2;
+      for (const slide of Array.from(list.children) as HTMLElement[]) {
+        const centre = slide.offsetLeft + offset + slide.offsetWidth / 2;
+        slide.style.setProperty("--shift", ((centre - half) / window.innerWidth).toFixed(4));
+      }
     };
     const schedule = () => {
       if (!frame) frame = window.requestAnimationFrame(measure);
