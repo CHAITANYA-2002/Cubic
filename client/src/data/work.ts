@@ -25,11 +25,13 @@ export type Project = {
 
 export const PROJECT_SLUGS = [
   "superfox-roam",
+  "humorah",
+  "mani-doro",
+  "alsisar-haveli",
   "aria-frontdesk",
   "flowops-sdr",
   "northwind-lifecycle",
   "helix-analytics",
-  "mani-doro",
 ] as const;
 export type ProjectSlug = (typeof PROJECT_SLUGS)[number];
 
@@ -42,6 +44,33 @@ export const projects: Project[] = [
     stack: ["React", "TypeScript", "Node API", "PostgreSQL", "Vercel"],
     image: "/images/work/superfox-roam.webp",
     liveUrl: "https://on-trip-holidays.vercel.app",
+  },
+  {
+    slug: "humorah",
+    name: "Humorah — AI room redesign",
+    kind: "client",
+    lines: ["apps", "ai"],
+    stack: ["React", "Vite", "FastAPI", "Supabase", "Claude vision", "gpt-image-1", "Razorpay"],
+    image: "/images/work/humorah.webp",
+    liveUrl: "https://www.humora.io",
+  },
+  {
+    slug: "mani-doro",
+    name: "Mani D'Oro — jewellery storefront",
+    kind: "client",
+    lines: ["websites"],
+    stack: ["React", "TypeScript"],
+    image: "/images/work/mani-doro.webp",
+    liveUrl: "https://manidoroofficial.com",
+  },
+  {
+    slug: "alsisar-haveli",
+    name: "Alsisar Haveli — heritage hotel system",
+    kind: "concept",
+    lines: ["websites", "apps"],
+    stack: ["Next.js 15", "TypeScript", "Tailwind", "Neon Postgres", "Vercel"],
+    image: "/images/work/alsisar-haveli.webp",
+    liveUrl: "https://alsisar-haveli-demo.vercel.app",
   },
   {
     slug: "aria-frontdesk",
@@ -78,15 +107,6 @@ export const projects: Project[] = [
     stack: ["React", "Vite", "Tailwind"],
     image: "/images/work/helix-analytics.webp",
     liveUrl: "https://chaitanya-2002.github.io/client-work/helix/",
-  },
-  {
-    slug: "mani-doro",
-    name: "Mani D'Oro — jewellery storefront",
-    kind: "concept",
-    lines: ["websites"],
-    stack: ["React", "TypeScript", "Netlify"],
-    image: "/images/work/mani-doro.webp",
-    liveUrl: "https://mdoro.netlify.app",
   },
 ];
 

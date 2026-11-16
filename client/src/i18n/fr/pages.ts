@@ -159,5 +159,19 @@ export const work: Dict["work"] = {
       built: ["Pages produit éditoriales avec galerie à faire défiler et zoom", "Panier latéral avec tailles et sous-total en direct", "Demande WhatsApp en un geste, avec les détails du produit pré-remplis", "Formulaire de demande de création sur mesure"],
       tryThis: "Ouvrez une pièce, faites défiler la galerie, puis touchez le bouton de demande WhatsApp.",
     },
+    "humorah": {
+      sector: "Intérieur & IA",
+      summary: "Envoyez une photo de votre chambre, choisissez un style et un budget, et recevez cette même pièce redessinée, avec une liste de vrais meubles achetables dans le budget.",
+      problem: "Les modèles d'image génériques inventent une nouvelle pièce. Le client voulait garder les murs, fenêtres et angle de vue réels, et uniquement des produits réellement achetables dans le budget.",
+      built: ["Pipeline de rendu IA en trois étapes : la vision lit la pièce, un jeu de règles choisit de vrais produits, puis la pièce est vidée et meublée", "Recommandations selon le budget sur huit catégories de meubles", "Comptes, essai gratuit, packs de crédits et paiements Razorpay avec remboursement automatique", "Tableau de bord admin : import du catalogue, clients, designs et facturation", "Boutique avec recherche et filtres, collections, FAQ et pages légales"],
+      tryThis: "Envoyez une photo de chambre, choisissez un style et un budget, puis comparez le rendu à la liste de produits.",
+    },
+    "alsisar-haveli": {
+      sector: "Hôtellerie patrimoniale",
+      summary: "Un concept de pitch pour un hôtel-haveli de 1892 à Jaipur : un site qui raconte la demeure, plus un seul système pour les clients et chaque service de l'hôtel.",
+      problem: "Le site de l'hôtel n'affichait ni tarifs, ni détails des chambres, ni menu, et envoyait chaque réservation vers des sites tiers.",
+      built: ["Site narratif qui parcourt la haveli pièce par pièce", "Réservation directe à un tarif toujours inférieur aux sites de réservation", "Portail client « My Stay » : commande de repas, demandes de ménage et de maintenance, facture et pré-enregistrement", "Console du personnel à neuf rôles, tableaux en direct, plan des chambres, tarifs et menu", "Munshi ji, un assistant client à base de règles"],
+      tryThis: "Réservez une chambre pour voir l'économie du tarif direct, puis demandez une couverture supplémentaire à Munshi ji.",
+    },
   },
 };

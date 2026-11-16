@@ -159,5 +159,19 @@ export const work: Dict["work"] = {
       built: ["Swipe होने वाली gallery और zoom के साथ editorial product पेज", "Sizes और लाइव subtotal के साथ cart drawer", "Product की जानकारी पहले से भरी हुई, एक टैप में WhatsApp पूछताछ", "Bespoke commission के लिए request फ़ॉर्म"],
       tryThis: "कोई भी piece खोलें, gallery swipe करें, फिर WhatsApp पूछताछ बटन दबाएँ।",
     },
+    "humorah": {
+      sector: "इंटीरियर और AI",
+      summary: "अपने बेडरूम की फ़ोटो डालें, style और budget चुनें, और उसी कमरे का नया डिज़ाइन पाएँ, साथ में असली फ़र्नीचर की shoppable list जो budget में आए।",
+      problem: "आम image model नया कमरा बना देते हैं। क्लाइंट को ग्राहक की अपनी दीवारें, खिड़कियाँ और camera angle वैसे ही चाहिए थे, और सिर्फ़ वही products जो budget में सच में खरीदे जा सकें।",
+      built: ["तीन चरणों वाली AI render pipeline: vision कमरा पढ़ता है, rulebook असली products चुनती है, फिर कमरा ख़ाली करके सजाया जाता है", "आठ फ़र्नीचर categories में budget के हिसाब से सुझाव", "Accounts, free trial, credit packs और automatic refund के साथ Razorpay payments", "Catalogue upload, customers, designs और billing के लिए admin dashboard", "Search और filters वाली shop, collections, FAQ और legal पेज"],
+      tryThis: "किसी बेडरूम की फ़ोटो डालें, style और budget चुनें, फिर redesign को product list से मिलाएँ।",
+    },
+    "alsisar-haveli": {
+      sector: "हेरिटेज हॉस्पिटैलिटी",
+      summary: "जयपुर की 1892 की हवेली होटल के लिए pitch concept: शाही कहानी कहने वाली वेबसाइट और मेहमानों व हर विभाग के लिए एक ही operating system।",
+      problem: "होटल की साइट पर न rates थे, न room details, न menu, और हर booking बाहर की साइटों पर चली जाती थी।",
+      built: ["कहानी वाली वेबसाइट जो हवेली को कमरा-दर-कमरा दिखाती है", "Direct booking, जिसका rate हमेशा booking साइटों से कम", "मेहमानों का \"My Stay\" portal: खाना order, housekeeping और maintenance requests, bill और pre-check-in", "नौ roles वाला staff console: live boards, room board, rates और menu", "मुंशी जी, एक rule-based guest assistant"],
+      tryThis: "एक कमरा book करके direct rate की बचत देखें, फिर मुंशी जी से एक्स्ट्रा कंबल माँगें।",
+    },
   },
 };

@@ -74,11 +74,47 @@
 }
 .reveal-armed .reveal-img img { transition: transform 2s var(--ease-out); }
 
+/* Hero laptop: the lid swings open, then the screen lights up.
+   Laptop.tsx adds .is-waiting (held shut, off screen) and .is-open (plays now). If its JavaScript
+   never runs, the *-auto pair opens it a few seconds after load, so it can never stay shut. */
+@keyframes lid-open {
+  from { transform: rotateX(82deg); }
+  62% { transform: rotateX(-5deg); }
+  82% { transform: rotateX(1.5deg); }
+  to { transform: none; }
+}
+@keyframes lid-open-auto {
+  from { transform: rotateX(82deg); }
+  62% { transform: rotateX(-5deg); }
+  82% { transform: rotateX(1.5deg); }
+  to { transform: none; }
+}
+@keyframes screen-on {
+  0% { opacity: 0; filter: brightness(2.4) saturate(0.2); transform: scale(1.04); }
+  35% { opacity: 1; }
+  to { opacity: 1; filter: none; transform: none; }
+}
+@keyframes screen-on-auto {
+  0% { opacity: 0; filter: brightness(2.4) saturate(0.2); transform: scale(1.04); }
+  35% { opacity: 1; }
+  to { opacity: 1; filter: none; transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .motion-ok .laptop-lid { animation: lid-open-auto 2.1s cubic-bezier(0.5, 0, 0.2, 1) 3.5s both; }
+  .motion-ok .laptop-screen > * { animation: screen-on-auto 1.1s var(--ease-out) 4.9s both; }
+  .motion-ok .laptop.is-waiting .laptop-lid { animation: none; transform: rotateX(82deg); }
+  .motion-ok .laptop.is-waiting .laptop-screen > * { animation: none; opacity: 0; }
+  .motion-ok .laptop.is-open .laptop-lid { animation: lid-open 2.1s cubic-bezier(0.5, 0, 0.2, 1) var(--lid-delay, 0.1s) both; }
+  .motion-ok .laptop.is-open .laptop-screen > * {
+    animation: screen-on 1.1s var(--ease-out) both;
+    animation-delay: calc(var(--lid-delay, 0.1s) + 1.4s);
+  }
+}
+
 /* Scroll-driven scenes. Browsers without scroll timelines simply show the settled state. */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    /* Hero: the flagship screen starts tilted back and lies flat as it rises into view. */
-    .home-hero { perspective: 1800px; }
+    /* A screen that starts tilted back and lies flat as it rises into view. */
     .zoom-on-scroll {
       animation: tilt-settle linear both;
       animation-timeline: view();
@@ -191,7 +227,7 @@
 
 @media print {
   .reveal, .reveal-img, .reveal img, .reveal-img img, .process-steps > li, .mask-words .w > span,
-  .hero-copy, .zoom-on-scroll, section.theme-light, .cta-band > .container-w, .scroll-type-row, .service-tile {
+  .hero-copy, .zoom-on-scroll, .laptop-lid, .laptop-screen > *, section.theme-light, .cta-band > .container-w, .scroll-type-row, .service-tile {
     opacity: 1 !important; transform: none !important; translate: none !important; clip-path: none !important; animation: none !important;
   }
 }

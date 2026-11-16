@@ -21,7 +21,7 @@ export const visuals = {
   ],
   "handover": "Quellcode · Dokumentation · Zugangsdaten",
   "stats": [
-    "6 Live-Projekte",
+    "9 Live-Projekte",
     "5 Sprachen",
     "4 Währungen",
     "Meilensteine 40/30/30",

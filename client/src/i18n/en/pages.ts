@@ -95,7 +95,7 @@ export const contact = {
 
 export const work = {
   metaTitle: "Our Work — Live Websites, Web Apps & AI Agents | CubicTech",
-  metaDescription: "Live builds by CubicTech: travel booking platform, AI front desk, AI sales agent, lifecycle email agent, analytics dashboard and e-commerce. Open each one.",
+  metaDescription: "Live builds by CubicTech: travel platform, AI room redesign, jewellery store, heritage hotel system, AI agents and a revenue dashboard. Open each one.",
   eyebrow: "Work",
   title: "Don't take our word for it. Open it.",
   subtitle: "Every project below is live. Client builds are in production; product demos run on sample data so you can try every feature safely.",
@@ -156,6 +156,20 @@ export const work = {
       problem: "High-value products need a site that earns trust before the customer ever speaks to the seller.",
       built: ["Editorial product pages with swipeable gallery and zoom", "Cart drawer with sizes and live subtotal", "One-tap WhatsApp enquiry with the product details filled in", "Bespoke commission request form"],
       tryThis: "Open any piece, swipe the gallery, then tap the WhatsApp enquiry button.",
+    },
+    "humorah": {
+      sector: "Interiors & AI",
+      summary: "Upload a photo of your bedroom, pick a style and a budget, and get that same room redesigned, with a shoppable list of real furniture that fits.",
+      problem: "Generic image models invent a new room. The client needed the customer's own walls, windows and camera angle kept, and only products that can actually be bought within budget.",
+      built: ["Three-step AI render pipeline: vision reads the room, a rulebook picks real products, then the room is cleared and furnished", "Budget-aware recommendations across eight furniture categories", "Accounts, free trial, credit packs and Razorpay payments with automatic refunds", "Admin dashboard for catalogue upload, customers, designs and billing", "Shop with search and filters, collections, FAQ and legal pages"],
+      tryThis: "Upload a photo of a bedroom, choose a style and a budget, and compare the redesign with the product list.",
+    },
+    "alsisar-haveli": {
+      sector: "Heritage hospitality",
+      summary: "A pitch concept for an 1892 haveli hotel in Jaipur: a royal storytelling website plus one operating system for guests and every hotel department.",
+      problem: "The hotel's site had no rates, room details or menu, and sent every booking away to third-party sites.",
+      built: ["Story-led website that walks through the haveli room by room", "Direct booking with a rate always below the booking sites", "Guest \"My Stay\" portal: order food, housekeeping and maintenance requests, bill and pre-check-in", "Staff console with nine roles, live boards, room board, rates and menu", "Munshi ji, a rule-based guest assistant"],
+      tryThis: "Book a room to see the direct-rate saving, then ask Munshi ji for an extra blanket.",
     },
   },
 };

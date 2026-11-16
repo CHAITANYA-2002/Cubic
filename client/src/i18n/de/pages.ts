@@ -159,5 +159,19 @@ export const work: Dict["work"] = {
       built: ["Redaktionell gestaltete Produktseiten mit wischbarer Galerie und Zoom", "Ausklappbarer Warenkorb mit Größenauswahl und Live-Zwischensumme", "WhatsApp-Anfrage mit einem Tippen, Produktdetails bereits ausgefüllt", "Anfrageformular für Maßanfertigungen"],
       tryThis: "Öffnen Sie ein beliebiges Schmuckstück, wischen Sie durch die Galerie und tippen Sie dann auf den Button für die WhatsApp-Anfrage.",
     },
+    "humorah": {
+      sector: "Interior & KI",
+      summary: "Foto vom Schlafzimmer hochladen, Stil und Budget wählen und genau diesen Raum neu gestaltet bekommen, mit einer Einkaufsliste echter Möbel im Budget.",
+      problem: "Generische Bildmodelle erfinden einen neuen Raum. Der Kunde brauchte die eigenen Wände, Fenster und den Blickwinkel unverändert und nur Produkte, die man im Budget wirklich kaufen kann.",
+      built: ["Dreistufige KI-Render-Pipeline: Vision liest den Raum, ein Regelwerk wählt echte Produkte, dann wird der Raum geleert und eingerichtet", "Budgetgerechte Empfehlungen in acht Möbelkategorien", "Konten, Gratis-Test, Guthabenpakete und Razorpay-Zahlungen mit automatischer Erstattung", "Admin-Dashboard für Katalog-Upload, Kunden, Designs und Abrechnung", "Shop mit Suche und Filtern, Kollektionen, FAQ und Rechtsseiten"],
+      tryThis: "Laden Sie ein Schlafzimmerfoto hoch, wählen Sie Stil und Budget und vergleichen Sie das Redesign mit der Produktliste.",
+    },
+    "alsisar-haveli": {
+      sector: "Historische Hotellerie",
+      summary: "Ein Pitch-Konzept für ein Haveli-Hotel von 1892 in Jaipur: eine erzählende Website plus ein Betriebssystem für Gäste und jede Hotelabteilung.",
+      problem: "Die Hotel-Website hatte keine Preise, keine Zimmerdetails und keine Speisekarte und schickte jede Buchung an Drittportale.",
+      built: ["Erzählende Website, die Raum für Raum durch das Haveli führt", "Direktbuchung mit einem Preis stets unter den Buchungsportalen", "Gästeportal \"My Stay\": Essen bestellen, Housekeeping- und Wartungsanfragen, Rechnung und Pre-Check-in", "Mitarbeiterkonsole mit neun Rollen, Live-Boards, Zimmerplan, Preisen und Speisekarte", "Munshi ji, ein regelbasierter Gästeassistent"],
+      tryThis: "Buchen Sie ein Zimmer, um die Ersparnis beim Direktpreis zu sehen, und bitten Sie Munshi ji dann um eine Extradecke.",
+    },
   },
 };

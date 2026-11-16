@@ -12,7 +12,7 @@ export const home = {
     note: "Free call · Reply within one working day · NDA on request",
   },
   statement: "We're an independent studio. The person on your first call is the person who designs and builds your software. You get one fixed price in writing, see progress every week, and own every line of code at launch.",
-  proofBar: ["6 live builds to open", "Fixed price in writing", "5 languages · 4 currencies", "Reply within 1 working day"],
+  proofBar: ["9 live builds to open", "Fixed price in writing", "5 languages · 4 currencies", "Reply within 1 working day"],
   proofStrip: {
     title: "What every engagement includes",
   },

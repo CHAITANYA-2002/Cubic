@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { ChevronRight } from "lucide-react";
 import { Layout } from "@/components/site/Layout";
 import { CtaBand, FaqList, Headline, MoreLink, OfferPrice, Photo, SectionHeader } from "@/components/site/blocks";
+import { Laptop } from "@/components/work/Laptop";
 import { BrowserFrame } from "@/components/work/ProjectCard";
 import { Testimonials } from "@/components/work/Testimonials";
 import { WorkRail } from "@/components/work/WorkRail";
@@ -32,8 +33,10 @@ function Hero() {
         <p className="rise rise-4 mt-4 text-sm t-muted">{h.note}</p>
       </div>
       <div className="container-w mt-16 md:mt-24">
-        <a href={flagship.liveUrl} target="_blank" rel="noopener noreferrer" className="hero-stage zoom-on-scroll" aria-label={`${flagship.name} — ${h.liveCaption} — ${new URL(flagship.liveUrl).host}`}>
-          <BrowserFrame project={flagship} eager sizes="(min-width: 1240px) 1160px, 100vw" />
+        <a href={flagship.liveUrl} target="_blank" rel="noopener noreferrer" className="hero-stage" aria-label={`${flagship.name} — ${h.liveCaption} — ${new URL(flagship.liveUrl).host}`}>
+          <Laptop>
+            <BrowserFrame project={flagship} eager sizes="(min-width: 1240px) 1000px, 90vw" />
+          </Laptop>
         </a>
         <p className="mt-5 text-center text-sm t-muted">{flagship.name} · {h.liveCaption}</p>
       </div>

@@ -21,7 +21,7 @@ export const visuals = {
   ],
   "handover": "Code source · documentation · identifiants",
   "stats": [
-    "6 projets en ligne",
+    "9 projets en ligne",
     "5 langues",
     "4 devises",
     "Étapes 40/30/30",
